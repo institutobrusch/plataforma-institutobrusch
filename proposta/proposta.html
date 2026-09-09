@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8">
+<title>Proposta — Plataforma Instituto Brusch</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;600;700;800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap">
+<style>
+  :root{
+    --green:#33463A; --green-d:#243228; --green-l:#6E8A73; --gold:#AE8A52;
+    --ink:#22261F; --ink-2:#575B4F; --ink-3:#8A8D80; --line:#E1DFD5;
+    --bg:#FBFAF7; --sage:#EAEFEA;
+    --sans:"Libre Franklin",system-ui,sans-serif; --serif:"Newsreader",Georgia,serif;
+  }
+  *{box-sizing:border-box}
+  @page{ size:A4; margin:16mm 15mm; }
+  html,body{margin:0;padding:0}
+  body{font-family:var(--sans);color:var(--ink);font-size:10.6pt;line-height:1.55;
+    -webkit-print-color-adjust:exact;print-color-adjust:exact;background:#fff}
+  h1,h2,h3,h4{font-family:var(--sans);font-weight:700;letter-spacing:-.02em;margin:0;line-height:1.12}
+  p{margin:0 0 .7em}
+  .serif-i{font-family:var(--serif);font-style:italic}
+  .eyebrow{font-size:8pt;letter-spacing:.2em;text-transform:uppercase;font-weight:700;color:var(--green-l)}
+  .page{page-break-after:always}
+  .page:last-child{page-break-after:auto}
+  .avoid{page-break-inside:avoid}
+
+  /* COVER */
+  .cover{position:relative;background:var(--green);color:#EAEFE6;border-radius:0;
+    min-height:252mm;display:flex;flex-direction:column;justify-content:space-between;
+    padding:26mm 22mm;overflow:hidden;margin:-16mm -15mm 0}
+  .cover .stars{position:absolute;inset:0;opacity:.14}
+  .cover .brand{display:flex;align-items:center;gap:12px;position:relative}
+  .cover .brand .mk{width:46px;height:46px;flex:0 0 auto}
+  .cover .brand b{font-size:8pt;letter-spacing:.24em;text-transform:uppercase;display:block;color:#fff}
+  .cover .brand span{font-size:15pt;font-weight:700;color:#fff}
+  .cover h1{font-size:34pt;color:#fff;line-height:1.05;position:relative;letter-spacing:-.03em}
+  .cover h1 .g{color:var(--gold)}
+  .cover .sub{font-size:12pt;color:#CBD8C2;max-width:44ch;position:relative;margin-top:14px}
+  .cover .meta{position:relative;border-top:1px solid rgba(255,255,255,.22);padding-top:16px;
+    display:flex;gap:40px;font-size:9.5pt}
+  .cover .meta b{color:#fff;display:block;font-size:8pt;letter-spacing:.12em;text-transform:uppercase;color:#AFC0A5;margin-bottom:2px}
+  .cover .meta span{color:#EAEFE6}
+  .leaf{position:absolute;right:-30mm;bottom:-30mm;width:150mm;opacity:.10;color:#fff}
+
+  /* CONTENT */
+  .sec{margin-bottom:16px}
+  .sec-title{display:flex;align-items:center;gap:10px;margin:0 0 10px}
+  .sec-title .no{width:24px;height:24px;flex:0 0 auto;background:var(--green);color:#fff;border-radius:50%;
+    display:inline-flex;align-items:center;justify-content:center;font-size:9pt;font-weight:700}
+  .sec-title h2{font-size:15pt;color:var(--green-d)}
+  .lead{font-size:11pt;color:var(--ink-2)}
+  .doc-head{border-bottom:2px solid var(--green);padding-bottom:8px;margin:4px 0 18px;display:flex;
+    justify-content:space-between;align-items:baseline}
+  .doc-head b{font-family:var(--sans);color:var(--green-d);font-size:11pt;font-weight:700}
+  .doc-head span{font-size:8.5pt;color:var(--ink-3)}
+
+  .modules{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:6px}
+  .mod{border:1px solid var(--line);border-radius:8px;padding:10px 12px;background:var(--bg)}
+  .mod h4{font-size:10pt;color:var(--green-d);margin-bottom:2px}
+  .mod p{font-size:9pt;color:var(--ink-2);margin:0}
+  .mod .tag{font-size:7.5pt;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--gold)}
+
+  .adv{display:grid;grid-template-columns:1fr 1fr;gap:14px 22px;margin-top:6px}
+  .adv h3{font-size:11pt;color:var(--green-d);margin-bottom:6px;border-bottom:1px solid var(--line);padding-bottom:4px}
+  .adv ul{margin:0;padding:0;list-style:none}
+  .adv li{position:relative;padding-left:18px;margin-bottom:7px;font-size:9.6pt;color:var(--ink-2)}
+  .adv li::before{content:"";position:absolute;left:0;top:6px;width:8px;height:8px;border-radius:2px;
+    background:var(--green-l)}
+  .adv li b{color:var(--ink)}
+
+  /* PRICING */
+  .price-hero{background:var(--sage);border:1px solid var(--line);border-left:5px solid var(--green);
+    border-radius:10px;padding:16px 18px;margin:6px 0 14px;display:flex;justify-content:space-between;align-items:center;gap:16px}
+  .price-hero .l .eyebrow{color:var(--green)}
+  .price-hero .l h3{font-size:13pt;color:var(--green-d);margin:2px 0}
+  .price-hero .l p{font-size:9pt;color:var(--ink-2);margin:0}
+  .price-hero .r{text-align:right;flex:0 0 auto}
+  .price-hero .r .big{font-size:20pt;font-weight:800;color:var(--green-d);letter-spacing:-.02em;white-space:nowrap}
+  .price-hero .r .mo{font-size:9.5pt;color:var(--ink-2)}
+  .price-hero .r .mo b{color:var(--green-d)}
+
+  table.tbl{width:100%;border-collapse:collapse;margin:4px 0 12px;font-size:9.4pt}
+  table.tbl th{background:var(--green);color:#fff;text-align:left;padding:7px 10px;font-size:8.5pt;
+    letter-spacing:.04em;font-weight:600}
+  table.tbl td{padding:7px 10px;border-bottom:1px solid var(--line);color:var(--ink-2);vertical-align:top}
+  table.tbl td b{color:var(--ink)}
+  table.tbl tr:nth-child(even) td{background:var(--bg)}
+  .note{font-size:8.6pt;color:var(--ink-3);margin-top:2px}
+
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:6px}
+  .step{border:1px solid var(--line);border-radius:8px;padding:10px;background:var(--bg)}
+  .step .n{font-size:8pt;font-weight:700;color:var(--gold);letter-spacing:.08em}
+  .step h4{font-size:9.6pt;color:var(--green-d);margin:2px 0}
+  .step p{font-size:8.5pt;color:var(--ink-2);margin:0}
+
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .incl h4{font-size:10pt;color:var(--green-d);margin-bottom:5px}
+  .incl ul{margin:0;padding-left:16px}.incl li{font-size:9pt;color:var(--ink-2);margin-bottom:3px}
+
+  .cta-box{background:var(--green-d);color:#EAEFE6;border-radius:10px;padding:16px 18px;margin-top:10px}
+  .cta-box h3{color:#fff;font-size:12pt;margin-bottom:4px}
+  .cta-box p{color:#CBD8C2;font-size:9.4pt;margin:0}
+
+  .sign{display:flex;justify-content:space-between;align-items:flex-end;margin-top:26px;
+    border-top:1px solid var(--line);padding-top:16px}
+  .sign .who b{font-size:11pt;color:var(--green-d)}
+  .sign .who span{font-size:9pt;color:var(--ink-2);display:block}
+  .sign .line{text-align:center;color:var(--ink-3);font-size:8.5pt}
+  .sign .line .l{width:56mm;border-top:1px solid var(--ink);margin-bottom:4px;height:0}
+  .valid{font-size:8.5pt;color:var(--ink-3);text-align:center;margin-top:20px}
+</style></head>
+<body>
+
+<!-- ============ COVER ============ -->
+<div class="page">
+<div class="cover">
+  <svg class="stars" viewBox="0 0 400 500" preserveAspectRatio="none"><defs></defs>
+    <g fill="#fff">
+    <circle cx="40" cy="60" r="1.5"/><circle cx="120" cy="30" r="1"/><circle cx="300" cy="80" r="1.5"/>
+    <circle cx="360" cy="140" r="1"/><circle cx="60" cy="200" r="1"/><circle cx="330" cy="260" r="1.5"/>
+    <circle cx="200" cy="120" r="1"/><circle cx="90" cy="330" r="1.2"/><circle cx="280" cy="400" r="1"/></g></svg>
+  <svg class="leaf" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 20c0-8 6-14 16-14 0 10-6 16-14 16-1 0-2-1-2-2z"/><path d="M8 16C11 12 14 10 18 9"/></svg>
+
+  <div class="brand">
+    <svg class="mk" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="22" stroke="#fff" stroke-width="2"/>
+      <path d="M24 13v22M24 21c-2.5-1.8-5-2.4-7.5-2.4M24 26c2.5-1.8 5-2.4 7.5-2.4" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg>
+    <div><b>Instituto</b><span>Brusch</span></div>
+  </div>
+
+  <div>
+    <span class="eyebrow" style="color:var(--gold)">Proposta Comercial</span>
+    <h1 style="margin-top:12px">Plataforma digital<br>do <span class="g serif-i">Instituto Brusch</span></h1>
+    <p class="sub">Site institucional + venda e gestão de eventos, cartografia e comunidade — em um só lugar, com a cara do instituto.</p>
+  </div>
+
+  <div class="meta">
+    <div><b>Preparado para</b><span>Camila Brusch</span></div>
+    <div><b>Elaborado por</b><span>Iago Silvino</span></div>
+    <div><b>Data</b><span>09 de setembro de 2026</span></div>
+    <div><b>Validade</b><span>30 dias</span></div>
+  </div>
+</div>
+</div>
+
+<!-- ============ PAGE 2 — CONTEXTO + ESCOPO ============ -->
+<div class="page">
+  <div class="doc-head"><b>Instituto Brusch · Proposta de Plataforma</b><span>Iago Silvino · (63) 99296-4473</span></div>
+
+  <div class="sec">
+    <div class="sec-title"><span class="no">1</span><h2>O contexto</h2></div>
+    <p class="lead">Hoje o instituto se comunica e vende principalmente pelo Instagram e pelo WhatsApp. Funciona — mas concentra tudo em canais que não são seus, exige trabalho manual de inscrição e cobrança, e não cria uma base de clientes própria.</p>
+    <p>A proposta é criar uma <b>plataforma própria</b> que reúne a apresentação do instituto, a venda de eventos, a área exclusiva da cartografia e a comunidade de membros — profissionalizando a operação e transformando seguidores em clientes recorrentes.</p>
+  </div>
+
+  <div class="sec">
+    <div class="sec-title"><span class="no">2</span><h2>A plataforma — o que será entregue</h2></div>
+    <div class="modules">
+      <div class="mod"><span class="tag">Institucional</span><h4>Site do Instituto & da Camila</h4><p>Páginas do instituto, da Camila, depoimentos e contato — autoridade e credibilidade.</p></div>
+      <div class="mod"><span class="tag">Vendas</span><h4>Eventos presenciais e online</h4><p>Lançamento de eventos, inscrição e pagamento direto na plataforma, com confirmação automática.</p></div>
+      <div class="mod"><span class="tag">Recorrência</span><h4>Área da Cartografia (login)</h4><p>Acesso exclusivo com a carta, explicação, tópicos, recomendação mensal, áudios e resumos das sessões.</p></div>
+      <div class="mod"><span class="tag">Conteúdo</span><h4>Blog do instituto e colunistas</h4><p>Publicação de textos da Camila e de convidados, fortalecendo a presença digital.</p></div>
+      <div class="mod"><span class="tag">Comunidade</span><h4>Grupos & comunidade de membros</h4><p>Espaço para os participantes trocarem experiências e se manterem engajados.</p></div>
+      <div class="mod"><span class="tag">Gestão</span><h4>Painel para a Camila</h4><p>Área administrativa para lançar eventos, cartas e conteúdos sem depender de programação.</p></div>
+    </div>
+    <p class="note">Um protótipo navegável já foi desenvolvido e apresentado, permitindo visualizar a experiência final antes do início do projeto.</p>
+  </div>
+
+  <div class="sec">
+    <div class="sec-title"><span class="no">3</span><h2>Vantagens para o Instituto e para a Camila</h2></div>
+    <div class="adv">
+      <div>
+        <h3>Para o Instituto</h3>
+        <ul>
+          <li><b>Receita recorrente e previsível</b> — a cartografia mensal vira assinatura.</li>
+          <li><b>Vende 24 horas por dia</b> — inscrições e pagamentos automáticos, sem cobrança manual.</li>
+          <li><b>Escala os eventos online</b> — alcança pessoas de fora de Palmas, sem limite de sala.</li>
+          <li><b>Menos trabalho operacional</b> — fim das planilhas e confirmações uma a uma.</li>
+          <li><b>Dados e métricas</b> — quem compra, o que vende mais, taxa de conversão.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Para a Camila</h3>
+        <ul>
+          <li><b>Autoridade e posicionamento</b> — presença própria e profissional, além do Instagram.</li>
+          <li><b>Dona da audiência</b> — a base de clientes é do instituto, não do algoritmo.</li>
+          <li><b>Conteúdo exclusivo</b> — a área logada valoriza o serviço e aumenta a retenção.</li>
+          <li><b>Comunidade que fideliza</b> — pertencimento, permanência e indicação.</li>
+          <li><b>Um ativo que valoriza o negócio</b> — mais sólido e escalável no longo prazo.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ PAGE 3 — INVESTIMENTO ============ -->
+<div class="page">
+  <div class="doc-head"><b>Investimento</b><span>Iago Silvino · (63) 99296-4473</span></div>
+
+  <div class="sec-title"><span class="no">4</span><h2>Investimento</h2></div>
+  <p class="lead" style="margin-bottom:10px">Modelo recomendado: construção única (setup) + mensalidade de manutenção — garante uma plataforma sempre no ar, segura e evoluindo.</p>
+
+  <div class="price-hero avoid">
+    <div class="l">
+      <span class="eyebrow">Plano recomendado · MVP funcional</span>
+      <h3>Plataforma completa em produção</h3>
+      <p>Institucional + eventos com pagamento + área da cartografia + blog</p>
+    </div>
+    <div class="r">
+      <div class="big">R$ 15.000 a 18.000</div>
+      <div class="mo">setup único &nbsp;·&nbsp; + <b>R$ 700/mês</b> de manutenção</div>
+    </div>
+  </div>
+
+  <table class="tbl avoid">
+    <tr><th>Forma de pagamento do setup</th><th>Quando</th><th>Valor (ref. R$ 16.000)</th></tr>
+    <tr><td><b>Entrada</b> — início do projeto</td><td>Na assinatura</td><td>40% · R$ 6.400</td></tr>
+    <tr><td><b>Homologação</b> — plataforma aprovada</td><td>Antes de publicar</td><td>30% · R$ 4.800</td></tr>
+    <tr><td><b>Go-live</b> — no ar para o público</td><td>Na publicação</td><td>30% · R$ 4.800</td></tr>
+  </table>
+
+  <table class="tbl avoid">
+    <tr><th>Alternativa · entrada reduzida</th><th>Formato</th><th>Valor</th></tr>
+    <tr><td>Para diluir o investimento inicial</td><td>Entrada + mensalidade por 12 meses</td><td><b>R$ 5.000</b> + <b>R$ 1.500/mês</b></td></tr>
+  </table>
+
+  <div class="two avoid" style="margin-top:12px">
+    <div class="incl">
+      <h4>A mensalidade inclui</h4>
+      <ul>
+        <li>Hospedagem e domínio da plataforma</li>
+        <li>Manutenção, correções e atualizações de segurança</li>
+        <li>Backups e monitoramento</li>
+        <li>Suporte técnico e pequenas evoluções</li>
+      </ul>
+    </div>
+    <div class="incl">
+      <h4>Por conta do instituto</h4>
+      <ul>
+        <li>Taxas do meio de pagamento (~3% a 5% por transação, cobradas pelo gateway)</li>
+        <li>Produção de fotos e textos oficiais</li>
+        <li>Novos módulos fora do escopo do MVP (orçados à parte)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sec" style="margin-top:16px">
+    <div class="sec-title"><span class="no">5</span><h2>Etapas e prazo</h2></div>
+    <p class="note" style="margin-bottom:8px">Prazo estimado do MVP: <b>6 a 10 semanas</b>, com validações a cada etapa.</p>
+    <div class="steps avoid">
+      <div class="step"><div class="n">ETAPA 1</div><h4>Identidade & institucional</h4><p>Marca, fotos, páginas do instituto e da Camila.</p></div>
+      <div class="step"><div class="n">ETAPA 2</div><h4>Eventos & pagamentos</h4><p>Cadastro de eventos, inscrição e checkout.</p></div>
+      <div class="step"><div class="n">ETAPA 3</div><h4>Cartografia (área logada)</h4><p>Login, carta, áudios, resumos e recomendação.</p></div>
+      <div class="step"><div class="n">ETAPA 4</div><h4>Blog & conteúdo</h4><p>Publicações da Camila e colunistas.</p></div>
+      <div class="step"><div class="n">ETAPA 5</div><h4>Painel & homologação</h4><p>Área de gestão e testes finais.</p></div>
+      <div class="step"><div class="n">ETAPA 6</div><h4>Go-live</h4><p>Publicação e acompanhamento inicial.</p></div>
+    </div>
+  </div>
+
+  <div class="cta-box avoid">
+    <h3>Próximos passos</h3>
+    <p>1. Aprovação desta proposta &nbsp;·&nbsp; 2. Assinatura e pagamento da entrada &nbsp;·&nbsp; 3. Reunião de descoberta e coleta de conteúdos &nbsp;·&nbsp; 4. Início do desenvolvimento.</p>
+  </div>
+
+  <div class="sign avoid">
+    <div class="who">
+      <span class="eyebrow">Atenciosamente,</span>
+      <b>Iago Silvino</b>
+      <span>Desenvolvimento de plataformas digitais</span>
+      <span>WhatsApp (63) 99296-4473</span>
+    </div>
+    <div class="line">
+      <div class="l"></div>
+      Camila Brusch · De acordo
+    </div>
+  </div>
+  <div class="valid">Proposta válida por 30 dias a partir da data de emissão. Valores em reais (R$). Escopo detalhado sujeito a alinhamento na reunião de descoberta.</div>
+</div>
+
+</body></html>
