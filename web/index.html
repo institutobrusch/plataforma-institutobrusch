@@ -1,850 +1,854 @@
 <title>Instituto Brusch</title>
-<meta name="description" content="Demo navegável do Instituto Brusch — psicoterapia, autoconhecimento e cartografia.">
+<meta name="description" content="Instituto Brusch — psicoterapia, autoconhecimento e cartografia. Palmas, Tocantins.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Mulish:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;600;700;800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap">
 <style>
   :root{
-    --paper:#EFE7D8; --paper-2:#E6DBC7; --card:#F6F0E4;
-    --ink:#2E2A24; --ink-soft:#5B5346; --line:#D8CBB2;
-    --terra:#B4633E; --terra-deep:#8A4A2C; --olive:#6B7150; --clay:#8A5A44;
-    --indigo:#252A4A; --indigo-soft:#3A4270; --gold:#C9A24B;
-    --good:#5E7B52; --warn:#B4633E;
-    --serif:"Fraunces",Georgia,serif; --sans:"Mulish",system-ui,sans-serif;
-    --wrap:1120px; --r:14px; --shadow:0 18px 40px -24px rgba(46,42,36,.5);
+    --bg:#FBFAF7; --surface:#FFFFFF; --surface-2:#F3F2EC; --line:#E4E2D8;
+    --ink:#22261F; --ink-2:#575B4F; --ink-3:#8A8D80;
+    --green:#3F5A3E; --green-d:#2F4530; --green-l:#5E7A56; --sage:#8CA07E;
+    --sage-bg:#EEF1E7; --gold:#B08D57;
+    --good:#4E7A4A; --warn:#B07A3A;
+    --sans:"Libre Franklin",system-ui,-apple-system,sans-serif;
+    --serif:"Newsreader",Georgia,serif;
+    --wrap:1160px; --r:10px;
+    --sh:0 20px 50px -34px rgba(34,38,31,.55); --sh-s:0 6px 20px -14px rgba(34,38,31,.4);
   }
-  :root:not([data-theme="light"]){}
   @media (prefers-color-scheme: dark){
     :root:not([data-theme="light"]){
-      --paper:#211E1A; --paper-2:#28241F; --card:#2C2823; --ink:#EFE7D8;
-      --ink-soft:#B8AC96; --line:#403A31; --terra:#D2825B; --terra-deep:#C0703F;
-      --olive:#96A074; --clay:#C29173; --indigo:#AEB6E6; --indigo-soft:#8B94C9;
-      --gold:#D9B968; --card:#2C2823; --shadow:0 18px 44px -24px rgba(0,0,0,.7);
+      --bg:#181A16; --surface:#20231D; --surface-2:#262a20; --line:#33372c;
+      --ink:#EDEDE4; --ink-2:#B6B9AC; --ink-3:#868A7B;
+      --green:#8CA07E; --green-d:#728A66; --green-l:#A6B899; --sage:#8CA07E;
+      --sage-bg:#242a1e; --gold:#C6A374;
+      --sh:0 20px 50px -30px rgba(0,0,0,.75); --sh-s:0 6px 20px -12px rgba(0,0,0,.6);
     }
   }
   :root[data-theme="dark"]{
-    --paper:#211E1A; --paper-2:#28241F; --card:#2C2823; --ink:#EFE7D8;
-    --ink-soft:#B8AC96; --line:#403A31; --terra:#D2825B; --terra-deep:#C0703F;
-    --olive:#96A074; --clay:#C29173; --indigo:#AEB6E6; --indigo-soft:#8B94C9;
-    --gold:#D9B968; --shadow:0 18px 44px -24px rgba(0,0,0,.7);
+    --bg:#181A16; --surface:#20231D; --surface-2:#262a20; --line:#33372c;
+    --ink:#EDEDE4; --ink-2:#B6B9AC; --ink-3:#868A7B;
+    --green:#8CA07E; --green-d:#728A66; --green-l:#A6B899; --sage:#8CA07E;
+    --sage-bg:#242a1e; --gold:#C6A374;
+    --sh:0 20px 50px -30px rgba(0,0,0,.75); --sh-s:0 6px 20px -12px rgba(0,0,0,.6);
   }
   *{box-sizing:border-box}
-  body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);
-    line-height:1.6;-webkit-font-smoothing:antialiased}
-  h1,h2,h3,h4{font-family:var(--serif);font-weight:500;line-height:1.1;
-    text-wrap:balance;margin:0}
-  a{color:inherit}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);
+    font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  h1,h2,h3,h4{font-family:var(--sans);font-weight:700;line-height:1.12;letter-spacing:-.02em;
+    text-wrap:balance;margin:0;color:var(--ink)}
   p{margin:0 0 1em}
-  img{display:block}
-  .wrap{max-width:var(--wrap);margin:0 auto;padding:0 22px}
-  .eyebrow{font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;
-    font-weight:700;color:var(--terra)}
-  .lead{font-size:1.12rem;color:var(--ink-soft);max-width:62ch}
-  .btn{display:inline-flex;align-items:center;gap:.5em;border:none;cursor:pointer;
-    font-family:var(--sans);font-weight:700;font-size:.95rem;padding:.72em 1.4em;
-    border-radius:999px;background:var(--terra);color:#fff;transition:.18s;
-    text-decoration:none}
-  .btn:hover{background:var(--terra-deep);transform:translateY(-1px)}
-  .btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
-  .btn.ghost:hover{border-color:var(--terra);color:var(--terra);background:transparent}
-  .btn.gold{background:var(--gold);color:#2b2410}
-  .btn.gold:hover{background:#b8913f}
-  .btn.sm{padding:.5em 1em;font-size:.85rem}
-  :focus-visible{outline:2.5px solid var(--terra);outline-offset:3px;border-radius:4px}
+  a{color:inherit;text-decoration:none}
+  img{display:block;max-width:100%}
+  .wrap{max-width:var(--wrap);margin:0 auto;padding:0 26px}
+  .eyebrow{font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;font-weight:700;color:var(--green-l)}
+  .lead{font-size:1.14rem;color:var(--ink-2);max-width:60ch;line-height:1.6}
+  .serif-i{font-family:var(--serif);font-style:italic}
+
+  .btn{display:inline-flex;align-items:center;gap:.55em;border:1.6px solid var(--green);cursor:pointer;
+    font-family:var(--sans);font-weight:600;font-size:.94rem;padding:.72em 1.5em;border-radius:999px;
+    background:var(--green);color:#fff;transition:.18s}
+  .btn:hover{background:var(--green-d);border-color:var(--green-d);transform:translateY(-1px)}
+  .btn.ghost{background:transparent;color:var(--green);}
+  .btn.ghost:hover{background:var(--sage-bg);color:var(--green-d)}
+  .btn.sm{padding:.5em 1.1em;font-size:.86rem}
+  .btn.wide{width:100%;justify-content:center}
+  :focus-visible{outline:2.5px solid var(--green-l);outline-offset:3px;border-radius:4px}
 
   /* NAV */
-  header.nav{position:sticky;top:0;z-index:40;background:color-mix(in srgb,var(--paper) 88%,transparent);
-    backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
-  .nav-in{display:flex;align-items:center;gap:18px;height:64px}
-  .brand{display:flex;align-items:center;gap:11px;cursor:pointer;font-family:var(--serif);
-    font-size:1.15rem;font-weight:600;letter-spacing:.01em}
-  .mark{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;
-    background:var(--ink);color:var(--paper);font-family:var(--serif);font-size:1.05rem;flex:0 0 auto}
-  .nav-links{display:flex;gap:2px;margin-left:auto;flex-wrap:wrap}
-  .nav-links a{font-size:.9rem;font-weight:600;color:var(--ink-soft);padding:.4em .7em;
-    border-radius:8px;text-decoration:none;cursor:pointer}
-  .nav-links a:hover{color:var(--ink);background:var(--paper-2)}
-  .nav-links a.active{color:var(--terra)}
-  .nav-cta{margin-left:6px}
-  .menu-btn{margin-left:auto;display:none;background:none;border:1.5px solid var(--line);
-    border-radius:9px;padding:.4em .6em;cursor:pointer;color:var(--ink);font-size:1.2rem}
-  @media(max-width:900px){
-    .nav-links{position:fixed;inset:64px 0 auto 0;background:var(--paper);flex-direction:column;
-      padding:14px 22px;border-bottom:1px solid var(--line);gap:2px;display:none}
-    .nav-links.open{display:flex}
-    .nav-links a{padding:.7em}
-    .menu-btn{display:block}
-    .nav-cta{display:none}
-  }
-  /* THEME TOGGLE */
+  header.nav{position:sticky;top:0;z-index:40;background:color-mix(in srgb,var(--bg) 90%,transparent);
+    backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+  .nav-in{display:flex;align-items:center;gap:22px;height:74px}
+  .brand{display:flex;align-items:center;gap:12px;cursor:pointer}
+  .brand .logo{width:40px;height:40px;flex:0 0 auto}
+  .brand .txt{line-height:1.05}
+  .brand .txt b{display:block;font-size:.7rem;letter-spacing:.24em;text-transform:uppercase;color:var(--green);font-weight:700}
+  .brand .txt span{display:block;font-size:1.05rem;font-weight:700;letter-spacing:-.01em}
+  .nav-links{display:flex;gap:4px;margin-left:auto}
+  .nav-links a{font-size:.92rem;font-weight:500;color:var(--ink-2);padding:.5em .8em;border-radius:8px;cursor:pointer}
+  .nav-links a:hover{color:var(--ink)}
+  .nav-links a.active{color:var(--green);font-weight:600}
   .theme-t{background:none;border:1.5px solid var(--line);border-radius:999px;cursor:pointer;
-    width:34px;height:34px;color:var(--ink);font-size:1rem;flex:0 0 auto}
+    width:36px;height:36px;color:var(--ink);font-size:1rem;flex:0 0 auto}
+  .menu-btn{margin-left:auto;display:none;background:none;border:1.5px solid var(--line);border-radius:9px;
+    padding:.4em .65em;cursor:pointer;color:var(--ink);font-size:1.2rem}
+  @media(max-width:940px){
+    .nav-links{position:fixed;inset:74px 0 auto 0;background:var(--bg);flex-direction:column;padding:12px 26px;
+      border-bottom:1px solid var(--line);display:none}
+    .nav-links.open{display:flex}.nav-links a{padding:.7em 0}
+    .menu-btn{display:block}.nav-cta,.theme-t{display:none}
+  }
 
-  section.view{display:none;animation:fade .4s ease}
+  section.view{display:none}
   section.view.on{display:block}
-  @keyframes fade{from{opacity:.3;transform:translateY(6px)}to{opacity:1;transform:none}}
-  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
-  .pad{padding:64px 0}
-  .pad-s{padding:40px 0}
+  .pad{padding:88px 0}.pad-s{padding:56px 0}
+  @media(max-width:680px){.pad{padding:56px 0}}
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 
   /* HERO */
-  .hero{background:
-     radial-gradient(120% 90% at 85% 0%,color-mix(in srgb,var(--terra) 16%,transparent),transparent 60%),
-     radial-gradient(90% 80% at 0% 100%,color-mix(in srgb,var(--olive) 20%,transparent),transparent 55%);}
-  .hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center;padding:70px 0 60px}
-  .hero h1{font-size:clamp(2.4rem,5.5vw,4rem);letter-spacing:-.01em}
-  .hero h1 em{font-style:italic;color:var(--terra)}
-  .hero-art{position:relative;aspect-ratio:4/5;border-radius:180px 180px 20px 20px;
-    background:linear-gradient(160deg,var(--clay),var(--olive));overflow:hidden;box-shadow:var(--shadow)}
-  .hero-art .ring{position:absolute;inset:0;background:
-    repeating-radial-gradient(circle at 50% 42%,transparent 0 26px,rgba(255,255,255,.09) 26px 27px)}
-  .hero-art .sun{position:absolute;top:38%;left:50%;transform:translate(-50%,-50%);
-    width:120px;height:120px;border-radius:50%;background:radial-gradient(circle,#F3E2C0,#E7B980);
-    box-shadow:0 0 60px 12px rgba(243,226,192,.5)}
-  .hero-tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
-  .tag{font-size:.78rem;font-weight:600;padding:.35em .8em;border-radius:999px;
-    background:var(--paper-2);border:1px solid var(--line);color:var(--ink-soft)}
-  @media(max-width:820px){.hero-grid{grid-template-columns:1fr;gap:30px}.hero-art{max-width:340px;margin:0 auto}}
+  .hero{position:relative;overflow:hidden}
+  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center;padding:76px 0 70px}
+  .hero h1{font-size:clamp(2.5rem,5.2vw,4.1rem);letter-spacing:-.035em;line-height:1.04}
+  .hero h1 .hl{color:var(--green-l)}
+  .hero .lead{margin:22px 0 0}
+  .cta-row{display:flex;gap:14px;flex-wrap:wrap;margin-top:30px}
+  .hero-media{position:relative;aspect-ratio:5/5.4;border-radius:14px;overflow:hidden;
+    background:linear-gradient(165deg,#DFE6D5,#C4D0B4);box-shadow:var(--sh);border:1px solid var(--line)}
+  .hero-media .botan{position:absolute;inset:0;width:100%;height:100%}
+  .hero-media .cap{position:absolute;left:16px;bottom:14px;font-size:.74rem;color:#42513a;background:rgba(255,255,255,.72);
+    padding:.3em .7em;border-radius:6px;font-weight:600}
+  @media(max-width:860px){.hero-grid{grid-template-columns:1fr;gap:34px;padding:44px 0 20px}.hero-media{max-width:440px}}
 
-  .cta-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
+  /* PILLARS BAND */
+  .band{background:var(--green);color:#EEF2E8}
+  .band-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:34px;padding:52px 0}
+  @media(max-width:820px){.band-grid{grid-template-columns:1fr 1fr;gap:30px 24px}}
+  @media(max-width:460px){.band-grid{grid-template-columns:1fr}}
+  .pillar .pic{width:44px;height:44px;margin-bottom:12px;color:#CBD9BE}
+  .pillar h4{color:#fff;font-size:.82rem;letter-spacing:.16em;text-transform:uppercase;margin-bottom:7px}
+  .pillar p{color:#CDD8C2;font-size:.92rem;margin:0;line-height:1.55}
 
-  /* SECTION HEADS */
-  .sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;
-    margin-bottom:28px;flex-wrap:wrap}
-  .sec-head h2{font-size:clamp(1.7rem,3.6vw,2.5rem)}
+  /* SECTION HEAD */
+  .sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:18px;margin-bottom:34px;flex-wrap:wrap}
+  .sec-head h2{font-size:clamp(1.8rem,3.6vw,2.6rem)}
+  .sec-head .eyebrow{margin-bottom:10px;display:block}
 
-  /* CARDS / GRID */
-  .grid{display:grid;gap:20px}
-  .g3{grid-template-columns:repeat(3,1fr)}
-  .g2{grid-template-columns:repeat(2,1fr)}
+  /* GRID + CARDS */
+  .grid{display:grid;gap:24px}
+  .g3{grid-template-columns:repeat(3,1fr)}.g2{grid-template-columns:repeat(2,1fr)}
   @media(max-width:820px){.g3{grid-template-columns:1fr 1fr}}
   @media(max-width:560px){.g3,.g2{grid-template-columns:1fr}}
-  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);
-    overflow:hidden;display:flex;flex-direction:column}
-  .card .thumb{aspect-ratio:16/10;background:var(--paper-2);position:relative;overflow:hidden}
-  .card .body{padding:18px;display:flex;flex-direction:column;gap:8px;flex:1}
-  .card h3{font-size:1.25rem}
-  .meta{font-size:.83rem;color:var(--ink-soft);display:flex;gap:10px;flex-wrap:wrap;align-items:center}
-  .pill{font-size:.72rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;
-    padding:.28em .7em;border-radius:999px}
-  .pill.pres{background:color-mix(in srgb,var(--olive) 22%,var(--card));color:var(--olive)}
-  .pill.online{background:color-mix(in srgb,var(--terra) 18%,var(--card));color:var(--terra)}
-  .pill.free{background:color-mix(in srgb,var(--good) 22%,var(--card));color:var(--good)}
-  .card .foot{margin-top:auto;display:flex;justify-content:space-between;align-items:center;padding-top:6px}
-  .price{font-family:var(--serif);font-size:1.2rem;font-weight:600}
-  .gradthumb{background:linear-gradient(150deg,var(--clay),var(--olive))}
-  .gradthumb.b{background:linear-gradient(150deg,var(--terra),var(--gold))}
-  .gradthumb.c{background:linear-gradient(150deg,var(--indigo),var(--olive))}
-  .gradthumb.d{background:linear-gradient(150deg,var(--olive),var(--clay))}
-  .thumb-label{position:absolute;left:0;bottom:0;padding:10px 14px;color:#fff;
-    font-family:var(--serif);font-size:1.05rem;text-shadow:0 1px 8px rgba(0,0,0,.35)}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;
+    display:flex;flex-direction:column;transition:.18s}
+  .card:hover{box-shadow:var(--sh-s);transform:translateY(-2px)}
+  .card .thumb{aspect-ratio:16/10;position:relative;overflow:hidden;background:var(--surface-2)}
+  .card .thumb svg{position:absolute;inset:0;width:100%;height:100%}
+  .card .body{padding:20px;display:flex;flex-direction:column;gap:9px;flex:1}
+  .card h3{font-size:1.22rem;letter-spacing:-.02em}
+  .meta{font-size:.83rem;color:var(--ink-2);display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+  .pill{font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.3em .7em;border-radius:6px}
+  .pill.pres{background:var(--sage-bg);color:var(--green)}
+  .pill.online{background:color-mix(in srgb,var(--gold) 16%,var(--surface));color:var(--gold)}
+  .pill.free{background:color-mix(in srgb,var(--good) 16%,var(--surface));color:var(--good)}
+  .card .foot{margin-top:auto;display:flex;justify-content:space-between;align-items:center;padding-top:8px}
+  .price{font-weight:700;font-size:1.1rem}
+  .photo{background:linear-gradient(160deg,#DDE5D2,#BDCBB0)}
+  .photo.b{background:linear-gradient(160deg,#E3E0D2,#C8C2A8)}
+  .photo.c{background:linear-gradient(160deg,#CFDAC6,#A9BC9C)}
+  .photo.d{background:linear-gradient(160deg,#D6DED0,#B4C2A6)}
+  .thumb .lf{position:absolute;right:-10px;bottom:-10px;width:120px;opacity:.6;color:#5c6e50}
 
   /* FILTERS */
-  .filters{display:flex;gap:8px;margin-bottom:22px;flex-wrap:wrap}
-  .chip{border:1.5px solid var(--line);background:transparent;border-radius:999px;
-    padding:.45em 1em;font-weight:600;font-size:.88rem;cursor:pointer;color:var(--ink-soft);font-family:var(--sans)}
-  .chip.active{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .filters{display:flex;gap:8px;margin:26px 0;flex-wrap:wrap}
+  .chip{border:1.5px solid var(--line);background:var(--surface);border-radius:999px;padding:.45em 1.05em;
+    font-weight:600;font-size:.86rem;cursor:pointer;color:var(--ink-2);font-family:var(--sans)}
+  .chip.active{background:var(--green);color:#fff;border-color:var(--green)}
 
-  /* PROSE (narrative pages) */
-  .prose{max-width:70ch}
-  .prose h2{font-size:2rem;margin:0 0 12px}
-  .prose h3{font-size:1.35rem;margin:32px 0 8px;color:var(--terra)}
-  .prose p{font-size:1.05rem}
-  .split{display:grid;grid-template-columns:.85fr 1.15fr;gap:44px;align-items:start}
-  @media(max-width:820px){.split{grid-template-columns:1fr;gap:24px}}
-  .portrait{aspect-ratio:3/4;border-radius:var(--r);background:linear-gradient(160deg,var(--clay),var(--indigo));
-    position:relative;overflow:hidden;box-shadow:var(--shadow)}
-  .portrait .initials{position:absolute;inset:0;display:grid;place-items:center;
-    font-family:var(--serif);font-size:4rem;color:rgba(255,255,255,.85)}
-  .factbox{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:22px;margin-top:20px}
-  .factbox ul{margin:0;padding-left:18px}.factbox li{margin:.35em 0;color:var(--ink-soft)}
+  /* PROSE / SPLIT */
+  .split{display:grid;grid-template-columns:.82fr 1.18fr;gap:52px;align-items:start}
+  @media(max-width:860px){.split{grid-template-columns:1fr;gap:30px}}
+  .prose{max-width:66ch}
+  .prose h2{font-size:2.1rem;margin-bottom:14px}
+  .prose h3{font-size:1.3rem;margin:30px 0 8px;color:var(--green)}
+  .prose p{font-size:1.05rem;color:var(--ink-2)}
+  .prose .lead{color:var(--ink-2)}
+  .portrait{aspect-ratio:4/5;border-radius:14px;overflow:hidden;background:linear-gradient(165deg,#CFDAC4,#A7B99A);
+    position:relative;box-shadow:var(--sh);border:1px solid var(--line)}
+  .portrait svg{position:absolute;inset:0;width:100%;height:100%}
+  .portrait .cap{position:absolute;left:14px;bottom:12px;font-size:.74rem;color:#3f4d38;background:rgba(255,255,255,.75);
+    padding:.3em .7em;border-radius:6px;font-weight:600}
+  .factbox{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:24px;margin-top:20px}
+  .factbox .eyebrow{display:block;margin-bottom:10px}
+  .factbox ul{margin:0;padding-left:18px}.factbox li{margin:.4em 0;color:var(--ink-2)}
+  .factbox b{color:var(--ink)}
 
-  /* FEATURE ROWS */
-  .feat{display:flex;gap:18px;padding:22px;background:var(--card);border:1px solid var(--line);border-radius:var(--r)}
-  .feat .ico{width:46px;height:46px;flex:0 0 auto;border-radius:12px;display:grid;place-items:center;
-    background:color-mix(in srgb,var(--terra) 15%,var(--card));font-size:1.4rem}
-  .feat h3{font-size:1.2rem;margin-bottom:4px}
+  /* FEATURE */
+  .feat{display:flex;gap:16px;padding:24px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r)}
+  .feat .ico{width:44px;height:44px;flex:0 0 auto;color:var(--green)}
+  .feat h3{font-size:1.14rem;margin-bottom:5px}
+  .feat p{margin:0;color:var(--ink-2);font-size:.95rem}
 
   /* TESTIMONIALS */
-  .quote{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:24px;
-    break-inside:avoid;margin-bottom:20px}
-  .quote p{font-family:var(--serif);font-style:italic;font-size:1.12rem;color:var(--ink)}
-  .quote .who{display:flex;align-items:center;gap:11px;margin-top:14px}
-  .avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(140deg,var(--terra),var(--olive));
-    display:grid;place-items:center;color:#fff;font-weight:700;flex:0 0 auto}
-  .masonry{columns:3;column-gap:20px}
-  @media(max-width:820px){.masonry{columns:2}}
-  @media(max-width:560px){.masonry{columns:1}}
+  .masonry{columns:3;column-gap:24px}
+  @media(max-width:820px){.masonry{columns:2}}@media(max-width:560px){.masonry{columns:1}}
+  .quote{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:26px;
+    break-inside:avoid;margin-bottom:24px}
+  .quote .mark{color:var(--sage);font-family:var(--serif);font-size:2.4rem;line-height:.5;height:22px;display:block}
+  .quote p{font-family:var(--serif);font-size:1.12rem;color:var(--ink);line-height:1.5}
+  .quote .who{display:flex;align-items:center;gap:12px;margin-top:16px}
+  .avatar{width:42px;height:42px;border-radius:50%;background:var(--green);color:#fff;display:grid;place-items:center;
+    font-weight:700;flex:0 0 auto;font-size:.9rem}
+  .who small{color:var(--ink-3);display:block;font-size:.82rem}
 
-  /* CARTOGRAFIA landing */
-  .carto-hero{background:linear-gradient(150deg,var(--indigo),#171a30);color:#F1ECDD;border-radius:22px;
-    padding:52px 40px;position:relative;overflow:hidden}
-  .carto-hero .stars{position:absolute;inset:0;background-image:
-    radial-gradient(1.5px 1.5px at 20% 30%,#fff,transparent),
-    radial-gradient(1.5px 1.5px at 70% 20%,#fff,transparent),
-    radial-gradient(1px 1px at 50% 60%,#fff,transparent),
-    radial-gradient(1.5px 1.5px at 85% 70%,#fff,transparent),
-    radial-gradient(1px 1px at 33% 80%,#fff,transparent);opacity:.5}
-  .carto-hero h2{color:#fff;font-size:clamp(1.9rem,4vw,2.8rem);position:relative}
-  .carto-hero .eyebrow{color:var(--gold)}
-  .carto-hero p{color:#D8D2C2;position:relative;max-width:60ch}
-  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:26px}
-  @media(max-width:660px){.steps{grid-template-columns:1fr}.carto-hero{padding:36px 24px}}
-  .step{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:18px;position:relative}
-  .step .n{font-family:var(--serif);font-size:1.5rem;color:var(--gold)}
-  .step h4{color:#fff;font-size:1.1rem;margin:.2em 0}
-  .step p{font-size:.92rem;margin:0}
-
-  /* MODAL */
-  .modal-bg{position:fixed;inset:0;background:rgba(30,26,20,.55);backdrop-filter:blur(4px);
-    z-index:80;display:none;align-items:center;justify-content:center;padding:20px}
-  .modal-bg.on{display:flex}
-  .modal{background:var(--paper);border-radius:18px;max-width:480px;width:100%;padding:28px;
-    box-shadow:var(--shadow);max-height:90vh;overflow:auto}
-  .modal h3{font-size:1.5rem;margin-bottom:6px}
-  .modal .x{float:right;background:none;border:none;font-size:1.5rem;cursor:pointer;color:var(--ink-soft);line-height:1}
-  label.f{display:block;font-size:.82rem;font-weight:700;margin:14px 0 5px;color:var(--ink-soft)}
-  .modal input,.modal select,.modal textarea{width:100%;padding:.7em .9em;border:1.5px solid var(--line);
-    border-radius:10px;background:var(--card);color:var(--ink);font-family:var(--sans);font-size:.95rem}
-  .modal .btn{width:100%;justify-content:center;margin-top:18px}
-  .demo-note{font-size:.78rem;color:var(--ink-soft);text-align:center;margin-top:12px}
-  .success{text-align:center;padding:16px 0}
-  .success .check{width:64px;height:64px;border-radius:50%;background:var(--good);color:#fff;
-    display:grid;place-items:center;font-size:2rem;margin:0 auto 14px}
-  .order{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-top:12px;text-align:left}
-  .order div{display:flex;justify-content:space-between;font-size:.92rem;padding:3px 0}
-
-  /* LOGGED AREA */
-  .authbar{background:var(--indigo);color:#F1ECDD;border-radius:14px;padding:16px 22px;
-    display:flex;align-items:center;gap:14px;margin-bottom:26px;flex-wrap:wrap}
-  .authbar .av{width:44px;height:44px;border-radius:50%;background:var(--gold);color:var(--indigo);
-    display:grid;place-items:center;font-weight:700;font-family:var(--serif)}
-  .authbar b{color:#fff}.authbar small{color:#C9C3B2}
-  .authbar .btn{margin-left:auto}
-  .carto-layout{display:grid;grid-template-columns:.9fr 1.1fr;gap:30px}
-  @media(max-width:820px){.carto-layout{grid-template-columns:1fr}}
-  .cartimg{aspect-ratio:1;border-radius:16px;background:
-    radial-gradient(circle at 50% 50%,#2E345C,#12142a);position:relative;overflow:hidden;box-shadow:var(--shadow)}
-  .cartimg svg{position:absolute;inset:0;width:100%;height:100%}
-  .topics{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
-  .topics span{background:color-mix(in srgb,var(--indigo) 12%,var(--card));border:1px solid var(--line);
-    color:var(--indigo);font-weight:600;font-size:.83rem;padding:.35em .8em;border-radius:999px}
-  .reco{background:linear-gradient(150deg,color-mix(in srgb,var(--gold) 24%,var(--card)),var(--card));
-    border:1px solid var(--line);border-radius:14px;padding:20px;margin-top:6px}
-  .reco .eyebrow{color:var(--clay)}
-  .subtabs{display:flex;gap:6px;border-bottom:1px solid var(--line);margin:30px 0 20px;flex-wrap:wrap}
-  .subtabs button{background:none;border:none;padding:.7em 1em;font-weight:700;color:var(--ink-soft);
-    cursor:pointer;font-family:var(--sans);font-size:.95rem;border-bottom:2.5px solid transparent;margin-bottom:-1px}
-  .subtabs button.active{color:var(--indigo);border-color:var(--gold)}
-  .subpane{display:none}.subpane.on{display:block}
-
-  /* AUDIO PLAYER */
-  .session{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin-bottom:16px}
-  .session h4{font-size:1.15rem;margin-bottom:2px}
-  .player{display:flex;align-items:center;gap:12px;margin:12px 0;background:var(--paper-2);
-    border-radius:12px;padding:10px 14px}
-  .play{width:44px;height:44px;border-radius:50%;background:var(--indigo);color:#fff;border:none;
-    cursor:pointer;font-size:1.1rem;flex:0 0 auto;display:grid;place-items:center}
-  .track{flex:1}
-  .bar{height:6px;background:var(--line);border-radius:99px;overflow:hidden;cursor:pointer}
-  .bar .fill{height:100%;width:0;background:var(--gold)}
-  .time{font-size:.78rem;color:var(--ink-soft);margin-top:5px;font-variant-numeric:tabular-nums}
-  .resumo{font-size:.96rem;color:var(--ink-soft)}
-  details.res{border-top:1px dashed var(--line);margin-top:10px;padding-top:10px}
-  details.res summary{cursor:pointer;font-weight:700;color:var(--indigo);font-size:.9rem}
-
-  /* COMMUNITY */
-  .thread{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin-bottom:14px}
-  .thread .top{display:flex;gap:11px;align-items:center;margin-bottom:8px}
-  .thread .top b{font-size:.95rem}.thread .top small{color:var(--ink-soft)}
-  .thread .react{display:flex;gap:16px;margin-top:10px;font-size:.85rem;color:var(--ink-soft)}
+  /* GROUPS / THREADS */
+  .group{display:flex;align-items:center;gap:16px;background:var(--surface);border:1px solid var(--line);
+    border-radius:var(--r);padding:20px;margin-bottom:14px}
+  .group .gi{width:50px;height:50px;flex:0 0 auto;color:var(--green)}
+  .group b{font-size:1.02rem}.group small{color:var(--ink-2)}
+  .thread{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:20px;margin-bottom:14px}
+  .thread .top{display:flex;gap:12px;align-items:center;margin-bottom:9px}
+  .thread .top b{font-size:.95rem}.thread .top small{color:var(--ink-3)}
+  .thread .react{display:flex;gap:18px;margin-top:12px;font-size:.85rem;color:var(--ink-3)}
   .thread .react span{cursor:pointer}
 
-  /* GROUPS */
-  .group{display:flex;align-items:center;gap:16px;background:var(--card);border:1px solid var(--line);
-    border-radius:14px;padding:18px}
-  .group .gi{width:52px;height:52px;border-radius:14px;display:grid;place-items:center;font-size:1.5rem;
-    background:color-mix(in srgb,var(--olive) 20%,var(--card));flex:0 0 auto}
+  /* CTA STRIP */
+  .cta-strip{background:var(--green-d);color:#EEF2E8;border-radius:16px;padding:52px 44px;text-align:center}
+  .cta-strip h2{color:#fff;font-size:clamp(1.7rem,3.4vw,2.4rem);margin-bottom:10px}
+  .cta-strip p{color:#CDD8C2;max-width:52ch;margin:0 auto 24px}
+  .cta-strip .btn{background:#fff;color:var(--green-d);border-color:#fff}
+  .cta-strip .btn:hover{background:#EEF2E8;border-color:#EEF2E8}
+  @media(max-width:600px){.cta-strip{padding:36px 24px}}
+
+  /* MODAL */
+  .modal-bg{position:fixed;inset:0;background:rgba(24,26,22,.55);backdrop-filter:blur(4px);z-index:80;
+    display:none;align-items:center;justify-content:center;padding:20px}
+  .modal-bg.on{display:flex}
+  .modal{background:var(--bg);border-radius:16px;max-width:460px;width:100%;padding:30px;box-shadow:var(--sh);
+    max-height:92vh;overflow:auto;border:1px solid var(--line)}
+  .modal h3{font-size:1.4rem;margin-bottom:4px}
+  .modal .x{float:right;background:none;border:none;font-size:1.5rem;cursor:pointer;color:var(--ink-3);line-height:1}
+  label.f{display:block;font-size:.8rem;font-weight:700;margin:16px 0 5px;color:var(--ink-2)}
+  .modal input,.modal select{width:100%;padding:.72em .9em;border:1.5px solid var(--line);border-radius:9px;
+    background:var(--surface);color:var(--ink);font-family:var(--sans);font-size:.95rem}
+  .demo-note{font-size:.77rem;color:var(--ink-3);text-align:center;margin-top:14px}
+  .order{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin-top:12px}
+  .order div{display:flex;justify-content:space-between;font-size:.92rem;padding:3px 0}
+  .success{text-align:center;padding:12px 0}
+  .success .check{width:62px;height:62px;border-radius:50%;background:var(--good);color:#fff;display:grid;
+    place-items:center;font-size:1.9rem;margin:0 auto 14px}
+
+  /* ============ CARTOGRAFIA — LOGGED APP ============ */
+  .app{display:grid;grid-template-columns:248px 1fr;min-height:70vh;gap:0;border:1px solid var(--line);
+    border-radius:16px;overflow:hidden;background:var(--surface);box-shadow:var(--sh-s)}
+  .side{background:var(--green-d);color:#DCE4D3;padding:24px 18px;display:flex;flex-direction:column;gap:6px}
+  .side .who{display:flex;align-items:center;gap:12px;padding:6px 6px 18px;border-bottom:1px solid rgba(255,255,255,.14);margin-bottom:12px}
+  .side .who .av{width:44px;height:44px;border-radius:50%;background:var(--gold);color:#33260f;display:grid;
+    place-items:center;font-weight:700;flex:0 0 auto}
+  .side .who b{color:#fff;font-size:.96rem;display:block}.side .who small{color:#AFBFA3;font-size:.76rem}
+  .side nav button{display:flex;align-items:center;gap:11px;width:100%;background:none;border:none;color:#CBD8BF;
+    font-family:var(--sans);font-weight:500;font-size:.92rem;padding:.7em .8em;border-radius:9px;cursor:pointer;text-align:left}
+  .side nav button:hover{background:rgba(255,255,255,.08);color:#fff}
+  .side nav button.active{background:rgba(255,255,255,.14);color:#fff;font-weight:600}
+  .side nav button svg{width:19px;height:19px;flex:0 0 auto}
+  .side .logout{margin-top:auto;color:#AFBFA3;font-size:.85rem}
+  .main{padding:34px 36px;background:var(--surface)}
+  @media(max-width:820px){
+    .app{grid-template-columns:1fr}
+    .side{flex-direction:row;flex-wrap:wrap;padding:14px;gap:6px}
+    .side .who{width:100%;border:none;margin:0;padding-bottom:8px}
+    .side nav{display:flex;gap:6px;flex-wrap:wrap;width:100%}
+    .side nav button{width:auto;padding:.5em .8em}.side nav button span{display:none}
+    .side nav button svg{width:20px;height:20px}
+    .side .logout{margin:0}
+    .main{padding:24px 20px}
+  }
+  .apane{display:none}.apane.on{display:block;animation:fade .35s ease}
+  @keyframes fade{from{opacity:.2}to{opacity:1}}
+  .welcome{font-size:.9rem;color:var(--ink-3);margin-bottom:2px}
+  .cart-top{display:grid;grid-template-columns:300px 1fr;gap:28px;align-items:start}
+  @media(max-width:640px){.cart-top{grid-template-columns:1fr}}
+  .cartimg{aspect-ratio:1;border-radius:14px;overflow:hidden;background:radial-gradient(circle at 50% 45%,#43543E,#232b20);
+    box-shadow:var(--sh-s)}
+  .cartimg svg{width:100%;height:100%;display:block}
+  .topics{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
+  .topics span{background:var(--sage-bg);color:var(--green);border:1px solid var(--line);font-weight:600;
+    font-size:.82rem;padding:.34em .8em;border-radius:999px}
+  .reco{background:linear-gradient(160deg,var(--sage-bg),var(--surface));border:1px solid var(--line);
+    border-left:4px solid var(--gold);border-radius:12px;padding:22px;margin-top:24px}
+  .reco .eyebrow{color:var(--gold);display:block;margin-bottom:8px}
+  .reco .q{font-family:var(--serif);font-style:italic;font-size:1.22rem;color:var(--ink);line-height:1.45;margin:0 0 6px}
+  .reco small{color:var(--ink-3)}
+  .aud-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:16px;flex-wrap:wrap;gap:8px}
+  .session{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:20px;margin-bottom:16px}
+  .session .meta{margin-bottom:2px}
+  .session h4{font-size:1.14rem;margin-bottom:2px}
+  .player{display:flex;align-items:center;gap:13px;margin:14px 0 4px;background:var(--surface-2);border-radius:11px;padding:11px 15px}
+  .play{width:44px;height:44px;border-radius:50%;background:var(--green);color:#fff;border:none;cursor:pointer;
+    font-size:1rem;flex:0 0 auto;display:grid;place-items:center}
+  .track{flex:1}
+  .bar{height:6px;background:var(--line);border-radius:99px;overflow:hidden;cursor:pointer}
+  .bar .fill{height:100%;width:0;background:var(--green-l)}
+  .time{font-size:.77rem;color:var(--ink-3);margin-top:6px;font-variant-numeric:tabular-nums}
+  details.res{border-top:1px dashed var(--line);margin-top:12px;padding-top:12px}
+  details.res summary{cursor:pointer;font-weight:600;color:var(--green);font-size:.9rem;list-style:none}
+  details.res summary::-webkit-details-marker{display:none}
+  details.res summary::before{content:"▸ ";color:var(--green-l)}
+  details.res[open] summary::before{content:"▾ "}
+  details.res p{margin:10px 0 0;color:var(--ink-2);font-size:.96rem}
+  .stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:26px}
+  @media(max-width:560px){.stat-row{grid-template-columns:1fr 1fr}}
+  .stat{background:var(--bg);border:1px solid var(--line);border-radius:11px;padding:16px 18px}
+  .stat .n{font-size:1.5rem;font-weight:700;color:var(--green)}
+  .stat .l{font-size:.78rem;color:var(--ink-3);text-transform:uppercase;letter-spacing:.08em;font-weight:600}
 
   /* FOOTER */
-  footer{background:var(--ink);color:var(--paper);margin-top:64px;padding:52px 0 30px}
-  footer a{color:var(--paper);opacity:.85;text-decoration:none}
-  footer a:hover{opacity:1;color:var(--gold)}
-  .foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:32px}
+  footer{background:var(--green-d);color:#DCE4D3;margin-top:0;padding:60px 0 30px}
+  footer a{color:#DCE4D3;opacity:.9}footer a:hover{opacity:1;color:#fff}
+  .foot-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:36px}
   @media(max-width:660px){.foot-grid{grid-template-columns:1fr}}
-  .foot-grid h4{font-size:1.05rem;margin-bottom:12px;color:var(--gold)}
+  .foot-grid h4{font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;color:#fff;margin-bottom:14px}
   .foot-grid a{display:block;padding:4px 0;font-size:.92rem}
-  .foot-brand{font-family:var(--serif);font-size:1.4rem}
-  .copy{border-top:1px solid rgba(255,255,255,.15);margin-top:36px;padding-top:20px;font-size:.82rem;opacity:.65}
-  .demo-banner{background:var(--gold);color:#2b2410;text-align:center;font-size:.8rem;font-weight:700;padding:6px}
+  .foot-brand{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+  .foot-brand .txt b{display:block;font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:#fff}
+  .foot-brand .txt span{font-size:1.05rem;font-weight:700;color:#fff}
+  .copy{border-top:1px solid rgba(255,255,255,.16);margin-top:38px;padding-top:20px;font-size:.82rem;color:#AFBFA3}
+  .demo-banner{background:var(--gold);color:#33260f;text-align:center;font-size:.78rem;font-weight:600;padding:7px 12px}
 </style>
 
-<div class="demo-banner">✦ Protótipo de demonstração — conteúdo ilustrativo, sem cobranças ou cadastros reais</div>
+<div class="demo-banner">Protótipo de demonstração · conteúdo ilustrativo — sem cadastros ou cobranças reais</div>
 
 <header class="nav">
   <div class="wrap nav-in">
-    <div class="brand" onclick="go('home')"><span class="mark">B</span>Instituto Brusch</div>
+    <div class="brand" onclick="go('home')">
+      <svg class="logo" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+        <circle cx="24" cy="24" r="22" stroke="var(--green)" stroke-width="2"/>
+        <path d="M24 12c-5 4-6 9-6 12 0 4 3 7 6 8 3-1 6-4 6-8 0-3-1-8-6-12z" fill="var(--sage)" opacity=".55"/>
+        <path d="M24 13v19M24 20c-2-1.5-4-2-6-2M24 24c2-1.5 4-2 6-2" stroke="var(--green)" stroke-width="1.7" stroke-linecap="round"/>
+      </svg>
+      <span class="txt"><b>Instituto</b><span>Brusch</span></span>
+    </div>
     <button class="menu-btn" onclick="document.getElementById('navlinks').classList.toggle('open')">☰</button>
     <nav class="nav-links" id="navlinks">
+      <a data-r="home" onclick="go('home')">Início</a>
       <a data-r="instituto" onclick="go('instituto')">O Instituto</a>
       <a data-r="camila" onclick="go('camila')">Camila Brusch</a>
       <a data-r="eventos" onclick="go('eventos')">Eventos</a>
-      <a data-r="cartografia" onclick="go('cartografia')">Cartografia</a>
       <a data-r="blog" onclick="go('blog')">Blog</a>
       <a data-r="depoimentos" onclick="go('depoimentos')">Depoimentos</a>
       <a data-r="comunidade" onclick="go('comunidade')">Comunidade</a>
     </nav>
-    <button class="theme-t" onclick="toggleTheme()" title="Alternar tema" id="themeBtn">☾</button>
-    <a class="btn sm nav-cta" onclick="go('cartografia')">Minha Cartografia</a>
+    <button class="theme-t" onclick="toggleTheme()" id="themeBtn" title="Alternar tema">☾</button>
+    <a class="btn sm nav-cta" onclick="go('cartografia')">Área do Cliente</a>
   </div>
 </header>
 
-<main id="app"></main>
+<main></main>
 
 <!-- HOME -->
 <section class="view" id="v-home">
-  <div class="hero">
-    <div class="wrap hero-grid">
-      <div>
-        <span class="eyebrow">Palmas · Tocantins</span>
-        <h1>Um espaço para <em>se reencontrar</em> e expandir a consciência.</h1>
-        <p class="lead" style="margin-top:16px">Psicoterapia sistêmica, grupos de autoconhecimento e cartografia — para quem quer romper padrões e viver com mais presença.</p>
-        <div class="cta-row">
-          <a class="btn" onclick="go('eventos')">Ver próximos eventos</a>
-          <a class="btn ghost" onclick="go('cartografia')">Conhecer a Cartografia</a>
-        </div>
-        <div class="hero-tags">
-          <span class="tag">O Círculo</span><span class="tag">Terapia sistêmica</span>
-          <span class="tag">Cartografia</span><span class="tag">Comunidade</span>
-        </div>
+  <div class="hero"><div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow">Palmas · Tocantins</span>
+      <h1 style="margin-top:14px">Cuidar de si<br>é o primeiro passo.<br><span class="hl">Compartilhar</span> é<br>o próximo.</h1>
+      <p class="lead">Psicoterapia sistêmica, grupos de autoconhecimento e cartografia — um espaço para acolher, compreender e transformar.</p>
+      <div class="cta-row">
+        <a class="btn" onclick="go('eventos')">Conheça os encontros</a>
+        <a class="btn ghost" onclick="go('cartografia')">Área do Cliente</a>
       </div>
-      <div class="hero-art"><div class="ring"></div><div class="sun"></div></div>
     </div>
-  </div>
+    <div class="hero-media">__BOTAN__<span class="cap">Espaço de acolhimento · foto ilustrativa</span></div>
+  </div></div>
+
+  <div class="band"><div class="wrap band-grid" id="pillars"></div></div>
 
   <div class="wrap pad">
-    <div class="sec-head"><div><span class="eyebrow">Agenda</span><h2>Próximo encontro</h2></div>
-      <a class="btn ghost sm" onclick="go('eventos')">Todos os eventos →</a></div>
+    <div class="sec-head"><div><span class="eyebrow">Agenda</span><h2>Próximos encontros</h2></div>
+      <a class="btn ghost sm" onclick="go('eventos')">Ver todos →</a></div>
     <div id="home-events" class="grid g3"></div>
   </div>
 
-  <div style="background:var(--paper-2)">
-    <div class="wrap pad">
-      <div class="sec-head"><div><span class="eyebrow">Como atuamos</span><h2>Frentes do instituto</h2></div></div>
-      <div class="grid g3">
-        <div class="feat"><div class="ico">◎</div><div><h3>O Círculo</h3><p style="margin:0;color:var(--ink-soft)">Terapia em grupo aberta, em turmas reduzidas, mediada pela Camila. Um espaço para quebrar padrões e se ver no outro.</p></div></div>
-        <div class="feat"><div class="ico">⚘</div><div><h3>Clínica sistêmica</h3><p style="margin:0;color:var(--ink-soft)">Atendimento individual, de casal e família com base na terapia sistêmica e no pensamento relacional.</p></div></div>
-        <div class="feat"><div class="ico">✦</div><div><h3>Cartografia</h3><p style="margin:0;color:var(--ink-soft)">Sua carta, leituras mensais, áudios e resumos das sessões — um mapa vivo do seu momento.</p></div></div>
+  <div style="background:var(--surface-2)"><div class="wrap pad">
+    <div class="split">
+      <div class="portrait">__PORTRAIT_SPACE__<span class="cap">Instituto Brusch · foto ilustrativa</span></div>
+      <div class="prose">
+        <span class="eyebrow">Sobre</span>
+        <h2 style="margin-top:8px">Um cuidado com profundidade e método</h2>
+        <p class="lead">O Instituto Brusch une o rigor da psicologia clínica ao trabalho de autoconhecimento em grupo — para quem quer romper padrões e viver com mais presença.</p>
+        <p>Fundado pela psicóloga Camila de Menezes Brusch, o instituto trabalha a partir das relações: como a família e a nossa história moldam o comportamento presente. Não se trata de encontrar culpados, mas de compreender dinâmicas — e ter liberdade para mudá-las.</p>
+        <div class="cta-row"><a class="btn" onclick="go('instituto')">Sobre o instituto</a>
+          <a class="btn ghost" onclick="go('camila')">Conhecer a Camila</a></div>
       </div>
     </div>
-  </div>
+  </div></div>
 
   <div class="wrap pad">
-    <div class="sec-head"><div><span class="eyebrow">Quem passou por aqui</span><h2>Depoimentos</h2></div>
+    <div class="sec-head"><div><span class="eyebrow">Histórias</span><h2>O que dizem quem passou por aqui</h2></div>
       <a class="btn ghost sm" onclick="go('depoimentos')">Ver todos →</a></div>
     <div id="home-depo" class="grid g3"></div>
+  </div>
+
+  <div class="wrap" style="padding-bottom:88px">
+    <div class="cta-strip">
+      <h2>A sua Cartografia começa com um encontro</h2>
+      <p>Um acompanhamento contínuo com a sua carta, leituras mensais, áudios e resumos das sessões.</p>
+      <a class="btn" onclick="go('cartografia')">Conhecer a Cartografia</a>
+    </div>
   </div>
 </section>
 
 <!-- O INSTITUTO -->
-<section class="view" id="v-instituto">
-  <div class="wrap pad">
-    <span class="eyebrow">Sobre</span>
-    <div class="split" style="margin-top:10px">
-      <div class="portrait" style="background:linear-gradient(160deg,var(--olive),var(--clay))"><div class="initials">◎</div></div>
-      <div class="prose">
-        <h2>O Instituto Brusch</h2>
-        <p class="lead">Um centro integrado de saúde mental e autoconhecimento em Palmas (TO), onde a psicoterapia encontra a expansão de consciência.</p>
-        <p>Fundado pela psicóloga Camila de Menezes Brusch, o instituto nasce da convicção de que cuidar da mente é também revisitar as histórias que nos formaram. Combinamos o rigor da psicologia clínica com práticas de autoconhecimento, criando um lugar seguro para transformar padrões.</p>
-        <h3>Pensamento sistêmico</h3>
-        <p>Trabalhamos a partir das relações: como a família, os vínculos e a história de cada pessoa moldam o comportamento presente. Não se trata de encontrar culpados, mas de compreender dinâmicas — e ter liberdade para mudá-las.</p>
-        <h3>Expansão de consciência</h3>
-        <p>Para além da terapia tradicional, oferecemos grupos, vivências e a cartografia: formas de olhar para dentro com mais profundidade e sentido.</p>
-        <div class="factbox">
-          <span class="eyebrow">Nossas frentes</span>
-          <ul style="margin-top:8px">
-            <li><b>O Círculo</b> — terapia em grupo aberta, turmas reduzidas.</li>
-            <li><b>Atendimento clínico</b> — individual, casal e família (sistêmico).</li>
-            <li><b>Cartografia</b> — acompanhamento com carta, áudios e leituras mensais.</li>
-            <li><b>Eventos & vivências</b> — presenciais e online.</li>
-          </ul>
-        </div>
-      </div>
+<section class="view" id="v-instituto"><div class="wrap pad">
+  <span class="eyebrow">Sobre</span>
+  <div class="split" style="margin-top:12px">
+    <div>
+      <div class="portrait" style="background:linear-gradient(165deg,#CBD8C0,#9EB291)">__PORTRAIT_SPACE__<span class="cap">foto ilustrativa</span></div>
+      <div class="factbox"><span class="eyebrow">Nossas frentes</span>
+        <ul><li><b>O Círculo</b> — terapia em grupo aberta, turmas reduzidas.</li>
+        <li><b>Atendimento clínico</b> — individual, casal e família (sistêmico).</li>
+        <li><b>Cartografia</b> — carta, áudios e leituras mensais.</li>
+        <li><b>Eventos & vivências</b> — presenciais e online.</li></ul></div>
+    </div>
+    <div class="prose">
+      <h2>O Instituto Brusch</h2>
+      <p class="lead">Um centro integrado de saúde mental e autoconhecimento em Palmas (TO), onde a psicoterapia encontra a expansão de consciência.</p>
+      <p>Nascemos da convicção de que cuidar da mente é também revisitar as histórias que nos formaram. Combinamos o rigor da psicologia clínica com práticas de autoconhecimento, criando um lugar seguro para transformar padrões.</p>
+      <h3>Pensamento sistêmico</h3>
+      <p>Trabalhamos a partir das relações: como a família, os vínculos e a história de cada pessoa moldam o comportamento presente. Compreender a dinâmica é o começo da liberdade para mudá-la.</p>
+      <h3>Expansão de consciência</h3>
+      <p>Para além da terapia tradicional, oferecemos grupos, vivências e a cartografia: formas de olhar para dentro com mais profundidade e sentido.</p>
+      <div class="cta-row"><a class="btn" onclick="go('eventos')">Ver encontros</a></div>
     </div>
   </div>
-</section>
+</div></section>
 
 <!-- CAMILA -->
-<section class="view" id="v-camila">
-  <div class="wrap pad">
-    <span class="eyebrow">A idealizadora</span>
-    <div class="split" style="margin-top:10px">
-      <div>
-        <div class="portrait"><div class="initials">CB</div></div>
-        <div class="factbox">
-          <span class="eyebrow">Formação & atuação</span>
-          <ul style="margin-top:8px">
-            <li>Psicóloga clínica — PUC-RS</li>
-            <li>Especialização pelo Conselho Federal de Psicologia</li>
-            <li>Formação pelo Instituto da Família de Porto Alegre</li>
-            <li>Atuação na rede pública de Palmas (Núcleo Dandara)</li>
-            <li>Conselho Regional de Psicologia — CRP-23 (TO)</li>
-          </ul>
-        </div>
-      </div>
-      <div class="prose">
-        <h2>Camila Brusch</h2>
-        <p class="lead">Psicóloga clínica, terapeuta sistêmica e idealizadora do Instituto Brusch.</p>
-        <p>Camila de Menezes Brusch graduou-se em Psicologia pela PUC-RS e construiu sua trajetória entre a clínica privada e a saúde coletiva. Em Palmas, atuou na rede pública municipal, incluindo o Núcleo Dandara — ambulatório transsexualizador do SUS — e em órgãos de classe como o CRP-23.</p>
-        <p>Sua prática une a terapia familiar e de casal sistêmica ao trabalho de autoconhecimento em grupo. É dessa combinação que nascem O Círculo e a cartografia: convites para olhar a própria história com mais lucidez e compaixão.</p>
-        <h3>Uma escuta que acolhe</h3>
-        <p>“Acredito que a mudança começa quando conseguimos nos ver dentro das nossas relações — e que ninguém precisa fazer esse caminho sozinho.”</p>
-        <div class="cta-row"><a class="btn" onclick="go('eventos')">Participar de um encontro</a>
-          <a class="btn ghost" onclick="go('cartografia')">Ver a Cartografia</a></div>
-      </div>
+<section class="view" id="v-camila"><div class="wrap pad">
+  <span class="eyebrow">A idealizadora</span>
+  <div class="split" style="margin-top:12px">
+    <div>
+      <div class="portrait" style="background:linear-gradient(165deg,#C6D3BB,#96AC88)">__PORTRAIT_FACE__<span class="cap">Camila Brusch · foto ilustrativa</span></div>
+      <div class="factbox"><span class="eyebrow">Formação & atuação</span>
+        <ul><li>Psicóloga clínica — PUC-RS</li>
+        <li>Especialização pelo Conselho Federal de Psicologia</li>
+        <li>Formação pelo Instituto da Família de Porto Alegre</li>
+        <li>Atuação na rede pública de Palmas (Núcleo Dandara)</li>
+        <li>Conselho Regional de Psicologia — CRP-23 (TO)</li></ul></div>
+    </div>
+    <div class="prose">
+      <h2>Camila Brusch</h2>
+      <p class="lead">Psicóloga clínica, terapeuta sistêmica e idealizadora do Instituto Brusch.</p>
+      <p>Camila de Menezes Brusch graduou-se em Psicologia pela PUC-RS e construiu sua trajetória entre a clínica privada e a saúde coletiva. Em Palmas, atuou na rede pública municipal, incluindo o Núcleo Dandara — ambulatório transsexualizador do SUS — e em órgãos de classe como o CRP-23.</p>
+      <p>Sua prática une a terapia familiar e de casal sistêmica ao trabalho de autoconhecimento em grupo. É dessa combinação que nascem O Círculo e a cartografia.</p>
+      <h3>Uma escuta que acolhe</h3>
+      <p class="serif-i" style="font-size:1.2rem;color:var(--ink)">“A mudança começa quando conseguimos nos ver dentro das nossas relações — e ninguém precisa fazer esse caminho sozinho.”</p>
+      <div class="cta-row"><a class="btn" onclick="go('eventos')">Participar de um encontro</a>
+        <a class="btn ghost" onclick="go('cartografia')">Ver a Cartografia</a></div>
     </div>
   </div>
-</section>
+</div></section>
 
 <!-- EVENTOS -->
-<section class="view" id="v-eventos">
-  <div class="wrap pad">
-    <span class="eyebrow">Agenda</span><h2 style="font-size:2.3rem;margin:6px 0 4px">Eventos & vivências</h2>
-    <p class="lead">Encontros presenciais em Palmas e experiências online. Inscreva-se pela plataforma.</p>
-    <div class="filters" style="margin-top:22px">
-      <button class="chip active" data-f="all" onclick="filterEv('all',this)">Todos</button>
-      <button class="chip" data-f="Presencial" onclick="filterEv('Presencial',this)">Presencial</button>
-      <button class="chip" data-f="Online" onclick="filterEv('Online',this)">Online</button>
-    </div>
-    <div id="ev-grid" class="grid g3"></div>
+<section class="view" id="v-eventos"><div class="wrap pad">
+  <span class="eyebrow">Agenda</span><h2 style="font-size:2.4rem;margin:8px 0 6px">Eventos & vivências</h2>
+  <p class="lead">Encontros presenciais em Palmas e experiências online. Inscreva-se pela plataforma.</p>
+  <div class="filters">
+    <button class="chip active" onclick="filterEv('all',this)">Todos</button>
+    <button class="chip" onclick="filterEv('Presencial',this)">Presencial</button>
+    <button class="chip" onclick="filterEv('Online',this)">Online</button>
   </div>
-</section>
-
-<!-- EVENTO DETALHE -->
+  <div id="ev-grid" class="grid g3"></div>
+</div></section>
 <section class="view" id="v-evento"><div class="wrap pad" id="ev-detail"></div></section>
 
-<!-- CARTOGRAFIA (landing / logged) -->
+<!-- CARTOGRAFIA -->
 <section class="view" id="v-cartografia"><div class="wrap pad" id="carto-root"></div></section>
 
 <!-- BLOG -->
-<section class="view" id="v-blog">
-  <div class="wrap pad">
-    <span class="eyebrow">Leituras</span><h2 style="font-size:2.3rem;margin:6px 0 4px">Blog do Instituto</h2>
-    <p class="lead">Textos da Camila, do instituto e de colunistas convidados.</p>
-    <div id="blog-grid" class="grid g3" style="margin-top:26px"></div>
-  </div>
-</section>
+<section class="view" id="v-blog"><div class="wrap pad">
+  <span class="eyebrow">Leituras</span><h2 style="font-size:2.4rem;margin:8px 0 6px">Blog do Instituto</h2>
+  <p class="lead">Textos da Camila, do instituto e de colunistas convidados.</p>
+  <div id="blog-grid" class="grid g3" style="margin-top:30px"></div>
+</div></section>
 <section class="view" id="v-post"><div class="wrap pad" id="post-detail"></div></section>
 
 <!-- DEPOIMENTOS -->
-<section class="view" id="v-depoimentos">
-  <div class="wrap pad">
-    <span class="eyebrow">Histórias</span><h2 style="font-size:2.3rem;margin:6px 0 18px">Depoimentos</h2>
-    <div id="depo-masonry" class="masonry"></div>
-  </div>
-</section>
+<section class="view" id="v-depoimentos"><div class="wrap pad">
+  <span class="eyebrow">Histórias</span><h2 style="font-size:2.4rem;margin:8px 0 22px">Depoimentos</h2>
+  <div id="depo-masonry" class="masonry"></div>
+</div></section>
 
 <!-- COMUNIDADE -->
-<section class="view" id="v-comunidade">
-  <div class="wrap pad">
-    <span class="eyebrow">Membros</span><h2 style="font-size:2.3rem;margin:6px 0 4px">Comunidade & Grupos</h2>
-    <p class="lead">Um espaço para os membros do instituto trocarem experiências e se apoiarem entre os encontros.</p>
-    <div class="grid g2" style="margin-top:30px">
-      <div>
-        <h3 style="font-size:1.4rem;margin-bottom:14px">Grupos do instituto</h3>
-        <div id="groups"></div>
-      </div>
-      <div>
-        <h3 style="font-size:1.4rem;margin-bottom:14px">Conversas recentes</h3>
-        <div id="threads"></div>
-        <p class="demo-note" style="margin-top:6px">Acesso completo à comunidade após entrar como membro.</p>
-      </div>
-    </div>
+<section class="view" id="v-comunidade"><div class="wrap pad">
+  <span class="eyebrow">Membros</span><h2 style="font-size:2.4rem;margin:8px 0 6px">Comunidade & Grupos</h2>
+  <p class="lead">Um espaço para os membros trocarem experiências e se apoiarem entre os encontros.</p>
+  <div class="grid g2" style="margin-top:32px">
+    <div><h3 style="font-size:1.3rem;margin-bottom:16px">Grupos do instituto</h3><div id="groups"></div></div>
+    <div><h3 style="font-size:1.3rem;margin-bottom:16px">Conversas recentes</h3><div id="threads"></div>
+      <p class="demo-note" style="margin-top:6px">Acesso completo após entrar como membro.</p></div>
   </div>
-</section>
+</div></section>
 
-<footer>
-  <div class="wrap">
-    <div class="foot-grid">
-      <div>
-        <div class="foot-brand">Instituto Brusch</div>
-        <p style="opacity:.8;max-width:34ch;margin-top:10px">Saúde mental, autoconhecimento e expansão de consciência. Palmas — Tocantins.</p>
-        <a href="https://www.instagram.com/institutobrusch/" target="_blank" rel="noopener">↗ @institutobrusch</a>
+<footer><div class="wrap">
+  <div class="foot-grid">
+    <div>
+      <div class="foot-brand">
+        <svg class="logo" viewBox="0 0 48 48" fill="none" style="width:40px"><circle cx="24" cy="24" r="22" stroke="#fff" stroke-width="2"/><path d="M24 13v19M24 20c-2-1.5-4-2-6-2M24 24c2-1.5 4-2 6-2" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/></svg>
+        <span class="txt"><b>Instituto</b><span>Brusch</span></span>
       </div>
-      <div><h4>Explorar</h4>
-        <a onclick="go('instituto')">O Instituto</a><a onclick="go('camila')">Camila Brusch</a>
-        <a onclick="go('eventos')">Eventos</a><a onclick="go('cartografia')">Cartografia</a><a onclick="go('blog')">Blog</a></div>
-      <div><h4>Contato</h4>
-        <a href="https://www.instagram.com/institutobrusch/" target="_blank" rel="noopener">Instagram</a>
-        <a onclick="go('comunidade')">Comunidade</a><a onclick="go('depoimentos')">Depoimentos</a>
-        <span style="opacity:.7;font-size:.9rem;display:block;padding-top:4px">Palmas · TO</span></div>
+      <p style="max-width:34ch;color:#C6D2BB">Saúde mental, autoconhecimento e expansão de consciência. Palmas — Tocantins.</p>
+      <a href="https://www.instagram.com/institutobrusch/" target="_blank" rel="noopener">↗ @institutobrusch</a>
     </div>
-    <div class="copy">© 2026 Instituto Brusch · Protótipo de demonstração. Conteúdo ilustrativo.</div>
+    <div><h4>Explorar</h4><a onclick="go('instituto')">O Instituto</a><a onclick="go('camila')">Camila Brusch</a>
+      <a onclick="go('eventos')">Eventos</a><a onclick="go('cartografia')">Cartografia</a><a onclick="go('blog')">Blog</a></div>
+    <div><h4>Contato</h4><a href="https://www.instagram.com/institutobrusch/" target="_blank" rel="noopener">Instagram</a>
+      <a onclick="go('comunidade')">Comunidade</a><a onclick="go('depoimentos')">Depoimentos</a>
+      <span style="color:#AFBFA3;font-size:.9rem;display:block;padding-top:4px">Palmas · TO</span></div>
   </div>
-</footer>
+  <div class="copy">© 2026 Instituto Brusch · Protótipo de demonstração. Conteúdo ilustrativo.</div>
+</div></footer>
 
-<!-- MODAL -->
 <div class="modal-bg" id="modalBg"><div class="modal" id="modalBox"></div></div>
 
 <script>
-/* ---------- MOCK DATA ---------- */
+/* ================= ICON SET (inline SVG, line style) ================= */
+const IC={
+ hands:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21c-3-2-8-5.5-8-10a4 4 0 0 1 8-1 4 4 0 0 1 8 1c0 4.5-5 8-8 10z"/></svg>',
+ eye:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>',
+ people:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.3"/><path d="M3 20c0-3 2.7-5 6-5s6 2 6 5M15 20c0-2 .8-3.4 2-4"/></svg>',
+ balance:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M6 21h12M5 7h14M5 7l-3 6a4 4 0 0 0 6 0zM19 7l3 6a4 4 0 0 1-6 0z"/></svg>',
+ star:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.5 6L21 9.7l-4.7 4.3L17.6 21 12 17.6 6.4 21l1.3-7L3 9.7 9.5 9z"/></svg>',
+ headphones:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14v-2a8 8 0 0 1 16 0v2"/><rect x="2.5" y="14" width="4" height="6" rx="1.5"/><rect x="17.5" y="14" width="4" height="6" rx="1.5"/></svg>',
+ moon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A8 8 0 1 1 11.2 3a6 6 0 0 0 9.8 9.8z"/></svg>',
+ card:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c-4 4-6 8-6 12a6 6 0 0 0 12 0c0-4-2-8-6-12z"/><path d="M12 8v9"/></svg>',
+ chat:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H8l-5 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>',
+ circle:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/></svg>',
+ leaf:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20c0-8 6-14 16-14 0 10-6 16-14 16-1 0-2-1-2-2z"/><path d="M8 16C11 12 14 10 18 9"/></svg>',
+ home:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/></svg>'
+};
+/* botanical eucalyptus branch for hero/photo zones */
+function botan(){
+  return `<svg class="botan" viewBox="0 0 400 430" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <rect width="400" height="430" fill="none"/>
+    <g stroke="#5b6e4f" stroke-width="2" fill="none" opacity=".85" stroke-linecap="round">
+      <path d="M300 430C280 340 250 250 210 170 175 100 150 60 170 20"/>
+    </g>
+    <g fill="#6f8560" opacity=".8">
+      ${Array.from({length:9}).map((_,i)=>{const t=i/9;const x=300-130*t-30*Math.sin(t*3);const y=430-410*t;const ang=-40+t*40;const s=1-t*0.35;
+        return `<g transform="translate(${x},${y}) rotate(${ang}) scale(${s})"><ellipse cx="26" cy="0" rx="26" ry="15"/></g>
+                <g transform="translate(${x},${y}) rotate(${ang+180}) scale(${s})"><ellipse cx="24" cy="0" rx="24" ry="14" fill="#809672"/></g>`}).join('')}
+    </g>
+    <g fill="#95a884" opacity=".5">
+      ${Array.from({length:5}).map((_,i)=>{const t=i/5;const x=120+40*t;const y=430-360*t;return `<circle cx="${x}" cy="${y}" r="${9-t*3}"/>`}).join('')}
+    </g>
+  </svg>`;
+}
+function faceArt(){
+  return `<svg class="botan" viewBox="0 0 320 400" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <rect width="320" height="400" fill="none"/>
+    <circle cx="160" cy="150" r="66" fill="#7c9070" opacity=".55"/>
+    <path d="M70 400c0-58 40-96 90-96s90 38 90 96" fill="#7c9070" opacity=".55"/>
+    <g stroke="#4f6146" stroke-width="2" fill="none" opacity=".5" stroke-linecap="round">
+      <path d="M40 380c10-40 26-70 50-92"/><path d="M280 380c-10-40-26-70-50-92"/></g>
+  </svg>`;
+}
+
+/* ================= DATA ================= */
+const PILLARS=[
+ {i:IC.hands,t:'Acolhimento',d:'Um espaço seguro para ser ouvido e respeitado.'},
+ {i:IC.eye,t:'Compreensão',d:'Encontre sentido nas suas experiências.'},
+ {i:IC.people,t:'Apoio',d:'Compartilhe e receba apoio de quem entende.'},
+ {i:IC.balance,t:'Equilíbrio',d:'Mais leveza, bem-estar e qualidade de vida.'},
+];
 const EVENTOS=[
- {id:'circulo-out',t:'O Círculo · Turma de Outubro',tipo:'Presencial',data:'18 out 2026, 19h',local:'Sede do Instituto — Palmas/TO',preco:180,g:'a',
-  vagas:'6 vagas',desc:'Um ciclo de quatro encontros de terapia em grupo aberta, mediados pela Camila. Turma reduzida para um espaço seguro de escuta e transformação.'},
- {id:'vivencia-sistemica',t:'Vivência: Minha história familiar',tipo:'Presencial',data:'25 out 2026, 9h',local:'Espaço Semente — Palmas/TO',preco:240,g:'d',
-  vagas:'12 vagas',desc:'Uma manhã de imersão sistêmica para observar padrões que atravessam gerações e o que eles dizem sobre o seu presente.'},
- {id:'live-ansiedade',t:'Online: Ansiedade e presença',tipo:'Online',data:'30 out 2026, 20h',local:'Ao vivo pela plataforma',preco:0,g:'b',
-  vagas:'Aberto',desc:'Encontro online e gratuito sobre como a ansiedade se instala e caminhos práticos para voltar ao presente. Com gravação disponível.'},
- {id:'circulo-online',t:'O Círculo Online · Novembro',tipo:'Online',data:'8 nov 2026, 19h',local:'Ao vivo pela plataforma',preco:150,g:'c',
-  vagas:'10 vagas',desc:'A experiência do Círculo em formato online, para quem está fora de Palmas. Quatro encontros semanais em grupo reduzido.'},
- {id:'retiro',t:'Retiro de Autoconhecimento',tipo:'Presencial',data:'6 dez 2026, dia inteiro',local:'Serra do Lajeado — TO',preco:520,g:'d',
-  vagas:'20 vagas',desc:'Um dia de silêncio, natureza e vivências guiadas para reencontrar o próprio centro. Inclui almoço e material.'},
- {id:'workshop-cartas',t:'Online: Introdução à Cartografia',tipo:'Online',data:'12 dez 2026, 20h',local:'Ao vivo pela plataforma',preco:90,g:'b',
-  vagas:'Aberto',desc:'Entenda o que é a cartografia do instituto e como ela pode ser um mapa para o seu momento de vida.'},
+ {id:'circulo-out',t:'O Círculo · Turma de Outubro',tipo:'Presencial',data:'18 out 2026, 19h',local:'Sede do Instituto — Palmas/TO',preco:180,g:'a',vagas:'6 vagas',desc:'Um ciclo de quatro encontros de terapia em grupo aberta, mediados pela Camila. Turma reduzida para um espaço seguro de escuta e transformação.'},
+ {id:'vivencia-sistemica',t:'Vivência: Minha história familiar',tipo:'Presencial',data:'25 out 2026, 9h',local:'Espaço Semente — Palmas/TO',preco:240,g:'d',vagas:'12 vagas',desc:'Uma manhã de imersão sistêmica para observar padrões que atravessam gerações e o que eles dizem sobre o seu presente.'},
+ {id:'live-ansiedade',t:'Online: Ansiedade e presença',tipo:'Online',data:'30 out 2026, 20h',local:'Ao vivo pela plataforma',preco:0,g:'b',vagas:'Aberto',desc:'Encontro online e gratuito sobre como a ansiedade se instala e caminhos práticos para voltar ao presente. Com gravação disponível.'},
+ {id:'circulo-online',t:'O Círculo Online · Novembro',tipo:'Online',data:'8 nov 2026, 19h',local:'Ao vivo pela plataforma',preco:150,g:'c',vagas:'10 vagas',desc:'A experiência do Círculo em formato online, para quem está fora de Palmas. Quatro encontros semanais em grupo reduzido.'},
+ {id:'retiro',t:'Retiro de Autoconhecimento',tipo:'Presencial',data:'6 dez 2026, dia inteiro',local:'Serra do Lajeado — TO',preco:520,g:'d',vagas:'20 vagas',desc:'Um dia de silêncio, natureza e vivências guiadas para reencontrar o próprio centro. Inclui almoço e material.'},
+ {id:'workshop-cartas',t:'Online: Introdução à Cartografia',tipo:'Online',data:'12 dez 2026, 20h',local:'Ao vivo pela plataforma',preco:90,g:'b',vagas:'Aberto',desc:'Entenda o que é a cartografia do instituto e como ela pode ser um mapa para o seu momento de vida.'},
 ];
 const POSTS=[
- {id:'romper-padroes',t:'Por que repetimos os mesmos padrões?',autor:'Camila Brusch',cargo:'Psicóloga · fundadora',data:'2 set 2026',g:'a',
-  resumo:'Uma reflexão sistêmica sobre lealdades invisíveis e como começar a escrever uma nova história.',
-  corpo:['Repetir padrões não é falta de força de vontade. Muitas vezes é uma forma de lealdade a histórias que herdamos sem perceber.','Na terapia sistêmica, olhamos para essas dinâmicas com curiosidade em vez de julgamento. Quando enxergamos o padrão, ele deixa de nos conduzir no automático.','O primeiro passo é nomear: que cena da minha vida se repete? A partir daí, há escolha.']},
- {id:'o-circulo',t:'O que acontece dentro de O Círculo',autor:'Instituto Brusch',cargo:'Equipe',data:'21 ago 2026',g:'c',
-  resumo:'Como funciona a terapia em grupo aberta e por que o encontro com o outro cura.',
-  corpo:['O Círculo é um espaço de escuta em grupo reduzido. Não há palestra — há presença.','Ao ouvir o outro, reconhecemos partes de nós mesmos que estavam no escuro. O grupo vira espelho e sustentação.','Cada ciclo tem quatro encontros, com temas que emergem do próprio grupo.']},
- {id:'cartografia-mapa',t:'Cartografia: um mapa para o seu momento',autor:'Camila Brusch',cargo:'Psicóloga · fundadora',data:'5 ago 2026',g:'b',
-  resumo:'A carta não prevê o futuro — ela ilumina o presente. Entenda a proposta.',
-  corpo:['A cartografia do instituto é uma ferramenta de autoconhecimento, não de adivinhação.','A partir da sua carta, construímos leituras mensais, áudios e resumos que acompanham o seu processo ao longo do tempo.','É um mapa vivo: muda conforme você caminha.']},
- {id:'coluna-corpo',t:'O corpo também lembra',autor:'Dra. Helena Prado',cargo:'Colunista convidada · psicossomática',data:'18 jul 2026',g:'d',
-  resumo:'Colunista convidada escreve sobre a memória do corpo e o cuidado integral.',
-  corpo:['O que a mente esquece, o corpo às vezes guarda. Tensões, dores e sintomas podem ser mensagens.','Cuidar da saúde mental é também escutar o corpo — e devolver a ele um lugar na conversa terapêutica.']},
+ {id:'romper-padroes',t:'Por que repetimos os mesmos padrões?',autor:'Camila Brusch',cargo:'Psicóloga · fundadora',data:'2 set 2026',g:'a',resumo:'Uma reflexão sistêmica sobre lealdades invisíveis e como começar a escrever uma nova história.',corpo:['Repetir padrões não é falta de força de vontade. Muitas vezes é uma forma de lealdade a histórias que herdamos sem perceber.','Na terapia sistêmica, olhamos para essas dinâmicas com curiosidade em vez de julgamento. Quando enxergamos o padrão, ele deixa de nos conduzir no automático.','O primeiro passo é nomear: que cena da minha vida se repete? A partir daí, há escolha.']},
+ {id:'o-circulo',t:'O que acontece dentro de O Círculo',autor:'Instituto Brusch',cargo:'Equipe',data:'21 ago 2026',g:'c',resumo:'Como funciona a terapia em grupo aberta e por que o encontro com o outro cura.',corpo:['O Círculo é um espaço de escuta em grupo reduzido. Não há palestra — há presença.','Ao ouvir o outro, reconhecemos partes de nós mesmos que estavam no escuro. O grupo vira espelho e sustentação.','Cada ciclo tem quatro encontros, com temas que emergem do próprio grupo.']},
+ {id:'cartografia-mapa',t:'Cartografia: um mapa para o seu momento',autor:'Camila Brusch',cargo:'Psicóloga · fundadora',data:'5 ago 2026',g:'b',resumo:'A carta não prevê o futuro — ela ilumina o presente. Entenda a proposta.',corpo:['A cartografia do instituto é uma ferramenta de autoconhecimento, não de adivinhação.','A partir da sua carta, construímos leituras mensais, áudios e resumos que acompanham o seu processo ao longo do tempo.','É um mapa vivo: muda conforme você caminha.']},
+ {id:'coluna-corpo',t:'O corpo também lembra',autor:'Dra. Helena Prado',cargo:'Colunista convidada',data:'18 jul 2026',g:'d',resumo:'Colunista convidada escreve sobre a memória do corpo e o cuidado integral.',corpo:['O que a mente esquece, o corpo às vezes guarda. Tensões, dores e sintomas podem ser mensagens.','Cuidar da saúde mental é também escutar o corpo — e devolver a ele um lugar na conversa terapêutica.']},
 ];
 const DEPOS=[
- {n:'Marina L.',txt:'O Círculo mudou a forma como me relaciono com a minha família. Saí de cada encontro mais leve.',ini:'ML'},
- {n:'Rafael S.',txt:'A cartografia virou meu ritual mensal. Os áudios da Camila me acompanham nas semanas difíceis.',ini:'RS'},
- {n:'Juliana P.',txt:'Nunca imaginei que um grupo pudesse ser tão seguro. Encontrei acolhimento e me encontrei.',ini:'JP'},
- {n:'André M.',txt:'A terapia sistêmica me ajudou a entender padrões que eu repetia sem perceber. Recomendo demais.',ini:'AM'},
- {n:'Camila R.',txt:'A vivência sobre história familiar foi um divisor de águas. Chorei, ri e voltei transformada.',ini:'CR'},
- {n:'Bruno T.',txt:'Faço o Círculo Online de outra cidade e me sinto tão presente quanto se estivesse na sala.',ini:'BT'},
- {n:'Letícia F.',txt:'A recomendação mensal da minha carta sempre chega no momento certo. Parece conversa com uma amiga sábia.',ini:'LF'},
+ {n:'Marina L.',c:'Participante de O Círculo',txt:'O Círculo mudou a forma como me relaciono com a minha família. Saí de cada encontro mais leve.',ini:'ML'},
+ {n:'Rafael S.',c:'Cliente da Cartografia',txt:'A cartografia virou meu ritual mensal. Os áudios da Camila me acompanham nas semanas difíceis.',ini:'RS'},
+ {n:'Juliana P.',c:'Participante de vivência',txt:'Nunca imaginei que um grupo pudesse ser tão seguro. Encontrei acolhimento e me encontrei.',ini:'JP'},
+ {n:'André M.',c:'Terapia sistêmica',txt:'Entendi padrões que eu repetia sem perceber. Recomendo demais o trabalho da Camila.',ini:'AM'},
+ {n:'Camila R.',c:'Vivência familiar',txt:'A vivência sobre história familiar foi um divisor de águas. Voltei transformada.',ini:'CR'},
+ {n:'Bruno T.',c:'O Círculo Online',txt:'Faço o Círculo Online de outra cidade e me sinto tão presente quanto na sala.',ini:'BT'},
+ {n:'Letícia F.',c:'Cliente da Cartografia',txt:'A recomendação mensal da minha carta sempre chega no momento certo.',ini:'LF'},
 ];
 const GROUPS=[
- {i:'◎',t:'Membros de O Círculo',d:'Grupo dos participantes dos ciclos presenciais e online.'},
- {i:'✦',t:'Cartografia — leituras',d:'Trocas sobre as cartas e as recomendações do mês.'},
- {i:'☾',t:'Autoconhecimento diário',d:'Práticas, indicações e apoio entre os encontros.'},
+ {i:IC.circle,t:'Membros de O Círculo',d:'Grupo dos participantes dos ciclos presenciais e online.'},
+ {i:IC.star,t:'Cartografia — leituras',d:'Trocas sobre as cartas e as recomendações do mês.'},
+ {i:IC.moon,t:'Autoconhecimento diário',d:'Práticas, indicações e apoio entre os encontros.'},
 ];
 const THREADS=[
- {n:'Marina L.',ini:'ML',time:'há 2h',txt:'Alguém mais sentiu a recomendação desse mês bem certeira? A minha falou exatamente do que eu estava vivendo. ✨',likes:12,cm:4},
+ {n:'Marina L.',ini:'ML',time:'há 2h',txt:'Alguém mais sentiu a recomendação desse mês bem certeira? A minha falou exatamente do que eu estava vivendo.',likes:12,cm:4},
  {n:'André M.',ini:'AM',time:'há 1 dia',txt:'Voltando do último Círculo com o coração cheio. Obrigado a todos que compartilharam.',likes:23,cm:7},
  {n:'Juliana P.',ini:'JP',time:'há 3 dias',txt:'Dica: ouvir o áudio da sessão caminhando de manhã tem sido transformador pra mim.',likes:18,cm:5},
 ];
 const SESSOES=[
- {t:'Encontro 03 · Os vínculos que nos formam',data:'28 ago 2026',dur:'42:10',
-  resumo:'Neste encontro exploramos como os primeiros vínculos moldam nossa forma de amar e de nos proteger. Falamos sobre apego, expectativa e a diferença entre cuidar e controlar. Exercício da semana: observar em quais relações você repete o papel de cuidador.'},
- {t:'Encontro 02 · A história por trás do sintoma',data:'14 ago 2026',dur:'38:47',
-  resumo:'Olhamos para os sintomas como mensagens, não como inimigos. Cada desconforto aponta para algo que pede escuta. Trouxemos a ideia de lealdade familiar e como certos padrões se repetem entre gerações.'},
- {t:'Encontro 01 · Boas-vindas ao seu mapa',data:'31 jul 2026',dur:'29:33',
-  resumo:'A abertura do ciclo: apresentamos a sua carta e o sentido da cartografia como mapa vivo. Uma introdução ao trabalho que faremos juntos ao longo dos próximos meses.'},
+ {t:'Encontro 03 · Os vínculos que nos formam',data:'28 ago 2026',dur:'42:10',resumo:'Neste encontro exploramos como os primeiros vínculos moldam nossa forma de amar e de nos proteger. Falamos sobre apego, expectativa e a diferença entre cuidar e controlar. Exercício da semana: observar em quais relações você repete o papel de cuidador.'},
+ {t:'Encontro 02 · A história por trás do sintoma',data:'14 ago 2026',dur:'38:47',resumo:'Olhamos para os sintomas como mensagens, não como inimigos. Cada desconforto aponta para algo que pede escuta. Trouxemos a ideia de lealdade familiar e como certos padrões se repetem entre gerações.'},
+ {t:'Encontro 01 · Boas-vindas ao seu mapa',data:'31 jul 2026',dur:'29:33',resumo:'A abertura do ciclo: apresentamos a sua carta e o sentido da cartografia como mapa vivo. Uma introdução ao trabalho que faremos juntos ao longo dos próximos meses.'},
 ];
 const TOPICOS=['Vínculos','Autoconhecimento','Ciclos','Presença','Escuta interna'];
 
-/* ---------- ROUTER ---------- */
+/* ================= ROUTER ================= */
 const views=['home','instituto','camila','eventos','evento','cartografia','blog','post','depoimentos','comunidade'];
 function go(r,arg){
-  const base=r;
-  views.forEach(v=>document.getElementById('v-'+v).classList.toggle('on', v===base));
-  document.querySelectorAll('.nav-links a').forEach(a=>a.classList.toggle('active',a.dataset.r===base));
+  views.forEach(v=>document.getElementById('v-'+v).classList.toggle('on',v===r));
+  document.querySelectorAll('.nav-links a').forEach(a=>a.classList.toggle('active',a.dataset.r===r));
   document.getElementById('navlinks').classList.remove('open');
-  if(r==='eventos') renderEventos('all');
-  if(r==='evento') renderEvento(arg);
-  if(r==='cartografia') renderCarto();
-  if(r==='blog') renderBlog();
-  if(r==='post') renderPost(arg);
+  if(r==='eventos')renderEventos('all');
+  if(r==='evento')renderEvento(arg);
+  if(r==='cartografia')renderCarto();
+  if(r==='blog')renderBlog();
+  if(r==='post')renderPost(arg);
   window.scrollTo({top:0,behavior:'smooth'});
   location.hash=arg?r+'/'+arg:r;
 }
 window.addEventListener('hashchange',routeFromHash);
-function routeFromHash(){
-  const h=location.hash.replace('#','');if(!h){go('home');return;}
-  const[r,a]=h.split('/');if(views.includes(r))go(r,a);else go('home');
-}
+function routeFromHash(){const h=location.hash.replace('#','');if(!h){go('home');return;}
+  const[r,a]=h.split('/');views.includes(r)?go(r,a):go('home');}
 
-/* ---------- RENDERERS ---------- */
+/* ================= RENDERERS ================= */
+function leafDeco(){return '<div class="lf">'+IC.leaf+'</div>';}
 function evCard(e){
-  const p=e.preco===0?'<span class="pill free">Gratuito</span>':'';
   const price=e.preco===0?'Gratuito':'R$ '+e.preco;
-  return `<div class="card">
-    <div class="thumb gradthumb ${e.g}"><span class="thumb-label">${e.tipo}</span></div>
-    <div class="body">
-      <div class="meta"><span class="pill ${e.tipo==='Online'?'online':'pres'}">${e.tipo}</span>${p}<span>${e.vagas}</span></div>
-      <h3>${e.t}</h3>
-      <div class="meta">🗓 ${e.data}</div>
-      <div class="foot"><span class="price">${price}</span>
-        <a class="btn sm" onclick="event.stopPropagation();go('evento','${e.id}')">Detalhes</a></div>
-    </div></div>`;
+  const badge=e.preco===0?'<span class="pill free">Gratuito</span>':'';
+  return `<div class="card"><div class="thumb photo ${e.g}">${leafDeco()}</div>
+    <div class="body"><div class="meta"><span class="pill ${e.tipo==='Online'?'online':'pres'}">${e.tipo}</span>${badge}<span>${e.vagas}</span></div>
+    <h3>${e.t}</h3><div class="meta">${e.data}</div>
+    <div class="foot"><span class="price">${price}</span><a class="btn sm" onclick="go('evento','${e.id}')">Detalhes</a></div></div></div>`;
 }
-function renderEventos(f){
-  document.getElementById('ev-grid').innerHTML=
-    EVENTOS.filter(e=>f==='all'||e.tipo===f).map(evCard).join('');
-}
-function filterEv(f,btn){document.querySelectorAll('#v-eventos .chip').forEach(c=>c.classList.remove('active'));
-  btn.classList.add('active');renderEventos(f);}
+function renderEventos(f){document.getElementById('ev-grid').innerHTML=EVENTOS.filter(e=>f==='all'||e.tipo===f).map(evCard).join('');}
+function filterEv(f,btn){document.querySelectorAll('#v-eventos .chip').forEach(c=>c.classList.remove('active'));btn.classList.add('active');renderEventos(f);}
 function renderEvento(id){
-  const e=EVENTOS.find(x=>x.id===id)||EVENTOS[0];
-  const price=e.preco===0?'Gratuito':'R$ '+e.preco;
-  document.getElementById('ev-detail').innerHTML=`
-    <a class="chip" onclick="go('eventos')">← Voltar aos eventos</a>
-    <div class="split" style="margin-top:20px">
-      <div>
-        <div class="cartimg" style="aspect-ratio:4/3;background:linear-gradient(150deg,var(--terra),var(--olive))"></div>
-        <div class="factbox">
-          <div class="meta" style="margin-bottom:8px"><span class="pill ${e.tipo==='Online'?'online':'pres'}">${e.tipo}</span><span>${e.vagas}</span></div>
-          <ul><li>🗓 <b>Quando:</b> ${e.data}</li><li>📍 <b>Onde:</b> ${e.local}</li><li>💳 <b>Investimento:</b> ${price}</li></ul>
-        </div>
-      </div>
-      <div class="prose">
-        <span class="eyebrow">${e.tipo}</span>
-        <h2 style="font-size:2.2rem;margin:6px 0 12px">${e.t}</h2>
-        <p class="lead">${e.desc}</p>
-        <p>Este é um encontro conduzido pela psicóloga Camila Brusch. As vagas são limitadas para preservar a intimidade do grupo. Ao se inscrever, você recebe a confirmação e as orientações por e-mail.</p>
-        <div class="cta-row"><a class="btn" onclick="openInscricao('${e.id}')">Inscrever-se ${e.preco?'· '+price:'· grátis'}</a></div>
-      </div>
-    </div>`;
+  const e=EVENTOS.find(x=>x.id===id)||EVENTOS[0];const price=e.preco===0?'Gratuito':'R$ '+e.preco;
+  document.getElementById('ev-detail').innerHTML=`<a class="chip" onclick="go('eventos')">← Voltar</a>
+   <div class="split" style="margin-top:20px"><div>
+     <div class="portrait" style="aspect-ratio:4/3;background:linear-gradient(160deg,#CFDBC4,#A2B694)">${leafDeco()}<span class="cap">foto ilustrativa</span></div>
+     <div class="factbox"><div class="meta" style="margin-bottom:8px"><span class="pill ${e.tipo==='Online'?'online':'pres'}">${e.tipo}</span><span>${e.vagas}</span></div>
+       <ul><li><b>Quando:</b> ${e.data}</li><li><b>Onde:</b> ${e.local}</li><li><b>Investimento:</b> ${price}</li></ul></div>
+   </div>
+   <div class="prose"><span class="eyebrow">${e.tipo}</span><h2 style="font-size:2.1rem;margin:8px 0 12px">${e.t}</h2>
+     <p class="lead">${e.desc}</p>
+     <p>Encontro conduzido pela psicóloga Camila Brusch. As vagas são limitadas para preservar a intimidade do grupo. Ao se inscrever, você recebe a confirmação e as orientações por e-mail.</p>
+     <div class="cta-row"><a class="btn" onclick="openInscricao('${e.id}')">Inscrever-se · ${price}</a></div></div></div>`;
 }
-function renderBlog(){
-  document.getElementById('blog-grid').innerHTML=POSTS.map(p=>`
-    <div class="card" onclick="go('post','${p.id}')" style="cursor:pointer">
-      <div class="thumb gradthumb ${p.g}"></div>
-      <div class="body"><div class="meta">${p.data} · ${p.autor}</div>
-      <h3>${p.t}</h3><p style="color:var(--ink-soft);margin:0">${p.resumo}</p>
-      <div class="foot"><span style="color:var(--terra);font-weight:700;font-size:.9rem">Ler →</span></div></div>
-    </div>`).join('');
-}
-function renderPost(id){
-  const p=POSTS.find(x=>x.id===id)||POSTS[0];
-  document.getElementById('post-detail').innerHTML=`
-    <a class="chip" onclick="go('blog')">← Voltar ao blog</a>
-    <div style="max-width:70ch;margin:24px auto 0">
-      <span class="eyebrow">${p.data}</span>
-      <h2 style="font-size:clamp(1.9rem,4vw,2.7rem);margin:8px 0 16px">${p.t}</h2>
-      <div class="who" style="display:flex;align-items:center;gap:11px;margin-bottom:22px">
-        <div class="avatar">${p.autor.split(' ').map(w=>w[0]).slice(0,2).join('')}</div>
-        <div><b>${p.autor}</b><br><small style="color:var(--ink-soft)">${p.cargo}</small></div></div>
-      <div class="cartimg" style="aspect-ratio:16/7;background:linear-gradient(150deg,var(--clay),var(--olive));margin-bottom:22px"></div>
-      <div class="prose">${p.corpo.map(x=>'<p style="font-size:1.08rem">'+x+'</p>').join('')}</div>
-    </div>`;
-}
+function renderBlog(){document.getElementById('blog-grid').innerHTML=POSTS.map(p=>`
+  <div class="card" onclick="go('post','${p.id}')" style="cursor:pointer"><div class="thumb photo ${p.g}">${leafDeco()}</div>
+   <div class="body"><div class="meta">${p.data} · ${p.autor}</div><h3>${p.t}</h3>
+   <p style="color:var(--ink-2);margin:0;font-size:.95rem">${p.resumo}</p>
+   <div class="foot"><span style="color:var(--green);font-weight:600;font-size:.9rem">Ler artigo →</span></div></div></div>`).join('');}
+function renderPost(id){const p=POSTS.find(x=>x.id===id)||POSTS[0];
+  document.getElementById('post-detail').innerHTML=`<a class="chip" onclick="go('blog')">← Voltar ao blog</a>
+   <div style="max-width:70ch;margin:24px auto 0"><span class="eyebrow">${p.data}</span>
+   <h2 style="font-size:clamp(1.9rem,4vw,2.7rem);margin:8px 0 16px">${p.t}</h2>
+   <div class="who" style="display:flex;align-items:center;gap:12px;margin-bottom:24px">
+     <div class="avatar">${p.autor.split(' ').map(w=>w[0]).slice(0,2).join('')}</div>
+     <div><b>${p.autor}</b><small style="color:var(--ink-3)">${p.cargo}</small></div></div>
+   <div class="portrait" style="aspect-ratio:16/7;background:linear-gradient(160deg,#CFDBC4,#A2B694);margin-bottom:24px">${leafDeco()}</div>
+   <div class="prose" style="max-width:none">${p.corpo.map(x=>'<p style="font-size:1.08rem">'+x+'</p>').join('')}</div></div>`;}
+
+/* ---- CARTOGRAFIA landing + app ---- */
 function renderCarto(){
   const el=document.getElementById('carto-root');
-  if(STATE.logged){el.innerHTML=cartoLogged();initPlayers();return;}
+  if(STATE.logged){el.innerHTML=cartoApp();initPlayers();return;}
   el.innerHTML=`
-    <div class="carto-hero"><div class="stars"></div>
-      <span class="eyebrow">Autoconhecimento</span>
-      <h2>A sua Cartografia</h2>
-      <p>Um acompanhamento contínuo a partir da sua carta: leituras mensais, áudios e resumos das sessões — um mapa vivo do seu momento. A carta não prevê o futuro; ela ilumina o presente.</p>
-      <div class="steps">
-        <div class="step"><div class="n">01</div><h4>Sua carta</h4><p>Montamos a sua cartografia inicial em um encontro individual com a Camila.</p></div>
-        <div class="step"><div class="n">02</div><h4>Leituras mensais</h4><p>A cada mês, uma nova recomendação, áudio e tópicos para o seu momento.</p></div>
-        <div class="step"><div class="n">03</div><h4>Acesso vitalício</h4><p>Tudo fica guardado na sua área, com os resumos de cada sessão.</p></div>
-      </div>
-      <div class="cta-row" style="margin-top:26px">
-        <a class="btn gold" onclick="openContratar()">Contratar minha cartografia</a>
-        <a class="btn ghost" style="color:#fff;border-color:rgba(255,255,255,.4)" onclick="openLogin()">Já sou cliente — Entrar</a>
-      </div>
-    </div>
-    <div class="pad-s">
-      <div class="grid g3">
-        <div class="feat"><div class="ico">✦</div><div><h3>A carta</h3><p style="margin:0;color:var(--ink-soft)">Sua cartografia visual com explicação detalhada.</p></div></div>
-        <div class="feat"><div class="ico">🎧</div><div><h3>Áudios & resumos</h3><p style="margin:0;color:var(--ink-soft)">Cada sessão com áudio e resumo em texto.</p></div></div>
-        <div class="feat"><div class="ico">☾</div><div><h3>Recomendação mensal</h3><p style="margin:0;color:var(--ink-soft)">Um direcionamento novo a cada mês.</p></div></div>
-      </div>
-    </div>`;
+   <div class="split" style="align-items:center">
+     <div class="prose"><span class="eyebrow">Autoconhecimento</span>
+       <h2 style="font-size:2.5rem;margin:8px 0 14px">A sua Cartografia</h2>
+       <p class="lead">Um acompanhamento contínuo a partir da sua carta: leituras mensais, áudios e resumos das sessões — um mapa vivo do seu momento. A carta não prevê o futuro; ela ilumina o presente.</p>
+       <div class="cta-row"><a class="btn" onclick="openContratar()">Contratar minha cartografia</a>
+         <a class="btn ghost" onclick="openLogin()">Já sou cliente — Entrar</a></div>
+     </div>
+     <div class="cartimg" style="max-width:360px;margin-left:auto">${cartaSVG()}</div>
+   </div>
+   <div class="pad-s"><div class="grid g3">
+     <div class="feat"><div class="ico">${IC.star}</div><div><h3>A carta</h3><p>Sua cartografia visual com explicação detalhada dos três campos.</p></div></div>
+     <div class="feat"><div class="ico">${IC.headphones}</div><div><h3>Áudios & resumos</h3><p>Cada sessão com áudio e resumo em texto para revisitar quando quiser.</p></div></div>
+     <div class="feat"><div class="ico">${IC.moon}</div><div><h3>Recomendação mensal</h3><p>Um direcionamento novo a cada mês, no seu tempo.</p></div></div>
+   </div></div>
+   <div class="cta-strip"><h2>Como funciona o acesso</h2>
+     <p>Após a contratação, você recebe um login e senha para entrar na sua área privada — de onde acessa a carta, os áudios, os resumos e a comunidade.</p>
+     <a class="btn" onclick="openLogin()">Ver a área do cliente (demo)</a></div>`;
 }
-function cartoLogged(){
-  return `
-  <div class="authbar">
-    <div class="av">ML</div>
-    <div><b>Olá, Marina</b><br><small>Sua cartografia · membro desde jul/2026</small></div>
-    <button class="btn sm" style="background:var(--gold);color:var(--indigo)" onclick="logout()">Sair</button>
-  </div>
-  <div class="carto-layout">
-    <div>
-      <div class="cartimg">${cartaSVG()}</div>
-      <div class="reco" style="margin-top:16px">
-        <span class="eyebrow">Recomendação de setembro</span>
-        <p style="font-family:var(--serif);font-style:italic;font-size:1.15rem;margin:8px 0 4px">“Este é um mês para desacelerar antes de decidir. Observe onde a pressa está falando mais alto que o desejo.”</p>
-        <p style="margin:0;color:var(--ink-soft);font-size:.92rem">— Camila Brusch</p>
-      </div>
-    </div>
-    <div>
-      <span class="eyebrow">Sua carta</span>
-      <h2 style="font-size:1.9rem;margin:4px 0 10px">O Mapa da Reconstrução</h2>
-      <p style="color:var(--ink-soft)">Sua cartografia revela um momento de transição: estruturas antigas dando lugar a algo mais autêntico. Há força na sua capacidade de recomeçar, mas também um convite a não fazer isso sozinha.</p>
-      <div class="topics">${TOPICOS.map(t=>'<span>'+t+'</span>').join('')}</div>
-      <div class="subtabs">
-        <button class="active" onclick="subtab(0,this)">Sessões & áudios</button>
-        <button onclick="subtab(1,this)">Explicação da carta</button>
-        <button onclick="subtab(2,this)">Comunidade</button>
-      </div>
-      <div class="subpane on" id="sp0">${SESSOES.map(sessionHTML).join('')}</div>
-      <div class="subpane" id="sp1">
-        <div class="prose">
-          <h3 style="color:var(--indigo)">O que a sua carta mostra</h3>
-          <p>A carta é dividida em três campos: <b>raízes</b> (de onde você vem), <b>centro</b> (o seu momento presente) e <b>horizonte</b> (para onde o movimento aponta).</p>
-          <p>No seu centro, destaca-se o tema da reconstrução — a coragem de desmontar o que já não serve. Nas raízes, aparecem vínculos familiares fortes que ora sustentam, ora prendem. No horizonte, uma abertura para relações mais horizontais e verdadeiras.</p>
-          <p>A cada mês, revisitamos um desses campos com uma nova leitura e recomendação.</p>
+function cartoApp(){
+  return `<div class="app">
+    <aside class="side">
+      <div class="who"><div class="av">ML</div><div><b>Marina Lopes</b><small>Membro desde jul/2026</small></div></div>
+      <nav id="cnav">
+        <button class="active" data-p="0" onclick="apane(0,this)">${IC.star}<span>Minha carta</span></button>
+        <button data-p="1" onclick="apane(1,this)">${IC.headphones}<span>Sessões & áudios</span></button>
+        <button data-p="2" onclick="apane(2,this)">${IC.moon}<span>Recomendação</span></button>
+        <button data-p="3" onclick="apane(3,this)">${IC.chat}<span>Comunidade</span></button>
+      </nav>
+      <button class="side logout" style="background:none;border:none;cursor:pointer;text-align:left;padding:.6em .8em" onclick="logout()">↩ Sair da área</button>
+    </aside>
+    <div class="main">
+      <!-- pane 0: carta -->
+      <div class="apane on" id="ap0">
+        <p class="welcome">Bem-vinda de volta,</p>
+        <h2 style="font-size:1.7rem;margin-bottom:18px">Sua Cartografia</h2>
+        <div class="stat-row">
+          <div class="stat"><div class="n">3</div><div class="l">Sessões registradas</div></div>
+          <div class="stat"><div class="n">Set</div><div class="l">Recomendação atual</div></div>
+          <div class="stat"><div class="n">2</div><div class="l">Meses de jornada</div></div>
+        </div>
+        <div class="cart-top">
+          <div class="cartimg">${cartaSVG()}</div>
+          <div>
+            <span class="eyebrow">Sua carta</span>
+            <h3 style="font-size:1.5rem;margin:6px 0 10px">O Mapa da Reconstrução</h3>
+            <p style="color:var(--ink-2)">Sua cartografia revela um momento de transição: estruturas antigas dando lugar a algo mais autêntico. Há força na sua capacidade de recomeçar — e um convite a não fazer isso sozinha.</p>
+            <div class="topics">${TOPICOS.map(t=>'<span>'+t+'</span>').join('')}</div>
+            <details class="res" open><summary>Explicação completa da carta</summary>
+              <p>A carta se divide em três campos: <b>raízes</b> (de onde você vem), <b>centro</b> (o seu momento presente) e <b>horizonte</b> (para onde o movimento aponta).</p>
+              <p>No seu centro destaca-se o tema da reconstrução — a coragem de desmontar o que já não serve. Nas raízes, vínculos familiares fortes que ora sustentam, ora prendem. No horizonte, uma abertura para relações mais horizontais e verdadeiras.</p>
+            </details>
+          </div>
         </div>
       </div>
-      <div class="subpane" id="sp2">
-        <p style="color:var(--ink-soft)">Espaço reservado aos membros da cartografia.</p>
+      <!-- pane 1: sessões -->
+      <div class="apane" id="ap1">
+        <div class="aud-head"><div><span class="eyebrow">Encontros</span><h2 style="font-size:1.6rem">Sessões & áudios</h2></div>
+          <span style="color:var(--ink-3);font-size:.88rem">${SESSOES.length} sessões disponíveis</span></div>
+        ${SESSOES.map(sessionHTML).join('')}
+      </div>
+      <!-- pane 2: recomendação -->
+      <div class="apane" id="ap2">
+        <span class="eyebrow">Recomendação do mês</span>
+        <h2 style="font-size:1.6rem;margin:6px 0 4px">Setembro de 2026</h2>
+        <div class="reco"><span class="eyebrow">Para o seu momento</span>
+          <p class="q">“Este é um mês para desacelerar antes de decidir. Observe onde a pressa está falando mais alto que o desejo.”</p>
+          <small>— Camila Brusch</small></div>
+        <div class="player" style="margin-top:20px" data-dur="6:20">
+          <button class="play" onclick="togglePlay(99)" id="pb99">▶</button>
+          <div class="track"><div class="bar" onclick="seek(event,99)"><div class="fill" id="fill99"></div></div>
+            <div class="time"><span id="cur99">0:00</span> / 6:20 · Áudio da recomendação</div></div></div>
+        <details class="res" open style="margin-top:20px"><summary>Práticas sugeridas para setembro</summary>
+          <p>1. Antes de qualquer decisão importante, espere uma noite. 2. Anote três momentos do dia em que sentiu pressa — e o que estava por trás. 3. Reserve 10 minutos de silêncio pela manhã.</p></details>
+        <p style="color:var(--ink-3);font-size:.86rem;margin-top:18px">📅 Uma nova recomendação é liberada todo início de mês.</p>
+      </div>
+      <!-- pane 3: comunidade -->
+      <div class="apane" id="ap3">
+        <span class="eyebrow">Membros</span><h2 style="font-size:1.6rem;margin-bottom:16px">Comunidade da Cartografia</h2>
         ${THREADS.map(threadHTML).join('')}
+        <div class="session" style="display:flex;gap:12px;align-items:center">
+          <div class="avatar">ML</div>
+          <input placeholder="Compartilhe algo com o grupo..." style="flex:1;padding:.7em .9em;border:1.5px solid var(--line);border-radius:9px;background:var(--surface);color:var(--ink);font-family:var(--sans)">
+          <button class="btn sm" onclick="alert('Demonstração — publicação simulada.')">Publicar</button>
+        </div>
       </div>
     </div>
   </div>`;
 }
 function cartaSVG(){
-  return `<svg viewBox="0 0 400 400" aria-label="Cartografia">
-    <defs><radialGradient id="g" cx="50%" cy="45%"><stop offset="0%" stop-color="#3A4270"/><stop offset="100%" stop-color="#12142a"/></radialGradient></defs>
-    <rect width="400" height="400" fill="url(#g)"/>
-    ${[80,130,175].map(r=>`<circle cx="200" cy="185" r="${r}" fill="none" stroke="rgba(201,162,75,.35)" stroke-width="1"/>`).join('')}
-    ${Array.from({length:12}).map((_,i)=>{const a=i*30*Math.PI/180;return `<line x1="200" y1="185" x2="${200+175*Math.cos(a)}" y2="${185+175*Math.sin(a)}" stroke="rgba(255,255,255,.12)"/>`}).join('')}
-    ${[[200,105,'✦',18],[128,150,'☾',14],[268,150,'☉',15],[150,240,'✧',12],[255,235,'✦',13],[200,185,'❋',22]].map(p=>`<text x="${p[0]}" y="${p[1]}" fill="#E9D8A8" font-size="${p[3]}" text-anchor="middle" dominant-baseline="middle">${p[2]}</text>`).join('')}
-    ${Array.from({length:40}).map(()=>`<circle cx="${Math.random()*400}" cy="${Math.random()*400}" r="${Math.random()*1.3}" fill="#fff" opacity="${0.3+Math.random()*0.5}"/>`).join('')}
-    <text x="200" y="380" fill="rgba(255,255,255,.55)" font-size="12" text-anchor="middle" font-family="Fraunces,serif" font-style="italic">O Mapa da Reconstrução</text>
+  return `<svg viewBox="0 0 400 400" aria-label="Cartografia visual">
+    <defs><radialGradient id="cg" cx="50%" cy="45%"><stop offset="0%" stop-color="#46583f"/><stop offset="100%" stop-color="#1c231a"/></radialGradient></defs>
+    <rect width="400" height="400" fill="url(#cg)"/>
+    ${[70,118,164]. map(r=>`<circle cx="200" cy="188" r="${r}" fill="none" stroke="rgba(176,141,87,.45)" stroke-width="1"/>`).join('')}
+    ${Array.from({length:12}).map((_,i)=>{const a=i*30*Math.PI/180;return `<line x1="200" y1="188" x2="${200+164*Math.cos(a)}" y2="${188+164*Math.sin(a)}" stroke="rgba(255,255,255,.10)"/>`}).join('')}
+    <g fill="none" stroke="rgba(200,214,185,.5)" stroke-width="1.4">
+      <path d="M200 188 L128 150 M200 188 L268 150 M200 188 L150 250 M200 188 L255 245"/></g>
+    ${[[200,96,'✦',20],[126,150,'☾',15],[272,150,'☉',16],[150,255,'✧',13],[258,248,'✦',14],[200,188,'❋',24]].map(p=>`<text x="${p[0]}" y="${p[1]}" fill="#E4D2A6" font-size="${p[3]}" text-anchor="middle" dominant-baseline="middle">${p[2]}</text>`).join('')}
+    ${Array.from({length:44}).map(()=>`<circle cx="${(Math.random()*400).toFixed(0)}" cy="${(Math.random()*400).toFixed(0)}" r="${(Math.random()*1.3).toFixed(1)}" fill="#fff" opacity="${(0.25+Math.random()*0.5).toFixed(2)}"/>`).join('')}
+    <text x="200" y="384" fill="rgba(255,255,255,.6)" font-size="12" text-anchor="middle" font-family="Newsreader,serif" font-style="italic">O Mapa da Reconstrução</text>
   </svg>`;
 }
-function sessionHTML(s,i){
-  return `<div class="session">
-    <div class="meta">${s.data} · ${s.dur}</div>
-    <h4>${s.t}</h4>
-    <div class="player" data-dur="${s.dur}">
-      <button class="play" onclick="togglePlay(${i})" id="pb${i}">▶</button>
-      <div class="track"><div class="bar" onclick="seek(event,${i})"><div class="fill" id="fill${i}"></div></div>
-        <div class="time"><span id="cur${i}">0:00</span> / ${s.dur}</div></div>
-    </div>
-    <details class="res"><summary>Ler resumo da sessão</summary>
-      <p class="resumo" style="margin-top:10px">${s.resumo}</p></details>
-  </div>`;
-}
-function threadHTML(t){
-  return `<div class="thread">
-    <div class="top"><div class="avatar">${t.ini}</div><div><b>${t.n}</b><br><small>${t.time}</small></div></div>
-    <p style="margin:0">${t.txt}</p>
-    <div class="react"><span onclick="likeIt(this)">♡ ${t.likes}</span><span>💬 ${t.cm} comentários</span></div>
-  </div>`;
-}
-function subtab(i,btn){document.querySelectorAll('#v-cartografia .subtabs button').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');[0,1,2].forEach(k=>document.getElementById('sp'+k).classList.toggle('on',k===i));
-  if(i===0)initPlayers();}
-function likeIt(el){const n=parseInt(el.textContent.replace(/\D/g,''))+1;el.textContent='♥ '+n;el.style.color='var(--terra)';}
+function sessionHTML(s,i){return `<div class="session"><div class="meta">${s.data} · ${s.dur}</div><h4>${s.t}</h4>
+  <div class="player" data-dur="${s.dur}"><button class="play" onclick="togglePlay(${i})" id="pb${i}">▶</button>
+    <div class="track"><div class="bar" onclick="seek(event,${i})"><div class="fill" id="fill${i}"></div></div>
+      <div class="time"><span id="cur${i}">0:00</span> / ${s.dur}</div></div></div>
+  <details class="res"><summary>Ler resumo da sessão</summary><p>${s.resumo}</p></details></div>`;}
+function threadHTML(t){return `<div class="thread"><div class="top"><div class="avatar">${t.ini}</div>
+   <div><b>${t.n}</b><small>${t.time}</small></div></div><p style="margin:0">${t.txt}</p>
+   <div class="react"><span onclick="likeIt(this)">♡ ${t.likes}</span><span>💬 ${t.cm} comentários</span></div></div>`;}
+function apane(i,btn){document.querySelectorAll('#cnav button').forEach(b=>b.classList.remove('active'));btn.classList.add('active');
+  [0,1,2,3].forEach(k=>document.getElementById('ap'+k).classList.toggle('on',k===i));if(i===1)initPlayers();}
+function likeIt(el){const n=parseInt(el.textContent.replace(/\D/g,''))+1;el.textContent='♥ '+n;el.style.color='var(--green)';}
 
-/* ---------- AUDIO PLAYER (simulado) ---------- */
+/* ---- audio (simulado) ---- */
 const players={};
-function parseDur(d){const[m,s]=d.split(':').map(Number);return m*60+s;}
+function pd(d){const[m,s]=d.split(':').map(Number);return m*60+s;}
 function fmt(t){const m=Math.floor(t/60),s=Math.floor(t%60);return m+':'+String(s).padStart(2,'0');}
-function initPlayers(){SESSOES.forEach((s,i)=>{if(!players[i])players[i]={t:0,dur:parseDur(s.dur),playing:false,iv:null};});}
+function initPlayers(){SESSOES.forEach((s,i)=>{if(!players[i])players[i]={t:0,dur:pd(s.dur),playing:false,iv:null};});
+  if(!players[99])players[99]={t:0,dur:pd('6:20'),playing:false,iv:null};}
 function togglePlay(i){const p=players[i];if(!p)return;
-  if(p.playing){clearInterval(p.iv);p.playing=false;document.getElementById('pb'+i).textContent='▶';return;}
-  Object.keys(players).forEach(k=>{if(players[k].playing){clearInterval(players[k].iv);players[k].playing=false;const b=document.getElementById('pb'+k);if(b)b.textContent='▶';}});
-  p.playing=true;document.getElementById('pb'+i).textContent='❚❚';
-  p.iv=setInterval(()=>{p.t+=0.5;if(p.t>=p.dur){p.t=p.dur;clearInterval(p.iv);p.playing=false;const b=document.getElementById('pb'+i);if(b)b.textContent='▶';}
-    updateP(i);},250);}
-function updateP(i){const p=players[i];const f=document.getElementById('fill'+i),c=document.getElementById('cur'+i);
+  if(p.playing){clearInterval(p.iv);p.playing=false;setBtn(i,'▶');return;}
+  Object.keys(players).forEach(k=>{if(players[k].playing){clearInterval(players[k].iv);players[k].playing=false;setBtn(k,'▶');}});
+  p.playing=true;setBtn(i,'❚❚');
+  p.iv=setInterval(()=>{p.t+=0.5;if(p.t>=p.dur){p.t=p.dur;clearInterval(p.iv);p.playing=false;setBtn(i,'▶');}updP(i);},220);}
+function setBtn(i,x){const b=document.getElementById('pb'+i);if(b)b.textContent=x;}
+function updP(i){const p=players[i];const f=document.getElementById('fill'+i),c=document.getElementById('cur'+i);
   if(f)f.style.width=(p.t/p.dur*100)+'%';if(c)c.textContent=fmt(p.t);}
 function seek(e,i){const p=players[i];const r=e.currentTarget.getBoundingClientRect();
-  p.t=Math.max(0,Math.min(1,(e.clientX-r.left)/r.width))*p.dur;updateP(i);}
+  p.t=Math.max(0,Math.min(1,(e.clientX-r.left)/r.width))*p.dur;updP(i);}
 
-/* ---------- MODALS / FLOWS ---------- */
+/* ================= MODALS ================= */
 const STATE={logged:false};
-function openModal(html){document.getElementById('modalBox').innerHTML=
-  '<button class="x" onclick="closeModal()">×</button>'+html;
+function openModal(h){document.getElementById('modalBox').innerHTML='<button class="x" onclick="closeModal()">×</button>'+h;
   document.getElementById('modalBg').classList.add('on');}
 function closeModal(){document.getElementById('modalBg').classList.remove('on');}
 document.getElementById('modalBg').addEventListener('click',e=>{if(e.target.id==='modalBg')closeModal();});
-
-function openInscricao(id){
-  const e=EVENTOS.find(x=>x.id===id);const price=e.preco===0?'Gratuito':'R$ '+e.preco;
+function openInscricao(id){const e=EVENTOS.find(x=>x.id===id);const price=e.preco===0?'Gratuito':'R$ '+e.preco;
   openModal(`<span class="eyebrow">Inscrição</span><h3>${e.t}</h3>
-    <p style="color:var(--ink-soft);font-size:.92rem">🗓 ${e.data} · ${e.local}</p>
-    <label class="f">Nome completo</label><input value="Marina Lopes">
-    <label class="f">E-mail</label><input value="marina@exemplo.com">
-    <label class="f">Telefone / WhatsApp</label><input value="(63) 99999-0000">
-    <button class="btn" onclick="stepPagamento('${id}')">${e.preco?'Ir para pagamento':'Confirmar inscrição'}</button>
-    <p class="demo-note">Demonstração — nenhum dado é enviado.</p>`);
-}
-function stepPagamento(id){
-  const e=EVENTOS.find(x=>x.id===id);const price='R$ '+e.preco;
-  if(e.preco===0){return successInscricao(e);}
+   <p style="color:var(--ink-3);font-size:.9rem">${e.data} · ${e.local}</p>
+   <label class="f">Nome completo</label><input value="Marina Lopes">
+   <label class="f">E-mail</label><input value="marina@exemplo.com">
+   <label class="f">Telefone / WhatsApp</label><input value="(63) 99999-0000">
+   <button class="btn wide" style="margin-top:18px" onclick="stepPag('${id}')">${e.preco?'Ir para pagamento':'Confirmar inscrição'}</button>
+   <p class="demo-note">Demonstração — nenhum dado é enviado.</p>`);}
+function stepPag(id){const e=EVENTOS.find(x=>x.id===id);if(e.preco===0)return okInsc(e);const price='R$ '+e.preco;
   openModal(`<span class="eyebrow">Pagamento</span><h3>Finalizar inscrição</h3>
-    <div class="order"><div><span>${e.t}</span><b>${price}</b></div>
-      <div style="color:var(--ink-soft)"><span>Total</span><b>${price}</b></div></div>
-    <label class="f">Forma de pagamento</label>
-    <select><option>Cartão de crédito</option><option>Pix</option></select>
-    <label class="f">Número do cartão</label><input placeholder="•••• •••• •••• ••••" value="4111 1111 1111 1111">
-    <label class="f">Validade / CVV</label><input value="12/28 · 123">
-    <button class="btn" onclick='successInscricao(${JSON.stringify(e).replace(/'/g,"&#39;")})'>Pagar ${price}</button>
-    <p class="demo-note">Pagamento simulado — não há cobrança real.</p>`);
-}
-function successInscricao(e){
-  openModal(`<div class="success"><div class="check">✓</div>
-    <h3>Inscrição confirmada!</h3>
-    <p style="color:var(--ink-soft)">Enviamos a confirmação e as orientações para o seu e-mail.</p>
-    <div class="order"><div><span>Evento</span><b>${e.t}</b></div>
-      <div><span>Quando</span><span>${e.data}</span></div>
-      <div><span>Valor</span><b>${e.preco?'R$ '+e.preco:'Gratuito'}</b></div></div>
-    <button class="btn" onclick="closeModal()">Concluir</button></div>`);
-}
-function openContratar(){
-  openModal(`<span class="eyebrow">Cartografia</span><h3>Contratar minha cartografia</h3>
-    <div class="order"><div><span>Cartografia inicial + área de membro</span><b>R$ 390</b></div>
-      <div style="color:var(--ink-soft)"><span>Leituras mensais</span><span>R$ 90/mês</span></div></div>
-    <label class="f">Nome completo</label><input value="Marina Lopes">
-    <label class="f">E-mail</label><input value="marina@exemplo.com">
-    <p style="font-size:.85rem;color:var(--ink-soft);margin-top:10px">Após a contratação, você recebe seu login para acessar a área da cartografia.</p>
-    <button class="btn gold" onclick="successContratar()">Contratar · R$ 390</button>
-    <p class="demo-note">Demonstração — nenhuma cobrança real.</p>`);
-}
-function successContratar(){
-  openModal(`<div class="success"><div class="check">✓</div>
-    <h3>Cartografia contratada!</h3>
-    <p style="color:var(--ink-soft)">Criamos o seu acesso. Você já pode entrar na sua área.</p>
-    <div class="order"><div><span>Login</span><b>marina@exemplo.com</b></div>
-      <div><span>Senha</span><b>demo123</b></div></div>
-    <button class="btn gold" onclick="doLogin()">Entrar na minha cartografia</button></div>`);
-}
-function openLogin(){
-  openModal(`<span class="eyebrow">Área do cliente</span><h3>Entrar na sua cartografia</h3>
-    <label class="f">E-mail</label><input id="li-user" value="marina@exemplo.com">
-    <label class="f">Senha</label><input id="li-pass" type="password" value="demo123">
-    <button class="btn" onclick="doLogin()">Entrar</button>
-    <button class="btn ghost" style="width:100%;justify-content:center;margin-top:10px" onclick="doLogin()">⚡ Entrar como cliente demo (1 clique)</button>
-    <p class="demo-note">Demonstração — use o botão acima para acessar direto.</p>`);
-}
+   <div class="order"><div><span>${e.t}</span><b>${price}</b></div><div style="color:var(--ink-3)"><span>Total</span><b>${price}</b></div></div>
+   <label class="f">Forma de pagamento</label><select><option>Cartão de crédito</option><option>Pix</option></select>
+   <label class="f">Número do cartão</label><input value="4111 1111 1111 1111">
+   <label class="f">Validade / CVV</label><input value="12/28 · 123">
+   <button class="btn wide" style="margin-top:18px" onclick='okInsc(${JSON.stringify(e).replace(/'/g,"&#39;")})'>Pagar ${price}</button>
+   <p class="demo-note">Pagamento simulado — sem cobrança real.</p>`);}
+function okInsc(e){openModal(`<div class="success"><div class="check">✓</div><h3>Inscrição confirmada!</h3>
+   <p style="color:var(--ink-2)">Enviamos a confirmação e as orientações para o seu e-mail.</p>
+   <div class="order" style="text-align:left"><div><span>Evento</span><b>${e.t}</b></div>
+     <div><span>Quando</span><span>${e.data}</span></div>
+     <div><span>Valor</span><b>${e.preco?'R$ '+e.preco:'Gratuito'}</b></div></div>
+   <button class="btn wide" style="margin-top:18px" onclick="closeModal()">Concluir</button></div>`);}
+function openContratar(){openModal(`<span class="eyebrow">Cartografia</span><h3>Contratar minha cartografia</h3>
+   <div class="order"><div><span>Cartografia inicial + área de membro</span><b>R$ 390</b></div>
+     <div style="color:var(--ink-3)"><span>Leituras mensais</span><span>R$ 90/mês</span></div></div>
+   <label class="f">Nome completo</label><input value="Marina Lopes">
+   <label class="f">E-mail</label><input value="marina@exemplo.com">
+   <p style="font-size:.85rem;color:var(--ink-3);margin-top:10px">Após a contratação você recebe seu login para acessar a área da cartografia.</p>
+   <button class="btn wide" style="margin-top:16px" onclick="okContrat()">Contratar · R$ 390</button>
+   <p class="demo-note">Demonstração — sem cobrança real.</p>`);}
+function okContrat(){openModal(`<div class="success"><div class="check">✓</div><h3>Cartografia contratada!</h3>
+   <p style="color:var(--ink-2)">Criamos o seu acesso. Você já pode entrar na sua área.</p>
+   <div class="order" style="text-align:left"><div><span>Login</span><b>marina@exemplo.com</b></div><div><span>Senha</span><b>demo123</b></div></div>
+   <button class="btn wide" style="margin-top:18px" onclick="doLogin()">Entrar na minha cartografia</button></div>`);}
+function openLogin(){openModal(`<span class="eyebrow">Área do cliente</span><h3>Entrar na sua cartografia</h3>
+   <label class="f">E-mail</label><input value="marina@exemplo.com">
+   <label class="f">Senha</label><input type="password" value="demo123">
+   <button class="btn wide" style="margin-top:18px" onclick="doLogin()">Entrar</button>
+   <button class="btn ghost wide" style="margin-top:10px" onclick="doLogin()">⚡ Entrar como cliente demo (1 clique)</button>
+   <p class="demo-note">Use o botão acima para acessar direto na reunião.</p>`);}
 function doLogin(){STATE.logged=true;closeModal();go('cartografia');}
 function logout(){STATE.logged=false;go('cartografia');}
 
-/* ---------- THEME ---------- */
-function toggleTheme(){
-  const cur=document.documentElement.getAttribute('data-theme');
-  const dark=cur? cur==='dark' : matchMedia('(prefers-color-scheme:dark)').matches;
-  const next=dark?'light':'dark';
+/* ================= THEME ================= */
+function toggleTheme(){const cur=document.documentElement.getAttribute('data-theme');
+  const dark=cur?cur==='dark':matchMedia('(prefers-color-scheme:dark)').matches;const next=dark?'light':'dark';
   document.documentElement.setAttribute('data-theme',next);
   document.getElementById('themeBtn').textContent=next==='dark'?'☀':'☾';
-  try{localStorage.setItem('ib-theme',next)}catch(e){}
-}
+  try{localStorage.setItem('ib-theme',next)}catch(e){}}
 (function(){try{const t=localStorage.getItem('ib-theme');if(t){document.documentElement.setAttribute('data-theme',t);
   document.getElementById('themeBtn').textContent=t==='dark'?'☀':'☾';}}catch(e){}})();
 
-/* ---------- INIT ---------- */
-function bootHome(){
+/* ================= INIT ================= */
+function boot(){
+  document.getElementById('pillars').innerHTML=PILLARS.map(p=>`<div class="pillar"><div class="pic">${p.i}</div>
+    <h4>${p.t}</h4><p>${p.d}</p></div>`).join('');
   document.getElementById('home-events').innerHTML=EVENTOS.slice(0,3).map(evCard).join('');
-  document.getElementById('home-depo').innerHTML=DEPOS.slice(0,3).map(d=>`
-    <div class="quote"><p>“${d.txt}”</p><div class="who"><div class="avatar">${d.ini}</div><b>${d.n}</b></div></div>`).join('');
-  document.getElementById('depo-masonry').innerHTML=DEPOS.map(d=>`
-    <div class="quote"><p>“${d.txt}”</p><div class="who"><div class="avatar">${d.ini}</div><b>${d.n}</b></div></div>`).join('');
-  document.getElementById('groups').innerHTML=GROUPS.map(g=>`
-    <div class="group" style="margin-bottom:14px"><div class="gi">${g.i}</div>
-      <div style="flex:1"><b>${g.t}</b><br><small style="color:var(--ink-soft)">${g.d}</small></div>
-      <button class="btn sm ghost" onclick="openLogin()">Acessar</button></div>`).join('');
+  document.getElementById('home-depo').innerHTML=DEPOS.slice(0,3).map(depoCard).join('');
+  document.getElementById('depo-masonry').innerHTML=DEPOS.map(depoCard).join('');
+  document.getElementById('groups').innerHTML=GROUPS.map(g=>`<div class="group"><div class="gi">${g.i}</div>
+    <div style="flex:1"><b>${g.t}</b><br><small>${g.d}</small></div>
+    <button class="btn sm ghost" onclick="openLogin()">Acessar</button></div>`).join('');
   document.getElementById('threads').innerHTML=THREADS.map(threadHTML).join('');
 }
-bootHome();
+function depoCard(d){return `<div class="quote"><span class="mark">”</span><p>${d.txt}</p>
+  <div class="who"><div class="avatar">${d.ini}</div><div><b>${d.n}</b><small>${d.c}</small></div></div></div>`;}
+/* replace art placeholders (simple text tokens) */
+function injectArt(){
+  document.querySelectorAll('.hero-media').forEach(el=>{el.innerHTML=el.innerHTML.replace('__BOTAN__',botan());});
+  document.querySelectorAll('.portrait').forEach(el=>{el.innerHTML=el.innerHTML.replace('__PORTRAIT_SPACE__',botan()).replace('__PORTRAIT_FACE__',faceArt());});
+}
+boot();
+injectArt();
 routeFromHash();
 </script>
