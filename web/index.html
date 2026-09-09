@@ -86,12 +86,15 @@
 
   /* HERO */
   .hero{position:relative;overflow:hidden}
-  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center;padding:76px 0 70px}
-  .hero h1{font-size:clamp(2.5rem,5.2vw,4.1rem);letter-spacing:-.035em;line-height:1.04}
+  .hero-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:52px;align-items:center;padding:72px 0 96px}
+  .hero h1{font-size:clamp(2.5rem,5.2vw,4rem);letter-spacing:-.035em;line-height:1.06}
   .hero h1 .hl{color:var(--green-l)}
+  .hero h1 .serif-i{letter-spacing:0}
   .hero .lead{margin:22px 0 0}
   .cta-row{display:flex;gap:14px;flex-wrap:wrap;margin-top:30px}
-  .hero-media{position:relative;aspect-ratio:5/5.4;border-radius:14px;overflow:hidden;
+  .band.overlap{margin-top:-56px;position:relative;z-index:2}
+  @media(max-width:860px){.band.overlap{margin-top:0}}
+  .hero-media{position:relative;aspect-ratio:4/3.1;border-radius:16px;overflow:hidden;
     background:linear-gradient(165deg,#DFE6D5,#C4D0B4);box-shadow:var(--sh);border:1px solid var(--line)}
   .hero-media .botan{position:absolute;inset:0;width:100%;height:100%}
   .hero-media .cap{position:absolute;left:16px;bottom:14px;font-size:.74rem;color:#42513a;background:rgba(255,255,255,.72);
@@ -328,17 +331,17 @@
   <div class="hero"><div class="wrap hero-grid">
     <div>
       <span class="eyebrow">Palmas · Tocantins</span>
-      <h1 style="margin-top:14px">Cuidar de si<br>é o primeiro passo.<br><span class="hl">Compartilhar</span> é<br>o próximo.</h1>
-      <p class="lead">Psicoterapia sistêmica, grupos de autoconhecimento e cartografia — um espaço para acolher, compreender e transformar.</p>
+      <h1 style="margin-top:14px">Cuidar de vínculos<br>é <span class="hl serif-i">transformar</span><br>histórias.</h1>
+      <p class="lead">A terapia em grupo é um espaço de escuta, aprendizado e apoio para viver com mais leveza e propósito.</p>
       <div class="cta-row">
-        <a class="btn" onclick="go('eventos')">Conheça os encontros</a>
-        <a class="btn ghost" onclick="go('cartografia')">Área do Cliente</a>
+        <a class="btn" onclick="go('eventos')">Conheça os grupos</a>
+        <a class="btn ghost" onclick="openAgendar()">Agendar conversa</a>
       </div>
     </div>
-    <div class="hero-media">__BOTAN__<span class="cap">Espaço de acolhimento · foto ilustrativa</span></div>
+    <div class="hero-media">__GROUP__<span class="cap">Roda de terapia · foto ilustrativa</span></div>
   </div></div>
 
-  <div class="band"><div class="wrap band-grid" id="pillars"></div></div>
+  <div class="band overlap"><div class="wrap band-grid" id="pillars"></div></div>
 
   <div class="wrap pad">
     <div class="sec-head"><div><span class="eyebrow">Agenda</span><h2>Próximos encontros</h2></div>
@@ -502,7 +505,9 @@ const IC={
  chat:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H8l-5 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>',
  circle:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/></svg>',
  leaf:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20c0-8 6-14 16-14 0 10-6 16-14 16-1 0-2-1-2-2z"/><path d="M8 16C11 12 14 10 18 9"/></svg>',
- home:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/></svg>'
+ home:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/></svg>',
+ shield:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg>',
+ badge:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="5"/><path d="M9 13.5L8 21l4-2 4 2-1-7.5"/></svg>'
 };
 /* botanical eucalyptus branch for hero/photo zones */
 function botan(){
@@ -521,6 +526,31 @@ function botan(){
     </g>
   </svg>`;
 }
+/* group therapy circle scene */
+function groupScene(){
+  const tones=['#3f5a3e','#5e7a56','#6f6152','#8a7a5f','#4f6146','#7c9070'];
+  const figs=[[70,232,1.15],[135,250,1.25],[210,256,1.28],[285,250,1.22],[340,232,1.12],[248,214,1.02],[168,214,1.0]];
+  const seated=figs.map((f,i)=>{const[x,y,s]=f;const t=tones[i%tones.length];
+    return `<g transform="translate(${x},${y}) scale(${s})">
+      <ellipse cx="0" cy="34" rx="30" ry="12" fill="#00000018"/>
+      <rect x="-22" y="6" width="44" height="34" rx="14" fill="${t}"/>
+      <rect x="-17" y="-8" width="34" height="30" rx="15" fill="${t}"/>
+      <circle cx="0" cy="-18" r="12" fill="${t}"/>
+      <ellipse cx="0" cy="-20" rx="12" ry="8" fill="#00000022"/>
+    </g>`}).join('');
+  return `<svg class="botan" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <defs><linearGradient id="win" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#eef3ea"/><stop offset="55%" stop-color="#dbe6d6"/><stop offset="100%" stop-color="#c3d2ba"/></linearGradient></defs>
+    <rect width="400" height="300" fill="url(#win)"/>
+    <g opacity=".5" fill="none" stroke="#9fb394" stroke-width="2">
+      <rect x="24" y="24" width="150" height="120" rx="4"/><line x1="99" y1="24" x2="99" y2="144"/><line x1="24" y1="84" x2="174" y2="84"/></g>
+    <g opacity=".55" fill="#6f8560"><path d="M330 150c-10-26-4-52 12-70-2 24 4 44 16 60-10 8-22 12-28 10z"/>
+      <rect x="342" y="150" width="14" height="28" rx="3" fill="#7c6a52"/></g>
+    <ellipse cx="200" cy="238" rx="150" ry="42" fill="#00000010"/>
+    <ellipse cx="200" cy="232" rx="70" ry="20" fill="#b7a888" opacity=".55"/>
+    ${seated}
+  </svg>`;
+}
 function faceArt(){
   return `<svg class="botan" viewBox="0 0 320 400" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
     <rect width="320" height="400" fill="none"/>
@@ -533,10 +563,10 @@ function faceArt(){
 
 /* ================= DATA ================= */
 const PILLARS=[
- {i:IC.hands,t:'Acolhimento',d:'Um espaço seguro para ser ouvido e respeitado.'},
- {i:IC.eye,t:'Compreensão',d:'Encontre sentido nas suas experiências.'},
- {i:IC.people,t:'Apoio',d:'Compartilhe e receba apoio de quem entende.'},
- {i:IC.balance,t:'Equilíbrio',d:'Mais leveza, bem-estar e qualidade de vida.'},
+ {i:IC.shield,t:'Segurança e Confiança',d:'Ambiente estruturado, ético e confidencial.'},
+ {i:IC.badge,t:'Profissionais Qualificados',d:'Equipe interdisciplinar com ampla experiência.'},
+ {i:IC.people,t:'Grupos para Diferentes Necessidades',d:'Temas e formatos que atendem diversos objetivos.'},
+ {i:IC.balance,t:'Transformação que Gera Impacto',d:'Mais consciência, escolhas saudáveis e relações melhores.'},
 ];
 const EVENTOS=[
  {id:'circulo-out',t:'O Círculo · Turma de Outubro',tipo:'Presencial',data:'18 out 2026, 19h',local:'Sede do Instituto — Palmas/TO',preco:180,g:'a',vagas:'6 vagas',desc:'Um ciclo de quatro encontros de terapia em grupo aberta, mediados pela Camila. Turma reduzida para um espaço seguro de escuta e transformação.'},
@@ -817,6 +847,16 @@ function openLogin(){openModal(`<span class="eyebrow">Área do cliente</span><h3
    <button class="btn wide" style="margin-top:18px" onclick="doLogin()">Entrar</button>
    <button class="btn ghost wide" style="margin-top:10px" onclick="doLogin()">⚡ Entrar como cliente demo (1 clique)</button>
    <p class="demo-note">Use o botão acima para acessar direto na reunião.</p>`);}
+function openAgendar(){openModal(`<span class="eyebrow">Contato</span><h3>Agendar uma conversa</h3>
+   <p style="color:var(--ink-3);font-size:.9rem">Deixe seus dados e a equipe do instituto retorna para encontrar o melhor grupo ou atendimento para você.</p>
+   <label class="f">Nome completo</label><input value="">
+   <label class="f">Telefone / WhatsApp</label><input value="">
+   <label class="f">O que você procura?</label><select><option>Terapia em grupo (O Círculo)</option><option>Atendimento individual</option><option>Cartografia</option><option>Ainda não sei</option></select>
+   <button class="btn wide" style="margin-top:18px" onclick="okAgendar()">Enviar</button>
+   <p class="demo-note">Demonstração — nenhum dado é enviado.</p>`);}
+function okAgendar(){openModal(`<div class="success"><div class="check">✓</div><h3>Recebemos seu contato!</h3>
+   <p style="color:var(--ink-2)">A equipe do Instituto Brusch retornará em breve pelo WhatsApp.</p>
+   <button class="btn wide" style="margin-top:18px" onclick="closeModal()">Fechar</button></div>`);}
 function doLogin(){STATE.logged=true;closeModal();go('cartografia');}
 function logout(){STATE.logged=false;go('cartografia');}
 
@@ -845,7 +885,7 @@ function depoCard(d){return `<div class="quote"><span class="mark">”</span><p>
   <div class="who"><div class="avatar">${d.ini}</div><div><b>${d.n}</b><small>${d.c}</small></div></div></div>`;}
 /* replace art placeholders (simple text tokens) */
 function injectArt(){
-  document.querySelectorAll('.hero-media').forEach(el=>{el.innerHTML=el.innerHTML.replace('__BOTAN__',botan());});
+  document.querySelectorAll('.hero-media').forEach(el=>{el.innerHTML=el.innerHTML.replace('__GROUP__',groupScene());});
   document.querySelectorAll('.portrait').forEach(el=>{el.innerHTML=el.innerHTML.replace('__PORTRAIT_SPACE__',botan()).replace('__PORTRAIT_FACE__',faceArt());});
 }
 boot();
