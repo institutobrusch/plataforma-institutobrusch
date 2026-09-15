@@ -2,7 +2,8 @@ import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import CartaForm from "@/components/admin/CartaForm";
 import SessaoForm from "@/components/admin/SessaoForm";
-import { excluirSessao } from "./actions";
+import MaterialForm from "@/components/admin/MaterialForm";
+import { excluirSessao, excluirMaterial } from "./actions";
 
 export const metadata = { title: "Carta do cliente — Admin" };
 
@@ -17,6 +18,13 @@ export default async function CartaClienteAdmin({ params }: { params: Promise<{ 
     .select("id, titulo, resumo, data, duracao, ordem, audio_path")
     .eq("user_id", userId)
     .order("ordem", { ascending: false });
+
+  const { data: materiais } = await supabase
+    .from("carto_materials")
+    .select("id, titulo, tipo, session_id, url")
+    .eq("user_id", userId)
+    .order("created_at", { ascending: false });
+  const sessaoOpts = (sessoes ?? []).map((s) => ({ id: s.id, titulo: s.titulo }));
 
   return (
     <div className="max-w-3xl">
@@ -54,6 +62,33 @@ export default async function CartaClienteAdmin({ params }: { params: Promise<{ 
               </li>
             ))}
             {(sessoes ?? []).length === 0 && <li className="text-sm text-ink-2">Nenhuma sessão ainda.</li>}
+          </ul>
+        </section>
+        <section className="rounded-[10px] border border-line bg-surface p-6">
+          <h2 className="font-semibold text-ink">Materiais</h2>
+          <div className="mt-4 rounded-lg border border-dashed border-line p-4">
+            <p className="mb-3 text-sm font-medium text-ink-2">Novo material</p>
+            <MaterialForm userId={userId} sessoes={sessaoOpts} />
+          </div>
+          <ul className="mt-4 space-y-2">
+            {(materiais ?? []).map((m) => (
+              <li key={m.id} className="rounded-lg border border-line p-3">
+                <details>
+                  <summary className="flex cursor-pointer items-center justify-between text-sm text-ink">
+                    <span>{m.titulo} <span className="text-xs text-ink-2">· {m.tipo ?? "—"}{m.session_id ? " · sessão" : " · carta"}</span></span>
+                  </summary>
+                  <div className="mt-3">
+                    <MaterialForm userId={userId} sessoes={sessaoOpts} material={m} />
+                    <form action={excluirMaterial} className="mt-2">
+                      <input type="hidden" name="user_id" value={userId} />
+                      <input type="hidden" name="id" value={m.id} />
+                      <button type="submit" className="text-xs text-red-600 hover:underline">Excluir material</button>
+                    </form>
+                  </div>
+                </details>
+              </li>
+            ))}
+            {(materiais ?? []).length === 0 && <li className="text-sm text-ink-2">Nenhum material ainda.</li>}
           </ul>
         </section>
       </div>
