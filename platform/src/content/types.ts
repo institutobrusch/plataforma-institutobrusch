@@ -39,3 +39,20 @@ export interface FaqItem {
   pergunta: string;
   resposta: string;
 }
+
+export interface Ebook {
+  slug: string;
+  titulo: string;
+  descricao: string;
+  preco: number;
+  capaUrl?: string;
+}
+
+export interface Curso {
+  slug: string;
+  titulo: string;
+  descricao: string;
+  preco: number;
+  aulas: number;
+  capaUrl?: string;
+}

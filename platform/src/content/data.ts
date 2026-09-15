@@ -1,4 +1,4 @@
-import type { Evento, Post, Depoimento, Grupo, FaqItem } from "./types";
+import type { Evento, Post, Depoimento, Grupo, FaqItem, Ebook, Curso } from "./types";
 
 // Seed portado do protótipo aprovado (web/index.html).
 // Será migrado para o Supabase na Etapa 2 e editável no admin (Etapa 5).
@@ -138,4 +138,17 @@ export const FAQ: FaqItem[] = [
   { pergunta: "Os encontros online são ao vivo?", resposta: "Sim, os encontros online acontecem ao vivo pela plataforma, com grupo reduzido para preservar a intimidade da experiência." },
   { pergunta: "Como faço para me inscrever em um evento?", resposta: "Na página do evento, clique em “Inscrever-se” e siga o passo a passo. Você recebe a confirmação e as instruções de acesso pela plataforma." },
   { pergunta: "Por quanto tempo os áudios das sessões ficam disponíveis?", resposta: "Os áudios e resumos das suas sessões ficam disponíveis na sua área da plataforma para revisitar quando quiser, enquanto seu acesso estiver ativo." },
+];
+
+// Exemplos de catálogo (serão cadastrados/editados no admin — Etapa 5)
+export const EBOOKS: Ebook[] = [
+  { slug: "ego-e-sombra", titulo: "Ego e Sombra", descricao: "Um convite a reconhecer as partes de si que vivem na sombra — e o que elas têm a ensinar.", preco: 39 },
+  { slug: "dinamica-da-espiral", titulo: "A Dinâmica da Espiral", descricao: "Uma leitura sobre os ciclos do desenvolvimento humano e da consciência.", preco: 49 },
+  { slug: "chaves-do-sucesso", titulo: "As Chaves do Sucesso", descricao: "Princípios para alinhar autoconhecimento, propósito e realização.", preco: 45 },
+];
+
+export const CURSOS: Curso[] = [
+  { slug: "autoconhecimento-expansao", titulo: "Autoconhecimento e Expansão da Consciência", descricao: "Um percurso guiado para ampliar a forma como você se percebe e se relaciona com a própria história.", preco: 297, aulas: 8 },
+  { slug: "paradigma-sistemico", titulo: "Expansão da Consciência pelo Paradigma Sistêmico", descricao: "Entenda os padrões sistêmicos que atravessam família, história e contexto.", preco: 347, aulas: 10 },
+  { slug: "arquetipos", titulo: "Arquétipos", descricao: "Um mergulho nas imagens que habitam a psique e moldam nossas escolhas.", preco: 247, aulas: 6 },
 ];
