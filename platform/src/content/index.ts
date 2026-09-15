@@ -10,10 +10,4 @@ export const getFaq = () => FAQ;
 export const getEbooks = () => EBOOKS;
 export const getCursos = () => CURSOS;
 
-import { PENSAMENTOS, COMUNIDADE, CARTA, SESSOES } from "./platform";
-export const getPensamentos = () => PENSAMENTOS;
-export const getComunidade = () => COMUNIDADE;
-export const getCarta = () => CARTA;
-export const getSessoes = () => SESSOES;
-
 export * from "./types";

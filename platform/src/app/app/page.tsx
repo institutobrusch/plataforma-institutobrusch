@@ -1,8 +1,39 @@
-import AudioPlayerDemo from "@/components/AudioPlayerDemo";
-import { getPensamentos } from "@/content";
+import { createClient } from "@/lib/supabase/server";
 
-export default function PensamentoDiarioPage() {
-  const [hoje, ...anteriores] = getPensamentos();
+function fmtData(d: string | null) {
+  if (!d) return "";
+  try {
+    return new Date(d + "T00:00:00").toLocaleDateString("pt-BR", {
+      day: "2-digit",
+      month: "long",
+      year: "numeric",
+    });
+  } catch {
+    return d;
+  }
+}
+
+export default async function PensamentoDiarioPage() {
+  const supabase = await createClient();
+  const { data: pensamentos } = await supabase
+    .from("daily_thoughts")
+    .select("*")
+    .order("data", { ascending: false });
+
+  const lista = pensamentos ?? [];
+
+  // URLs assinadas dos áudios (bucket privado)
+  const audioUrls = new Map<string, string>();
+  for (const p of lista) {
+    if (p.audio_path) {
+      const { data } = await supabase.storage
+        .from("audios")
+        .createSignedUrl(p.audio_path, 3600);
+      if (data?.signedUrl) audioUrls.set(p.id, data.signedUrl);
+    }
+  }
+
+  const [hoje, ...anteriores] = lista;
 
   return (
     <div>
@@ -12,38 +43,44 @@ export default function PensamentoDiarioPage() {
         Um áudio curto que a Camila envia para a comunidade a cada dia.
       </p>
 
-      {/* Pensamento de hoje */}
-      <article className="mt-6 rounded-2xl border border-line bg-surface p-6 shadow-sm">
-        <span className="text-xs font-bold uppercase tracking-[0.2em] text-tan">
-          {hoje.data}
-        </span>
-        <h2 className="mt-2 text-xl text-ink">{hoje.titulo}</h2>
-        <div className="mt-4">
-          <AudioPlayerDemo duracao={hoje.duracao} />
+      {lista.length === 0 && (
+        <div className="mt-6 rounded-2xl border border-line bg-surface p-6 text-ink-2">
+          Ainda não há pensamentos publicados. Volte em breve. 🌱
         </div>
-        <p className="mt-4 text-ink-2">{hoje.texto}</p>
-      </article>
+      )}
 
-      {/* Anteriores */}
-      <h3 className="mb-3 mt-10 text-sm font-semibold uppercase tracking-widest text-ink-3">
-        Anteriores
-      </h3>
-      <div className="space-y-4">
-        {anteriores.map((p) => (
-          <article key={p.data} className="rounded-xl border border-line bg-surface p-5">
-            <div className="flex items-center justify-between gap-3">
-              <div>
-                <span className="text-xs text-ink-3">{p.data}</span>
+      {hoje && (
+        <article className="mt-6 rounded-2xl border border-line bg-surface p-6 shadow-sm">
+          <span className="text-xs font-bold uppercase tracking-[0.2em] text-tan">
+            Hoje · {fmtData(hoje.data)}
+          </span>
+          <h2 className="mt-2 text-xl text-ink">{hoje.titulo}</h2>
+          {audioUrls.has(hoje.id) && (
+            <audio controls preload="none" className="mt-4 w-full" src={audioUrls.get(hoje.id)} />
+          )}
+          {hoje.texto && <p className="mt-4 text-ink-2">{hoje.texto}</p>}
+        </article>
+      )}
+
+      {anteriores.length > 0 && (
+        <>
+          <h3 className="mb-3 mt-10 text-sm font-semibold uppercase tracking-widest text-ink-3">
+            Anteriores
+          </h3>
+          <div className="space-y-4">
+            {anteriores.map((p) => (
+              <article key={p.id} className="rounded-xl border border-line bg-surface p-5">
+                <span className="text-xs text-ink-3">{fmtData(p.data)}</span>
                 <h4 className="text-base font-semibold text-ink">{p.titulo}</h4>
-              </div>
-            </div>
-            <div className="mt-3">
-              <AudioPlayerDemo duracao={p.duracao} />
-            </div>
-            <p className="mt-3 text-sm text-ink-2">{p.texto}</p>
-          </article>
-        ))}
-      </div>
+                {audioUrls.has(p.id) && (
+                  <audio controls preload="none" className="mt-3 w-full" src={audioUrls.get(p.id)} />
+                )}
+                {p.texto && <p className="mt-3 text-sm text-ink-2">{p.texto}</p>}
+              </article>
+            ))}
+          </div>
+        </>
+      )}
     </div>
   );
 }
