@@ -62,3 +62,15 @@ a{color:inherit;text-decoration:none}
 
 /* Utilidade de rótulo (eyebrow) usada em várias seções */
 .eyebrow{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;font-weight:700;color:var(--tan)}
+
+/* Troca da logo conforme o tema (espelha a lógica dos tokens) */
+.logo-dark{display:none}
+.logo-light{display:block}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]) .logo-light{display:none}
+  :root:not([data-theme="light"]) .logo-dark{display:block}
+}
+:root[data-theme="dark"] .logo-light{display:none}
+:root[data-theme="dark"] .logo-dark{display:block}
+:root[data-theme="light"] .logo-light{display:block}
+:root[data-theme="light"] .logo-dark{display:none}
