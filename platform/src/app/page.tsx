@@ -134,26 +134,39 @@ export default function Home() {
         </div>
       </Section>
 
-      {/* CTA strip */}
-      <section className="bg-[color:var(--navy-d)]">
-        <div className="mx-auto max-w-[1160px] px-6 py-16 text-center">
-          <h2 className="text-3xl text-white">
-            A sua Cartografia começa com um encontro
-          </h2>
-          <p className="mx-auto mt-3 max-w-[52ch] text-[color:#C7CDD8]">
-            Um acompanhamento contínuo a partir da sua carta — leituras mensais,
-            áudios e materiais que caminham com você.
-          </p>
-          <div className="mt-7 flex justify-center">
-            <Button
-              href="/cartografia"
-              className="border-white bg-white !text-navy hover:!bg-tan-bg"
-            >
-              Conhecer a Cartografia
-            </Button>
+      {/* CTA */}
+      <Section className="py-20">
+        <div className="relative overflow-hidden rounded-[22px] bg-gradient-to-br from-[color:var(--navy-d)] to-[color:var(--navy)] px-6 py-16 text-center md:px-12">
+          <Image
+            src="/brand/logo-mark.png"
+            alt=""
+            aria-hidden
+            width={360}
+            height={360}
+            className="pointer-events-none absolute -bottom-16 -right-10 w-[280px] max-w-none opacity-[0.08]"
+          />
+          <div className="relative">
+            <span className="text-xs font-bold uppercase tracking-[0.2em] text-tan">
+              Cartografia
+            </span>
+            <h2 className="mx-auto mt-3 max-w-[20ch] text-3xl text-white">
+              A sua Cartografia começa com um encontro
+            </h2>
+            <p className="mx-auto mt-3 max-w-[52ch] text-[color:#C7CDD8]">
+              Um acompanhamento contínuo a partir da sua carta — leituras mensais,
+              áudios e materiais que caminham com você.
+            </p>
+            <div className="mt-7 flex justify-center">
+              <Button
+                href="/cartografia"
+                className="border-white bg-white !text-navy hover:!bg-tan-bg"
+              >
+                Conhecer a Cartografia
+              </Button>
+            </div>
           </div>
         </div>
-      </section>
+      </Section>
     </>
   );
 }
