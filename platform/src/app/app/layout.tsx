@@ -1,5 +1,6 @@
 import AppShell from "@/components/AppShell";
 import { requireUser, getProfile, getMeusProdutos } from "@/lib/auth";
+import { isAdminRole } from "@/lib/roles";
 
 export default async function AppLayout({ children }: { children: React.ReactNode }) {
   const user = await requireUser();
@@ -10,6 +11,7 @@ export default async function AppLayout({ children }: { children: React.ReactNod
       nome={profile?.nome ?? ""}
       email={user.email ?? ""}
       produtos={produtos}
+      isAdmin={isAdminRole(profile?.papel)}
     >
       {children}
     </AppShell>

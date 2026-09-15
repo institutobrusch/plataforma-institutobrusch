@@ -19,11 +19,13 @@ export default function AppShell({
   nome,
   email,
   produtos,
+  isAdmin = false,
   children,
 }: {
   nome: string;
   email: string;
   produtos: string[];
+  isAdmin?: boolean;
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
@@ -91,6 +93,15 @@ export default function AppShell({
             ))}
           </nav>
         </div>
+      )}
+
+      {isAdmin && (
+        <Link
+          href="/admin"
+          className="mt-6 flex items-center gap-2 rounded-lg border border-white/15 px-3 py-2 text-sm font-semibold text-tan transition hover:bg-white/5"
+        >
+          ⚙ Administração
+        </Link>
       )}
 
       <form action="/auth/signout" method="post" className="mt-auto">
