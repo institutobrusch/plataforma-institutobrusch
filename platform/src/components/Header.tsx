@@ -57,7 +57,7 @@ export default function Header() {
               key={item.href}
               href={item.href}
               onClick={() => setOpen(false)}
-              className={`rounded-lg px-3 py-2 text-sm transition hover:text-ink ${
+              className={`whitespace-nowrap rounded-lg px-2.5 py-2 text-sm transition hover:text-ink ${
                 isActive(item.href)
                   ? "font-semibold text-navy"
                   : "font-medium text-ink-2"

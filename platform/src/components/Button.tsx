@@ -4,7 +4,7 @@ import type { ReactNode } from "react";
 type Variant = "primary" | "ghost";
 
 const base =
-  "inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 font-semibold text-sm transition";
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full px-6 py-3 font-semibold text-sm transition";
 const styles: Record<Variant, string> = {
   primary: "bg-navy text-surface border border-navy hover:bg-navy-d hover:border-navy-d",
   ghost: "bg-transparent text-navy border border-navy hover:bg-tan-bg",
