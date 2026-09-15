@@ -14,6 +14,36 @@ export type Database = {
   }
   public: {
     Tables: {
+      audit_log: {
+        Row: {
+          acao: string
+          actor: string | null
+          created_at: string
+          detalhe: Json | null
+          entidade: string | null
+          entidade_id: string | null
+          id: string
+        }
+        Insert: {
+          acao: string
+          actor?: string | null
+          created_at?: string
+          detalhe?: Json | null
+          entidade?: string | null
+          entidade_id?: string | null
+          id?: string
+        }
+        Update: {
+          acao?: string
+          actor?: string | null
+          created_at?: string
+          detalhe?: Json | null
+          entidade?: string | null
+          entidade_id?: string | null
+          id?: string
+        }
+        Relationships: []
+      }
       blog_posts: {
         Row: {
           autor: string | null
@@ -391,6 +421,7 @@ export type Database = {
           data: string
           id: string
           publicado_por: string | null
+          status: string
           texto: string | null
           titulo: string
         }
@@ -400,6 +431,7 @@ export type Database = {
           data?: string
           id?: string
           publicado_por?: string | null
+          status?: string
           texto?: string | null
           titulo: string
         }
@@ -409,6 +441,7 @@ export type Database = {
           data?: string
           id?: string
           publicado_por?: string | null
+          status?: string
           texto?: string | null
           titulo?: string
         }
@@ -646,6 +679,50 @@ export type Database = {
         }
         Relationships: []
       }
+      sales: {
+        Row: {
+          created_at: string
+          criado_por: string | null
+          data: string
+          id: string
+          observacao: string | null
+          origem: string
+          product_id: string | null
+          user_id: string | null
+          valor: number
+        }
+        Insert: {
+          created_at?: string
+          criado_por?: string | null
+          data?: string
+          id?: string
+          observacao?: string | null
+          origem?: string
+          product_id?: string | null
+          user_id?: string | null
+          valor?: number
+        }
+        Update: {
+          created_at?: string
+          criado_por?: string | null
+          data?: string
+          id?: string
+          observacao?: string | null
+          origem?: string
+          product_id?: string | null
+          user_id?: string | null
+          valor?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "sales_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       suggestions: {
         Row: {
           created_at: string | null
@@ -673,27 +750,42 @@ export type Database = {
       testimonials: {
         Row: {
           contexto: string | null
+          enviado_por: string | null
           id: string
           iniciais: string | null
+          media_path: string | null
           nome: string | null
           ordem: number | null
+          status: string
           texto: string | null
+          tipo: string
+          video_url: string | null
         }
         Insert: {
           contexto?: string | null
+          enviado_por?: string | null
           id?: string
           iniciais?: string | null
+          media_path?: string | null
           nome?: string | null
           ordem?: number | null
+          status?: string
           texto?: string | null
+          tipo?: string
+          video_url?: string | null
         }
         Update: {
           contexto?: string | null
+          enviado_por?: string | null
           id?: string
           iniciais?: string | null
+          media_path?: string | null
           nome?: string | null
           ordem?: number | null
+          status?: string
           texto?: string | null
+          tipo?: string
+          video_url?: string | null
         }
         Relationships: []
       }
@@ -738,6 +830,7 @@ export type Database = {
     }
     Functions: {
       has_product: { Args: { p_slug: string }; Returns: boolean }
+      has_role: { Args: { p_role: string }; Returns: boolean }
       is_admin: { Args: never; Returns: boolean }
     }
     Enums: {
