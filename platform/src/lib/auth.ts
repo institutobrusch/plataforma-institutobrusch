@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
+import { podeAcessarAdmin } from "@/lib/roles";
 
 export async function getUser() {
   const supabase = await createClient();
@@ -38,5 +39,18 @@ export async function getMeusProdutos(): Promise<string[]> {
 export async function requireUser() {
   const user = await getUser();
   if (!user) redirect("/entrar");
+  return user;
+}
+
+export async function getMinhaRole(): Promise<string | null> {
+  const profile = await getProfile();
+  return profile?.papel ?? null;
+}
+
+export async function requireAdmin() {
+  const user = await getUser();
+  if (!user) redirect("/entrar");
+  const role = await getMinhaRole();
+  if (!podeAcessarAdmin(role)) redirect("/app");
   return user;
 }
