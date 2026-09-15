@@ -80,7 +80,7 @@ export default function Footer() {
           </a>
           <span className="text-[color:#AEB6C4]">Palmas · Tocantins</span>
           <Link
-            href="/contato"
+            href="/entrar"
             className="mt-3 inline-flex w-fit items-center rounded-full border border-white/40 px-4 py-2 text-sm font-semibold text-white transition hover:bg-white/10"
           >
             Acessar a plataforma

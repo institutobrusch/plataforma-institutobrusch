@@ -2,8 +2,6 @@ import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
 import ThemeScript from "@/components/ThemeScript";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -24,11 +22,9 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="pt-BR" className={`${poppins.variable} h-full`} suppressHydrationWarning>
-      <body className="flex min-h-full flex-col">
+      <body className="min-h-full">
         <ThemeScript />
-        <Header />
-        <main className="flex-1">{children}</main>
-        <Footer />
+        {children}
       </body>
     </html>
   );

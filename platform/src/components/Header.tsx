@@ -125,7 +125,7 @@ export default function Header() {
           ))}
 
           <div className="mt-2 md:mt-0 md:ml-2">
-            <Button href="/contato" className="w-full md:w-auto">
+            <Button href="/entrar" className="w-full md:w-auto">
               Acessar a plataforma
             </Button>
           </div>

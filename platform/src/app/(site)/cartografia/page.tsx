@@ -37,7 +37,7 @@ export default function CartografiaPage() {
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Button href="/contato">Contratar minha cartografia</Button>
-            <Button href="/contato" variant="ghost">
+            <Button href="/entrar" variant="ghost">
               Acessar a plataforma
             </Button>
           </div>

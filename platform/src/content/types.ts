@@ -56,3 +56,40 @@ export interface Curso {
   aulas: number;
   capaUrl?: string;
 }
+
+// ----- Plataforma (área logada, dados mock da demo) -----
+export interface PensamentoDiario {
+  data: string;
+  titulo: string;
+  duracao: string;
+  texto: string;
+}
+
+export interface ComunidadePostMock {
+  id: string;
+  autor: string;
+  iniciais: string;
+  tempo: string;
+  texto: string;
+  likes: number;
+  comentarios: number;
+}
+
+export interface MaterialMock {
+  titulo: string;
+  tipo: string;
+}
+
+export interface SessaoMock {
+  titulo: string;
+  data: string;
+  duracao: string;
+  resumo: string;
+  materiais: MaterialMock[];
+}
+
+export interface CartaMock {
+  titulo: string;
+  explicacao: string;
+  topicos: string[];
+}
