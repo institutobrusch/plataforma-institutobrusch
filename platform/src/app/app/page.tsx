@@ -15,9 +15,12 @@ function fmtData(d: string | null) {
 
 export default async function PensamentoDiarioPage() {
   const supabase = await createClient();
+  const hojeISO = new Date().toISOString().slice(0, 10);
   const { data: pensamentos } = await supabase
     .from("daily_thoughts")
     .select("*")
+    .eq("status", "publicado")
+    .lte("data", hojeISO)
     .order("data", { ascending: false });
 
   const lista = pensamentos ?? [];
