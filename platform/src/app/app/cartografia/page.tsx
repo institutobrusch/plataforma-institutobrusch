@@ -65,7 +65,7 @@ export default async function CartografiaAppPage() {
       id: m.id,
       titulo: m.titulo,
       tipo: m.tipo,
-      sessao: sessaoTitulo.get(m.session_id) ?? "",
+      sessao: m.session_id ? (sessaoTitulo.get(m.session_id) ?? "") : "",
       url,
     });
   }

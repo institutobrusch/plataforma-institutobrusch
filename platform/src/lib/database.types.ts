@@ -121,7 +121,7 @@ export type Database = {
           arquivo_path: string | null
           created_at: string
           id: string
-          session_id: string
+          session_id: string | null
           tipo: string | null
           titulo: string
           url: string | null
@@ -131,7 +131,7 @@ export type Database = {
           arquivo_path?: string | null
           created_at?: string
           id?: string
-          session_id: string
+          session_id?: string | null
           tipo?: string | null
           titulo: string
           url?: string | null
@@ -141,7 +141,7 @@ export type Database = {
           arquivo_path?: string | null
           created_at?: string
           id?: string
-          session_id?: string
+          session_id?: string | null
           tipo?: string | null
           titulo?: string
           url?: string | null
