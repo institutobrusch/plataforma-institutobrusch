@@ -46,6 +46,7 @@ export type Database = {
       }
       blog_posts: {
         Row: {
+          author_id: string | null
           autor: string | null
           cargo: string | null
           corpo: string[] | null
@@ -59,6 +60,7 @@ export type Database = {
           titulo: string
         }
         Insert: {
+          author_id?: string | null
           autor?: string | null
           cargo?: string | null
           corpo?: string[] | null
@@ -72,6 +74,7 @@ export type Database = {
           titulo: string
         }
         Update: {
+          author_id?: string | null
           autor?: string | null
           cargo?: string | null
           corpo?: string[] | null
@@ -84,7 +87,15 @@ export type Database = {
           slug?: string
           titulo?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "blog_posts_author_id_fkey"
+            columns: ["author_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       carto_cartas: {
         Row: {
