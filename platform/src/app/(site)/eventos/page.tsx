@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Eyebrow from "@/components/Eyebrow";
 import EventosFilter from "@/components/EventosFilter";
-import { getEventos } from "@/content";
+import { getEventosPublicos } from "@/lib/eventos";
 
 export const metadata: Metadata = {
   title: "Eventos & vivências",
@@ -9,8 +9,8 @@ export const metadata: Metadata = {
     "Encontros presenciais em Palmas e experiências online do Instituto Brusch. Inscreva-se pela plataforma.",
 };
 
-export default function EventosPage() {
-  const eventos = getEventos();
+export default async function EventosPage() {
+  const eventos = await getEventosPublicos();
   return (
     <div className="mx-auto max-w-[1160px] px-6 py-16">
       <Eyebrow>Agenda</Eyebrow>

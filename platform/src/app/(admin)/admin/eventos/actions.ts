@@ -56,6 +56,8 @@ export async function salvarEvento(_prev: EventoState, formData: FormData): Prom
     await registrarAcao("create_event", { entidade: "events", entidadeId: row.id });
   }
   revalidatePath("/admin/eventos");
+  revalidatePath("/eventos");
+  revalidatePath(`/eventos/${slug}`);
   return { ok: true };
 }
 
@@ -68,6 +70,7 @@ export async function alternarAtivoEvento(formData: FormData) {
   await supabase.from("events").update({ ativo: !ativo }).eq("id", id);
   await registrarAcao("toggle_event", { entidade: "events", entidadeId: id });
   revalidatePath("/admin/eventos");
+  revalidatePath("/eventos");
 }
 
 export async function excluirEvento(formData: FormData) {
@@ -80,4 +83,5 @@ export async function excluirEvento(formData: FormData) {
   await supabase.from("events").delete().eq("id", id);
   await registrarAcao("delete_event", { entidade: "events", entidadeId: id });
   revalidatePath("/admin/eventos");
+  revalidatePath("/eventos");
 }

@@ -3,17 +3,13 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import Pill from "@/components/Pill";
 import InscricaoButton from "@/components/InscricaoButton";
-import { getEvento, getEventos } from "@/content";
-
-export function generateStaticParams() {
-  return getEventos().map((e) => ({ slug: e.slug }));
-}
+import { getEventoPublico } from "@/lib/eventos";
 
 export async function generateMetadata({
   params,
 }: PageProps<"/eventos/[slug]">): Promise<Metadata> {
   const { slug } = await params;
-  const evento = getEvento(slug);
+  const evento = await getEventoPublico(slug);
   if (!evento) return { title: "Evento não encontrado" };
   return { title: evento.titulo, description: evento.descricao };
 }
@@ -22,7 +18,7 @@ export default async function EventoDetalhe({
   params,
 }: PageProps<"/eventos/[slug]">) {
   const { slug } = await params;
-  const evento = getEvento(slug);
+  const evento = await getEventoPublico(slug);
   if (!evento) notFound();
 
   const valor = evento.preco > 0 ? `R$ ${evento.preco}` : "Gratuito";
