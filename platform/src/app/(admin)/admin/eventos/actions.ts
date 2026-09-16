@@ -15,7 +15,10 @@ export async function salvarEvento(_prev: EventoState, formData: FormData): Prom
   const descricao = String(formData.get("descricao") ?? "").trim() || null;
   const data = String(formData.get("data") ?? "").trim() || null;
   const local = String(formData.get("local") ?? "").trim() || null;
-  const tipo = String(formData.get("tipo") ?? "").trim() || null;
+  // O banco exige tipo IN ('Presencial','Online') (events_tipo_check). Normaliza
+  // para não violar o CHECK caso o cliente envie em outra caixa.
+  const tipoRaw = String(formData.get("tipo") ?? "").trim().toLowerCase();
+  const tipo = tipoRaw === "online" ? "Online" : "Presencial";
   const preco = Number(formData.get("preco") ?? 0) || 0;
   const vagas = String(formData.get("vagas") ?? "").trim() || null;
   const ativo = formData.get("ativo") === "on";
@@ -39,11 +42,17 @@ export async function salvarEvento(_prev: EventoState, formData: FormData): Prom
     const patch: typeof base & { poster_path?: string } = { ...base };
     if (poster_path) patch.poster_path = poster_path;
     const { error } = await supabase.from("events").update(patch).eq("id", id);
-    if (error) return { erro: error.code === "23505" ? "Já existe um evento com esse slug." : "Não foi possível salvar." };
+    if (error) {
+      console.error("[eventos] update falhou:", error.code, error.message, error.details, error.hint);
+      return { erro: error.code === "23505" ? "Já existe um evento com esse slug." : "Não foi possível salvar." };
+    }
     await registrarAcao("update_event", { entidade: "events", entidadeId: id });
   } else {
     const { data: row, error } = await supabase.from("events").insert({ ...base, poster_path: poster_path ?? null }).select("id").single();
-    if (error) return { erro: error.code === "23505" ? "Já existe um evento com esse slug." : "Não foi possível criar." };
+    if (error) {
+      console.error("[eventos] insert falhou:", error.code, error.message, error.details, error.hint);
+      return { erro: error.code === "23505" ? "Já existe um evento com esse slug." : "Não foi possível criar." };
+    }
     await registrarAcao("create_event", { entidade: "events", entidadeId: row.id });
   }
   revalidatePath("/admin/eventos");

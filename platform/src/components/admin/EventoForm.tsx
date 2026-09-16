@@ -14,9 +14,9 @@ export default function EventoForm({ evento }: { evento?: Evento }) {
       <textarea name="descricao" defaultValue={evento?.descricao ?? ""} rows={3} placeholder="Descrição" className="rounded-lg border border-line bg-bg px-3 py-2 text-sm text-ink" />
       <div className="flex flex-wrap gap-2">
         <input name="data" type="date" defaultValue={evento?.data ?? ""} className="rounded-lg border border-line bg-bg px-3 py-2 text-sm text-ink" />
-        <select name="tipo" defaultValue={evento?.tipo ?? "presencial"} className="rounded-lg border border-line bg-bg px-3 py-2 text-sm text-ink">
-          <option value="presencial">Presencial</option>
-          <option value="online">Online</option>
+        <select name="tipo" defaultValue={evento?.tipo ?? "Presencial"} className="rounded-lg border border-line bg-bg px-3 py-2 text-sm text-ink">
+          <option value="Presencial">Presencial</option>
+          <option value="Online">Online</option>
         </select>
         <input name="preco" type="number" step="0.01" defaultValue={evento?.preco ?? 0} placeholder="Preço" className="w-28 rounded-lg border border-line bg-bg px-3 py-2 text-sm text-ink" />
       </div>
