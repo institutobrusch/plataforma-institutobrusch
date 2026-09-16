@@ -58,6 +58,7 @@ export async function salvarEvento(_prev: EventoState, formData: FormData): Prom
   revalidatePath("/admin/eventos");
   revalidatePath("/eventos");
   revalidatePath(`/eventos/${slug}`);
+  revalidatePath("/");
   return { ok: true };
 }
 
@@ -71,6 +72,7 @@ export async function alternarAtivoEvento(formData: FormData) {
   await registrarAcao("toggle_event", { entidade: "events", entidadeId: id });
   revalidatePath("/admin/eventos");
   revalidatePath("/eventos");
+  revalidatePath("/");
 }
 
 export async function excluirEvento(formData: FormData) {
@@ -84,4 +86,5 @@ export async function excluirEvento(formData: FormData) {
   await registrarAcao("delete_event", { entidade: "events", entidadeId: id });
   revalidatePath("/admin/eventos");
   revalidatePath("/eventos");
+  revalidatePath("/");
 }

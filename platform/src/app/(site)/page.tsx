@@ -5,10 +5,10 @@ import Eyebrow from "@/components/Eyebrow";
 import Button from "@/components/Button";
 import EventCard from "@/components/EventCard";
 import TestimonialCard, { type DepoimentoView } from "@/components/TestimonialCard";
-import { getEventos } from "@/content";
 import { createClient } from "@/lib/supabase/server";
 import { youtubeId } from "@/lib/youtube";
 import { getConteudo } from "@/lib/site/content";
+import { getEventosPublicos } from "@/lib/eventos";
 
 export async function generateMetadata() {
   const home = await getConteudo("home");
@@ -17,7 +17,7 @@ export async function generateMetadata() {
 
 export default async function Home() {
   const home = await getConteudo("home");
-  const eventos = getEventos().slice(0, 3);
+  const eventos = (await getEventosPublicos()).slice(0, 3);
   const supabase = await createClient();
   const { data: depoRows } = await supabase
     .from("testimonials")

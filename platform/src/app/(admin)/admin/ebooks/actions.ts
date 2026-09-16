@@ -52,6 +52,7 @@ export async function salvarEbook(_prev: EbookState, formData: FormData): Promis
     await registrarAcao("create_ebook", { entidade: "ebooks", entidadeId: row.id });
   }
   revalidatePath("/admin/ebooks");
+  revalidatePath("/ebooks");
   return { ok: true };
 }
 
@@ -64,6 +65,7 @@ export async function alternarAtivoEbook(formData: FormData) {
   await supabase.from("ebooks").update({ ativo: !ativo }).eq("id", id);
   await registrarAcao("toggle_ebook", { entidade: "ebooks", entidadeId: id });
   revalidatePath("/admin/ebooks");
+  revalidatePath("/ebooks");
 }
 
 export async function excluirEbook(formData: FormData) {
@@ -77,4 +79,5 @@ export async function excluirEbook(formData: FormData) {
   await supabase.from("ebooks").delete().eq("id", id);
   await registrarAcao("delete_ebook", { entidade: "ebooks", entidadeId: id });
   revalidatePath("/admin/ebooks");
+  revalidatePath("/ebooks");
 }
