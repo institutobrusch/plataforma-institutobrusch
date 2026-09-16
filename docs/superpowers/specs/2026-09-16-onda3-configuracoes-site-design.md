@@ -92,8 +92,11 @@ Cada seção é um objeto tipado. Campos de imagem guardam o **path** no bucket
   `heroTituloFim`, `heroSubtitulo`, `ctaPrimarioLabel`, `ctaPrimarioHref`,
   `ctaSecundarioLabel`, `ctaSecundarioHref`, `blocos` (array de 4:
   `{titulo, texto}`), `seoTitle`, `seoDescription`.
-- **instituto**: `eyebrow`, `titulo`, `subtitulo`, `secoes` (array de
-  `{titulo, paragrafos: string[]}`), `seoTitle`, `seoDescription`.
+- **instituto**: `fotoPath`, `eyebrow`, `titulo`, `subtitulo`,
+  `frentesTitulo` (rótulo do bloco lateral, ex.: "Nossas frentes"),
+  `frentes` (array de `{destaque, texto}` → renderiza `<b>{destaque}</b> — {texto}`),
+  `secoes` (array de `{titulo, paragrafos: string[]}`), `cta` (`{label, href}`),
+  `seoTitle`, `seoDescription`.
 - **camila**: `fotoPath`, `eyebrow`, `nome`, `resumo`,
   `formacao` (string[]), `secoes` (array de `{titulo, paragrafos: string[]}`),
   `ctas` (array de `{label, href, variant}`), `seoTitle`, `seoDescription`.
