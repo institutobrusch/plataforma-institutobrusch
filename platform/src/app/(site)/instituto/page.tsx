@@ -1,21 +1,21 @@
-import type { Metadata } from "next";
 import Image from "next/image";
 import Eyebrow from "@/components/Eyebrow";
 import Button from "@/components/Button";
+import { getConteudo, imagemUrl } from "@/lib/site/content";
 
-export const metadata: Metadata = {
-  title: "O Instituto",
-  description:
-    "O Instituto Brusch — centro integrado de saúde mental e autoconhecimento em Palmas (TO), onde a psicoterapia encontra a expansão de consciência.",
-};
+export async function generateMetadata() {
+  const c = await getConteudo("instituto");
+  return { title: c.seoTitle, description: c.seoDescription };
+}
 
-export default function InstitutoPage() {
+export default async function InstitutoPage() {
+  const c = await getConteudo("instituto");
   return (
     <div className="mx-auto grid max-w-[1160px] gap-12 px-6 py-16 md:grid-cols-[0.82fr_1.18fr]">
       <aside className="md:sticky md:top-24 md:self-start">
         <div className="relative mb-6 aspect-[4/5] overflow-hidden rounded-[10px] bg-tan-bg shadow-sm">
           <Image
-            src="/fotos/camila-2.jpg"
+            src={imagemUrl(c.fotoPath, "/fotos/camila-2.jpg")}
             alt="Instituto Brusch"
             fill
             sizes="(max-width: 768px) 100vw, 40vw"
@@ -23,39 +23,37 @@ export default function InstitutoPage() {
           />
         </div>
         <div className="rounded-[10px] border border-line bg-surface p-6">
-          <Eyebrow>Nossas frentes</Eyebrow>
+          <Eyebrow>{c.frentesTitulo}</Eyebrow>
           <ul className="mt-3 space-y-2 text-sm text-ink-2">
-            <li><b className="text-ink">O Círculo</b> — terapia em grupo aberta, em ciclos.</li>
-            <li><b className="text-ink">Clínico &amp; sistêmico</b> — psicoterapia individual e familiar.</li>
-            <li><b className="text-ink">Cartografia</b> — autoconhecimento com acompanhamento mensal.</li>
+            {c.frentes.map((f) => (
+              <li key={f.destaque}>
+                <b className="text-ink">{f.destaque}</b> — {f.texto}
+              </li>
+            ))}
           </ul>
         </div>
       </aside>
 
       <article className="max-w-[66ch]">
-        <Eyebrow>Sobre</Eyebrow>
-        <h1 className="mt-2 text-4xl text-ink">O Instituto Brusch</h1>
-        <p className="mt-4 text-lg text-ink-2">
-          Um centro integrado de saúde mental e autoconhecimento em Palmas (TO),
-          onde a psicoterapia encontra a expansão de consciência.
-        </p>
+        <Eyebrow>{c.eyebrow}</Eyebrow>
+        <h1 className="mt-2 text-4xl text-ink">{c.titulo}</h1>
+        <p className="mt-4 text-lg text-ink-2">{c.subtitulo}</p>
 
-        <h2 className="mt-10 text-xl text-navy">Pensamento sistêmico</h2>
-        <p className="mt-2 text-ink-2">
-          Olhamos para a pessoa dentro das suas relações — família, história e
-          contexto. Muitos padrões que repetimos não nasceram em nós; reconhecê-los
-          é o primeiro passo para reorganizá-los.
-        </p>
-
-        <h2 className="mt-8 text-xl text-navy">Expansão de consciência</h2>
-        <p className="mt-2 text-ink-2">
-          Autoconhecimento não é um destino, é um caminho. Unimos escuta clínica a
-          práticas de presença para ampliar a forma como cada pessoa se percebe e
-          se relaciona com a própria história.
-        </p>
+        {c.secoes.map((s) => (
+          <div key={s.titulo}>
+            <h2 className="mt-10 text-xl text-navy">{s.titulo}</h2>
+            {s.paragrafos.map((p, i) => (
+              <p key={i} className="mt-2 text-ink-2">
+                {p}
+              </p>
+            ))}
+          </div>
+        ))}
 
         <div className="mt-10">
-          <Button href="/eventos">Ver encontros</Button>
+          <Button href={c.cta.href} variant={c.cta.variant === "ghost" ? "ghost" : "primary"}>
+            {c.cta.label}
+          </Button>
         </div>
       </article>
     </div>

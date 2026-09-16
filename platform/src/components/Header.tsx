@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import ThemeToggle from "./ThemeToggle";
 import Button from "./Button";
+import type { MarcaContent } from "@/lib/site/types";
 
 const NAV_ANTES = [
   { href: "/", label: "Início" },
@@ -24,7 +25,15 @@ const NAV_DEPOIS = [
   { href: "/faq", label: "FAQ" },
 ];
 
-export default function Header() {
+export default function Header({
+  marca,
+  logoGoldUrl,
+  logoNavyUrl,
+}: {
+  marca: MarcaContent;
+  logoGoldUrl: string;
+  logoNavyUrl: string;
+}) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [prodOpen, setProdOpen] = useState(false);
@@ -60,8 +69,8 @@ export default function Header() {
     <header className="sticky top-0 z-40 border-b border-line bg-bg/90 backdrop-blur">
       <div className="mx-auto flex h-[68px] max-w-[1160px] items-center gap-4 px-6">
         <Link href="/" className="flex items-center" aria-label="Instituto Brusch — início">
-          <Image src="/brand/logo-navy.png" alt="Instituto Brusch" width={150} height={42} className="logo-light h-[38px] w-auto" priority />
-          <Image src="/brand/logo-gold.png" alt="Instituto Brusch" width={150} height={42} className="logo-dark h-[38px] w-auto" priority />
+          <Image src={logoNavyUrl} alt="Instituto Brusch" width={150} height={42} className="logo-light h-[38px] w-auto" priority />
+          <Image src={logoGoldUrl} alt="Instituto Brusch" width={150} height={42} className="logo-dark h-[38px] w-auto" priority />
         </Link>
 
         <nav

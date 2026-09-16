@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import type { MarcaContent } from "@/lib/site/types";
 
 const INSTITUCIONAL = [
   { href: "/instituto", label: "O Instituto" },
@@ -38,22 +39,27 @@ function FooterCol({
   );
 }
 
-export default function Footer() {
+export default function Footer({
+  marca,
+  logoGoldUrl,
+}: {
+  marca: MarcaContent;
+  logoGoldUrl: string;
+}) {
   return (
     <footer className="mt-auto border-t-2 border-[color:var(--tan)] bg-[color:var(--navy-d)] text-[color:#DCE1EA]">
       <div className="mx-auto grid max-w-[1160px] gap-10 px-6 py-14 md:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1.1fr]">
         {/* Marca */}
         <div className="max-w-[34ch]">
           <Image
-            src="/brand/logo-gold.png"
+            src={logoGoldUrl}
             alt="Instituto Brusch"
             width={180}
             height={51}
             className="h-11 w-auto"
           />
           <p className="mt-4 text-sm leading-relaxed text-[color:#AEB6C4]">
-            Psicologia, terapia sistêmica e autoconhecimento em Palmas (TO).
-            Psicoterapia, O Círculo e Cartografia.
+            {marca.rodapeTagline}
           </p>
         </div>
 
@@ -66,7 +72,7 @@ export default function Footer() {
             Contato
           </span>
           <a
-            href="https://instagram.com/institutobrusch"
+            href={marca.instagramUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 text-[color:#C7CDD8] transition hover:text-white"
@@ -76,9 +82,9 @@ export default function Footer() {
               <circle cx="12" cy="12" r="4" />
               <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
             </svg>
-            @institutobrusch
+            {marca.instagramHandle}
           </a>
-          <span className="text-[color:#AEB6C4]">Palmas · Tocantins</span>
+          <span className="text-[color:#AEB6C4]">{marca.cidadeUf}</span>
           <Link
             href="/entrar"
             className="mt-3 inline-flex w-fit items-center rounded-full border border-white/40 px-4 py-2 text-sm font-semibold text-white transition hover:bg-white/10"

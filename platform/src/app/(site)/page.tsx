@@ -8,15 +8,15 @@ import TestimonialCard, { type DepoimentoView } from "@/components/TestimonialCa
 import { getEventos } from "@/content";
 import { createClient } from "@/lib/supabase/server";
 import { youtubeId } from "@/lib/youtube";
+import { getConteudo } from "@/lib/site/content";
 
-const PILARES = [
-  { titulo: "Segurança e Confiança", texto: "Ambiente estruturado, ético e confidencial." },
-  { titulo: "Profissionais Qualificados", texto: "Equipe interdisciplinar com ampla experiência." },
-  { titulo: "Grupos para Diferentes Necessidades", texto: "Temas e formatos que atendem diversos objetivos." },
-  { titulo: "Transformação que Gera Impacto", texto: "Mais consciência, escolhas saudáveis e relações melhores." },
-];
+export async function generateMetadata() {
+  const home = await getConteudo("home");
+  return { title: home.seoTitle, description: home.seoDescription };
+}
 
 export default async function Home() {
+  const home = await getConteudo("home");
   const eventos = getEventos().slice(0, 3);
   const supabase = await createClient();
   const { data: depoRows } = await supabase
@@ -53,26 +53,26 @@ export default async function Home() {
         <div className="mx-auto flex min-h-[520px] max-w-[1160px] flex-col justify-center px-6 py-24">
           <div className="max-w-[620px]">
             <span className="text-xs font-bold uppercase tracking-[0.2em] text-tan">
-              Palmas · Tocantins
+              {home.eyebrow}
             </span>
             <h1 className="mt-4 text-4xl leading-tight text-white md:text-6xl">
-              Cuidar de vínculos é{" "}
-              <span className="italic text-tan">transformar</span> histórias.
+              {home.heroTitulo}{" "}
+              <span className="italic text-tan">{home.heroTituloEnfase}</span>{" "}
+              {home.heroTituloFim}
             </h1>
             <p className="mt-6 max-w-[52ch] text-lg text-[color:#C7CDD8]">
-              A terapia em grupo é um espaço de escuta, aprendizado e apoio para
-              viver com mais leveza e propósito.
+              {home.heroSubtitulo}
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <Button href="/eventos" className="border-white bg-white !text-navy hover:!bg-tan-bg hover:!text-navy">
-                Ver encontros
+              <Button href={home.ctaPrimarioHref} className="border-white bg-white !text-navy hover:!bg-tan-bg hover:!text-navy">
+                {home.ctaPrimarioLabel}
               </Button>
               <Button
-                href="/cartografia"
+                href={home.ctaSecundarioHref}
                 variant="ghost"
                 className="!border-white/70 !text-white hover:!bg-white/10"
               >
-                Conhecer a Cartografia
+                {home.ctaSecundarioLabel}
               </Button>
             </div>
           </div>
@@ -82,7 +82,7 @@ export default async function Home() {
       {/* Faixa de pilares */}
       <section className="bg-navy text-white">
         <div className="mx-auto grid max-w-[1160px] gap-8 px-6 py-14 sm:grid-cols-2 lg:grid-cols-4">
-          {PILARES.map((p) => (
+          {home.blocos.map((p) => (
             <div key={p.titulo}>
               <h3 className="text-base font-semibold text-white">{p.titulo}</h3>
               <p className="mt-2 text-sm text-[color:#C7CDD8]">{p.texto}</p>
