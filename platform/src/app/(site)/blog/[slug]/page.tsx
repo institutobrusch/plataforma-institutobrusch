@@ -1,24 +1,32 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { getPost, getPosts } from "@/content";
-
-export function generateStaticParams() {
-  return getPosts().map((p) => ({ slug: p.slug }));
-}
+import { createClient } from "@/lib/supabase/server";
 
 export async function generateMetadata({
   params,
 }: PageProps<"/blog/[slug]">): Promise<Metadata> {
   const { slug } = await params;
-  const post = getPost(slug);
+  const supabase = await createClient();
+  const { data: post } = await supabase
+    .from("blog_posts")
+    .select("*")
+    .eq("slug", slug)
+    .eq("publicado", true)
+    .maybeSingle();
   if (!post) return { title: "Artigo não encontrado" };
   return { title: post.titulo, description: post.resumo };
 }
 
 export default async function PostPage({ params }: PageProps<"/blog/[slug]">) {
   const { slug } = await params;
-  const post = getPost(slug);
+  const supabase = await createClient();
+  const { data: post } = await supabase
+    .from("blog_posts")
+    .select("*")
+    .eq("slug", slug)
+    .eq("publicado", true)
+    .maybeSingle();
   if (!post) notFound();
 
   return (
@@ -31,7 +39,7 @@ export default async function PostPage({ params }: PageProps<"/blog/[slug]">) {
       </div>
       <h1 className="mt-2 text-4xl text-ink">{post.titulo}</h1>
       <div className="mt-6 space-y-4 text-lg text-ink-2">
-        {post.corpo.map((par, i) => (
+        {(post.corpo ?? []).map((par, i) => (
           <p key={i}>{par}</p>
         ))}
       </div>
