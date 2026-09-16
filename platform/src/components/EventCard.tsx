@@ -10,6 +10,13 @@ export default function EventCard({ evento }: { evento: Evento }) {
       className="group flex flex-col overflow-hidden rounded-[10px] border border-line bg-surface shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
     >
       <div className="relative aspect-[16/10] bg-gradient-to-br from-navy to-navy-d">
+        {evento.posterUrl && (
+          <img
+            src={evento.posterUrl}
+            alt={evento.titulo}
+            className="absolute inset-0 h-full w-full object-cover"
+          />
+        )}
         <div className="absolute left-3 top-3">
           <Pill tipo={evento.tipo} />
         </div>

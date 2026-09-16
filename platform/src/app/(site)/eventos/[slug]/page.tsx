@@ -31,7 +31,14 @@ export default async function EventoDetalhe({
 
       <div className="mt-6 grid gap-10 md:grid-cols-[1.2fr_0.8fr]">
         <div>
-          <div className="relative flex aspect-[16/9] items-start rounded-[10px] bg-gradient-to-br from-navy to-navy-d p-4">
+          <div className="relative flex aspect-[16/9] items-start overflow-hidden rounded-[10px] bg-gradient-to-br from-navy to-navy-d p-4">
+            {evento.posterUrl && (
+              <img
+                src={evento.posterUrl}
+                alt={evento.titulo}
+                className="absolute inset-0 h-full w-full object-cover"
+              />
+            )}
             <Pill tipo={evento.tipo} />
           </div>
           <h1 className="mt-6 text-3xl text-ink">{evento.titulo}</h1>
