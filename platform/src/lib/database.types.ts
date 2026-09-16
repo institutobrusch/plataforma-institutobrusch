@@ -723,6 +723,24 @@ export type Database = {
           },
         ]
       }
+      site_content: {
+        Row: {
+          chave: string
+          updated_at: string
+          valor: Json
+        }
+        Insert: {
+          chave: string
+          updated_at?: string
+          valor?: Json
+        }
+        Update: {
+          chave?: string
+          updated_at?: string
+          valor?: Json
+        }
+        Relationships: []
+      }
       suggestions: {
         Row: {
           created_at: string | null
