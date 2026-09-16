@@ -11,6 +11,7 @@ const MENU = [
   { href: "/admin/produtos", label: "Produtos" },
   { href: "/admin/eventos", label: "Eventos" },
   { href: "/admin/ebooks", label: "E-books" },
+  { href: "/admin/cursos", label: "Cursos" },
   { href: "/admin/depoimentos", label: "Depoimentos" },
   { href: "/admin/acessos", label: "Acessos" },
   { href: "/admin/convites", label: "Convites" },
