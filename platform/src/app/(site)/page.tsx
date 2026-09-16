@@ -4,8 +4,10 @@ import Section from "@/components/Section";
 import Eyebrow from "@/components/Eyebrow";
 import Button from "@/components/Button";
 import EventCard from "@/components/EventCard";
-import TestimonialCard from "@/components/TestimonialCard";
-import { getEventos, getDepoimentos } from "@/content";
+import TestimonialCard, { type DepoimentoView } from "@/components/TestimonialCard";
+import { getEventos } from "@/content";
+import { createClient } from "@/lib/supabase/server";
+import { youtubeId } from "@/lib/youtube";
 
 const PILARES = [
   { titulo: "Segurança e Confiança", texto: "Ambiente estruturado, ético e confidencial." },
@@ -14,9 +16,28 @@ const PILARES = [
   { titulo: "Transformação que Gera Impacto", texto: "Mais consciência, escolhas saudáveis e relações melhores." },
 ];
 
-export default function Home() {
+export default async function Home() {
   const eventos = getEventos().slice(0, 3);
-  const depoimentos = getDepoimentos().slice(0, 3);
+  const supabase = await createClient();
+  const { data: depoRows } = await supabase
+    .from("testimonials")
+    .select("nome, iniciais, contexto, tipo, texto, media_path, video_url")
+    .eq("status", "aprovado")
+    .order("ordem", { ascending: true })
+    .limit(3);
+  const iniciaisDe = (n: string) => n.split(" ").map((p) => p[0]).slice(0, 2).join("").toUpperCase();
+  const depoimentos: DepoimentoView[] = (depoRows ?? []).map((d) => {
+    const nome = d.nome ?? "";
+    return {
+      tipo: d.tipo ?? "texto",
+      nome,
+      iniciais: d.iniciais || iniciaisDe(nome),
+      contexto: d.contexto ?? "",
+      texto: d.texto,
+      mediaUrl: d.media_path ? supabase.storage.from("capas").getPublicUrl(d.media_path).data.publicUrl : null,
+      youtubeId: youtubeId(d.video_url),
+    };
+  });
 
   return (
     <>
@@ -128,8 +149,8 @@ export default function Home() {
           <h2 className="mt-2 text-3xl text-ink">O que dizem quem passou por aqui</h2>
         </div>
         <div className="[column-gap:1.25rem] sm:columns-2 lg:columns-3">
-          {depoimentos.map((d) => (
-            <TestimonialCard key={d.nome} depoimento={d} />
+          {depoimentos.map((d, i) => (
+            <TestimonialCard key={i} depoimento={d} />
           ))}
         </div>
       </Section>
