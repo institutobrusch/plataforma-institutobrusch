@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 
 const MENU = [
   { href: "/admin", label: "Painel" },
+  { href: "/admin/site", label: "Site" },
   { href: "/admin/pensamento", label: "Pensamento diário" },
   { href: "/admin/moderacao", label: "Moderação" },
   { href: "/admin/cartografia", label: "Cartografia" },
