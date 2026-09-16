@@ -1,8 +1,8 @@
-import { requireAdmin, getProfile } from "@/lib/auth";
+import { requireBlogAutor, getProfile } from "@/lib/auth";
 import AdminShell from "@/components/admin/AdminShell";
 
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
-  await requireAdmin();
+  const { role } = await requireBlogAutor();
   const profile = await getProfile();
-  return <AdminShell nome={profile?.nome ?? "Admin"}>{children}</AdminShell>;
+  return <AdminShell nome={profile?.nome ?? "Admin"} papel={role}>{children}</AdminShell>;
 }

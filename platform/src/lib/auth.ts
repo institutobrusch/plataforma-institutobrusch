@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
-import { podeAcessarAdmin } from "@/lib/roles";
+import { podeAcessarAdmin, podeEditarBlog } from "@/lib/roles";
 
 export async function getUser() {
   const supabase = await createClient();
@@ -53,4 +53,12 @@ export async function requireAdmin() {
   const role = await getMinhaRole();
   if (!podeAcessarAdmin(role)) redirect("/app");
   return user;
+}
+
+export async function requireBlogAutor() {
+  const user = await getUser();
+  if (!user) redirect("/entrar");
+  const role = await getMinhaRole();
+  if (!podeEditarBlog(role)) redirect("/app");
+  return { user, role };
 }

@@ -14,6 +14,7 @@ const MENU = [
   { href: "/admin/ebooks", label: "E-books" },
   { href: "/admin/cursos", label: "Cursos" },
   { href: "/admin/depoimentos", label: "Depoimentos" },
+  { href: "/admin/blog", label: "Blog" },
   { href: "/admin/acessos", label: "Acessos" },
   { href: "/admin/convites", label: "Convites" },
   { href: "/admin/auditoria", label: "Auditoria" },
@@ -21,12 +22,15 @@ const MENU = [
 
 export default function AdminShell({
   nome,
+  papel,
   children,
 }: {
   nome: string;
+  papel: string | null;
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
+  const itens = papel === "admin" ? MENU : MENU.filter((m) => m.href === "/admin/blog");
   return (
     <div className="flex min-h-screen bg-bg">
       <aside className="flex w-60 flex-col border-r border-line bg-surface">
@@ -38,7 +42,7 @@ export default function AdminShell({
           <p className="mt-1 text-xs font-bold uppercase tracking-[0.16em] text-tan">Administração</p>
         </div>
         <nav className="flex flex-1 flex-col gap-1 p-3">
-          {MENU.map((item) => {
+          {itens.map((item) => {
             const ativo = item.href === "/admin" ? pathname === "/admin" : pathname.startsWith(item.href);
             return (
               <Link

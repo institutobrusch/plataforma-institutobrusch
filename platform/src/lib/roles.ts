@@ -4,7 +4,10 @@ export function isAdminRole(papel: string | null | undefined): boolean {
   return papel === "admin";
 }
 
-// Onda 1: só admin entra no /admin. Papéis parciais entram na Onda 5.
+export function podeEditarBlog(papel: string | null | undefined): boolean {
+  return papel === "admin" || papel === "colunista";
+}
+
 export function podeAcessarAdmin(papel: string | null | undefined): boolean {
-  return isAdminRole(papel);
+  return isAdminRole(papel) || papel === "colunista";
 }

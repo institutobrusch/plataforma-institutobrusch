@@ -1,9 +1,14 @@
+import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
+import { getMinhaRole } from "@/lib/auth";
 import StatCard from "@/components/admin/StatCard";
 
 export const metadata = { title: "Painel — Admin" };
 
 export default async function AdminHome() {
+  const role = await getMinhaRole();
+  if (role === "colunista") redirect("/admin/blog");
+
   const supabase = await createClient();
   const inicioMes = new Date();
   inicioMes.setDate(1);
