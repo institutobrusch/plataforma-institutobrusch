@@ -32,8 +32,13 @@ export default async function CartografiaAppPage() {
 
   const { data: cartas } = await supabase.from("carto_cartas").select("*").limit(1);
   const c = cartas?.[0] ?? null;
+  let cartaImagemUrl: string | undefined;
+  if (c?.imagem_path) {
+    const { data } = await supabase.storage.from("cartas").createSignedUrl(c.imagem_path, 3600);
+    cartaImagemUrl = data?.signedUrl;
+  }
   const carta = c
-    ? { titulo: c.titulo, explicacao: c.explicacao, topicos: c.topicos ?? [] }
+    ? { titulo: c.titulo, explicacao: c.explicacao, topicos: c.topicos ?? [], imagemUrl: cartaImagemUrl }
     : null;
 
   const { data: sessoesRaw } = await supabase

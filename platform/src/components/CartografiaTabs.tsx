@@ -3,7 +3,7 @@ import { useState } from "react";
 
 type Aba = "carta" | "sessoes" | "materiais";
 
-export type CartaView = { titulo: string; explicacao: string | null; topicos: string[] } | null;
+export type CartaView = { titulo: string; explicacao: string | null; topicos: string[]; imagemUrl?: string } | null;
 export type SessaoView = { id: string; titulo: string; data: string | null; resumo: string | null; audioUrl?: string };
 export type MaterialView = { id: string; titulo: string; tipo: string | null; sessao: string; url?: string };
 
@@ -50,8 +50,15 @@ export default function CartografiaTabs({
         {aba === "carta" &&
           (carta ? (
             <div className="grid gap-6 md:grid-cols-[300px_1fr]">
-              <div className="flex aspect-square items-end rounded-2xl bg-gradient-to-br from-navy to-navy-d p-5">
-                <span className="font-serif text-2xl italic text-white">{carta.titulo}</span>
+              <div className="relative flex aspect-square items-end overflow-hidden rounded-2xl bg-gradient-to-br from-navy to-navy-d p-5">
+                {carta.imagemUrl && (
+                  <img
+                    src={carta.imagemUrl}
+                    alt={carta.titulo}
+                    className="absolute inset-0 h-full w-full object-cover"
+                  />
+                )}
+                <span className="relative font-serif text-2xl italic text-white drop-shadow">{carta.titulo}</span>
               </div>
               <div>
                 <h2 className="text-lg font-semibold text-ink">{carta.titulo}</h2>
