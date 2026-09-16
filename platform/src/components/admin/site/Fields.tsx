@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 const INPUT = "w-full rounded-lg border border-line bg-bg px-3 py-2 text-sm text-ink";
 const LABEL = "block text-sm text-ink-2";
@@ -25,18 +25,87 @@ export function TextareaField({ name, label, defaultValue }: { name: string; lab
 }
 
 export function ImageField({ name, label, currentUrl }: { name: string; label: string; currentUrl?: string }) {
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [preview, setPreview] = useState<string | null>(null);
+  const [aviso, setAviso] = useState<string | null>(null);
+
+  async function aoSelecionar(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setAviso(null);
+    try {
+      const comprimida = await comprimirImagem(file, 1600, 0.82);
+      if (comprimida !== file && inputRef.current) {
+        // Substitui o arquivo do input pelo comprimido, mantendo o mesmo name.
+        const dt = new DataTransfer();
+        dt.items.add(comprimida);
+        inputRef.current.files = dt.files;
+      }
+      const usada = comprimida;
+      if (usada.size > 4_000_000) {
+        setAviso("Imagem ainda grande (>4MB). Use uma foto menor para conseguir salvar.");
+      }
+      setPreview(URL.createObjectURL(usada));
+    } catch {
+      // Se a compressão falhar, mantém o arquivo original selecionado.
+      setPreview(URL.createObjectURL(file));
+    }
+  }
+
   return (
     <label className={LABEL}>
       {label}
-      {currentUrl && (
+      {(preview || currentUrl) && (
         <>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={currentUrl} alt="" className="mt-2 h-24 w-auto rounded-lg border border-line object-cover" />
+          <img src={preview ?? currentUrl} alt="" className="mt-2 h-24 w-auto rounded-lg border border-line object-cover" />
         </>
       )}
-      <input type="file" name={name} accept="image/*" className="mt-2 block w-full text-sm text-ink" />
+      <input
+        ref={inputRef}
+        type="file"
+        name={name}
+        accept="image/*"
+        onChange={aoSelecionar}
+        className="mt-2 block w-full text-sm text-ink"
+      />
+      {aviso && <span className="mt-1 block text-xs text-red-600">{aviso}</span>}
     </label>
   );
+}
+
+// Redimensiona e recomprime uma imagem no navegador antes do upload, para caber
+// no limite de corpo da Server Action e deixar o site mais leve. Retorna o
+// próprio arquivo quando não dá para/não vale a pena processar (SVG, GIF, etc.).
+async function comprimirImagem(file: File, maxDim: number, qualidade: number): Promise<File> {
+  if (!file.type.startsWith("image/")) return file;
+  if (file.type === "image/svg+xml" || file.type === "image/gif") return file;
+  if (typeof document === "undefined" || typeof createImageBitmap === "undefined") return file;
+
+  const bitmap = await createImageBitmap(file);
+  const escala = Math.min(1, maxDim / Math.max(bitmap.width, bitmap.height));
+  const w = Math.round(bitmap.width * escala);
+  const h = Math.round(bitmap.height * escala);
+
+  const canvas = document.createElement("canvas");
+  canvas.width = w;
+  canvas.height = h;
+  const ctx = canvas.getContext("2d");
+  if (!ctx) { bitmap.close(); return file; }
+  ctx.drawImage(bitmap, 0, 0, w, h);
+  bitmap.close();
+
+  // PNG preserva transparência (logo); demais viram JPEG (fotos).
+  const png = file.type === "image/png";
+  const mime = png ? "image/png" : "image/jpeg";
+  const blob: Blob | null = await new Promise((resolve) =>
+    canvas.toBlob(resolve, mime, png ? undefined : qualidade),
+  );
+  if (!blob || blob.size >= file.size) return file; // não piorar
+
+  const ext = png ? "png" : "jpg";
+  const base = file.name.replace(/\.[^.]+$/, "");
+  return new File([blob], `${base}.${ext}`, { type: mime });
 }
 
 export function StringListField({ name, label, defaultValue }: { name: string; label: string; defaultValue?: string[] }) {
