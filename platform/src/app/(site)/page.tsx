@@ -43,12 +43,11 @@ export default async function Home() {
     <>
       {/* Hero full-bleed */}
       <section className="relative isolate overflow-hidden bg-gradient-to-br from-[color:var(--navy-d)] to-[color:var(--navy)]">
-        <Image
-          src="/brand/logo-mark.png"
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/brand/logo-mark.svg"
           alt=""
           aria-hidden
-          width={520}
-          height={520}
           className="pointer-events-none absolute -right-16 -top-10 w-[420px] max-w-none opacity-[0.07] md:opacity-10"
         />
         <div className="mx-auto flex min-h-[520px] max-w-[1160px] flex-col justify-center px-6 py-24">
@@ -158,12 +157,11 @@ export default async function Home() {
       {/* CTA */}
       <Section className="py-20">
         <div className="relative overflow-hidden rounded-[22px] bg-gradient-to-br from-[color:var(--navy-d)] to-[color:var(--navy)] px-6 py-16 text-center md:px-12">
-          <Image
-            src="/brand/logo-mark.png"
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/brand/logo-mark.svg"
             alt=""
             aria-hidden
-            width={360}
-            height={360}
             className="pointer-events-none absolute -bottom-16 -right-10 w-[280px] max-w-none opacity-[0.08]"
           />
           <div className="relative">

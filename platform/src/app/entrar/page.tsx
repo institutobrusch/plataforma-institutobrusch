@@ -13,12 +13,11 @@ export default async function EntrarPage({ searchParams }: PageProps<"/entrar">)
         <Link href="/" className="relative z-10 w-fit">
           <Image src="/brand/logo-gold.png" alt="Instituto Brusch" width={170} height={48} className="h-11 w-auto" />
         </Link>
-        <Image
-          src="/brand/logo-mark.png"
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/brand/logo-mark.svg"
           alt=""
           aria-hidden
-          width={520}
-          height={520}
           className="pointer-events-none absolute -bottom-20 -right-16 w-[440px] max-w-none opacity-[0.09]"
         />
         <div className="relative z-10">
