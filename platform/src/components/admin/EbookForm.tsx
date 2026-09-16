@@ -1,6 +1,7 @@
 "use client";
 import { useActionState } from "react";
 import { salvarEbook, type EbookState } from "@/app/(admin)/admin/ebooks/actions";
+import ImagemInput from "@/components/admin/ImagemInput";
 
 type Ebook = { id: string; titulo: string; slug: string; descricao: string | null; preco: number | null; ativo: boolean | null };
 
@@ -13,9 +14,7 @@ export default function EbookForm({ ebook }: { ebook?: Ebook }) {
       <input name="slug" defaultValue={ebook?.slug ?? ""} placeholder="slug (vazio = gerar do título)" className="rounded-lg border border-line bg-bg px-3 py-2 text-sm text-ink" />
       <textarea name="descricao" defaultValue={ebook?.descricao ?? ""} rows={3} placeholder="Descrição" className="rounded-lg border border-line bg-bg px-3 py-2 text-sm text-ink" />
       <input name="preco" type="number" step="0.01" defaultValue={ebook?.preco ?? 0} placeholder="Preço" className="w-32 rounded-lg border border-line bg-bg px-3 py-2 text-sm text-ink" />
-      <label className="text-sm text-ink-2">Capa {ebook ? "(enviar substitui)" : ""}
-        <input type="file" name="capa" accept="image/*" className="mt-1 block w-full text-sm text-ink" />
-      </label>
+      <ImagemInput name="capa" label={`Capa ${ebook ? "(enviar substitui)" : ""}`} />
       <label className="text-sm text-ink-2">Arquivo PDF {ebook ? "(enviar substitui)" : ""}
         <input type="file" name="arquivo" accept="application/pdf" className="mt-1 block w-full text-sm text-ink" />
       </label>

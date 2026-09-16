@@ -1,6 +1,7 @@
 "use client";
 import { useActionState } from "react";
 import { salvarCurso, type CursoState } from "@/app/(admin)/admin/cursos/actions";
+import ImagemInput from "@/components/admin/ImagemInput";
 
 type Curso = { id: string; titulo: string; slug: string; descricao: string | null; preco: number | null; ativo: boolean | null };
 
@@ -13,9 +14,7 @@ export default function CursoForm({ curso }: { curso?: Curso }) {
       <input name="slug" defaultValue={curso?.slug ?? ""} placeholder="slug (vazio = gerar do título)" className="rounded-lg border border-line bg-bg px-3 py-2 text-sm text-ink" />
       <textarea name="descricao" defaultValue={curso?.descricao ?? ""} rows={3} placeholder="Descrição" className="rounded-lg border border-line bg-bg px-3 py-2 text-sm text-ink" />
       <input name="preco" type="number" step="0.01" defaultValue={curso?.preco ?? 0} placeholder="Preço" className="w-32 rounded-lg border border-line bg-bg px-3 py-2 text-sm text-ink" />
-      <label className="text-sm text-ink-2">Capa {curso ? "(enviar substitui)" : ""}
-        <input type="file" name="capa" accept="image/*" className="mt-1 block w-full text-sm text-ink" />
-      </label>
+      <ImagemInput name="capa" label={`Capa ${curso ? "(enviar substitui)" : ""}`} />
       <label className="flex items-center gap-2 text-sm text-ink-2">
         <input type="checkbox" name="ativo" defaultChecked={curso ? !!curso.ativo : true} /> Ativo
       </label>

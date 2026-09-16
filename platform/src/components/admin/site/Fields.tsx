@@ -1,5 +1,6 @@
 "use client";
 import { useRef, useState } from "react";
+import { comprimirImagem } from "@/lib/imagem";
 
 const INPUT = "w-full rounded-lg border border-line bg-bg px-3 py-2 text-sm text-ink";
 const LABEL = "block text-sm text-ink-2";
@@ -34,14 +35,13 @@ export function ImageField({ name, label, currentUrl }: { name: string; label: s
     if (!file) return;
     setAviso(null);
     try {
-      const comprimida = await comprimirImagem(file, 1600, 0.82);
-      if (comprimida !== file && inputRef.current) {
+      const usada = await comprimirImagem(file, 1600, 0.82);
+      if (usada !== file && inputRef.current) {
         // Substitui o arquivo do input pelo comprimido, mantendo o mesmo name.
         const dt = new DataTransfer();
-        dt.items.add(comprimida);
+        dt.items.add(usada);
         inputRef.current.files = dt.files;
       }
-      const usada = comprimida;
       if (usada.size > 4_000_000) {
         setAviso("Imagem ainda grande (>4MB). Use uma foto menor para conseguir salvar.");
       }
@@ -72,40 +72,6 @@ export function ImageField({ name, label, currentUrl }: { name: string; label: s
       {aviso && <span className="mt-1 block text-xs text-red-600">{aviso}</span>}
     </label>
   );
-}
-
-// Redimensiona e recomprime uma imagem no navegador antes do upload, para caber
-// no limite de corpo da Server Action e deixar o site mais leve. Retorna o
-// próprio arquivo quando não dá para/não vale a pena processar (SVG, GIF, etc.).
-async function comprimirImagem(file: File, maxDim: number, qualidade: number): Promise<File> {
-  if (!file.type.startsWith("image/")) return file;
-  if (file.type === "image/svg+xml" || file.type === "image/gif") return file;
-  if (typeof document === "undefined" || typeof createImageBitmap === "undefined") return file;
-
-  const bitmap = await createImageBitmap(file);
-  const escala = Math.min(1, maxDim / Math.max(bitmap.width, bitmap.height));
-  const w = Math.round(bitmap.width * escala);
-  const h = Math.round(bitmap.height * escala);
-
-  const canvas = document.createElement("canvas");
-  canvas.width = w;
-  canvas.height = h;
-  const ctx = canvas.getContext("2d");
-  if (!ctx) { bitmap.close(); return file; }
-  ctx.drawImage(bitmap, 0, 0, w, h);
-  bitmap.close();
-
-  // PNG preserva transparência (logo); demais viram JPEG (fotos).
-  const png = file.type === "image/png";
-  const mime = png ? "image/png" : "image/jpeg";
-  const blob: Blob | null = await new Promise((resolve) =>
-    canvas.toBlob(resolve, mime, png ? undefined : qualidade),
-  );
-  if (!blob || blob.size >= file.size) return file; // não piorar
-
-  const ext = png ? "png" : "jpg";
-  const base = file.name.replace(/\.[^.]+$/, "");
-  return new File([blob], `${base}.${ext}`, { type: mime });
 }
 
 export function StringListField({ name, label, defaultValue }: { name: string; label: string; defaultValue?: string[] }) {

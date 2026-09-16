@@ -1,6 +1,7 @@
 "use client";
 import { useActionState } from "react";
 import { salvarDepoimento, type DepoimentoState } from "@/app/(admin)/admin/depoimentos/actions";
+import ImagemInput from "@/components/admin/ImagemInput";
 
 type Depo = { id: string; nome: string | null; iniciais: string | null; contexto: string | null; tipo: string; texto: string | null; video_url: string | null; ordem: number | null; status: string };
 
@@ -30,9 +31,7 @@ export default function DepoimentoForm({ depo }: { depo?: Depo }) {
       </div>
       <textarea name="texto" defaultValue={depo?.texto ?? ""} rows={3} placeholder="Texto do depoimento (ou legenda da mídia)" className="rounded-lg border border-line bg-bg px-3 py-2 text-sm text-ink" />
       <input name="video_url" defaultValue={depo?.video_url ?? ""} placeholder="URL do YouTube (para tipo vídeo)" className="rounded-lg border border-line bg-bg px-3 py-2 text-sm text-ink" />
-      <label className="text-sm text-ink-2">Mídia (imagem ou áudio) {depo ? "(enviar substitui)" : ""}
-        <input type="file" name="midia" accept="image/*,audio/*" className="mt-1 block w-full text-sm text-ink" />
-      </label>
+      <ImagemInput name="midia" label={`Mídia (imagem ou áudio) ${depo ? "(enviar substitui)" : ""}`} accept="image/*,audio/*" />
       {state?.erro && <p className="text-sm text-red-600">{state.erro}</p>}
       {state?.ok && <p className="text-sm text-green-700">Salvo!</p>}
       <button type="submit" disabled={pending} className="justify-self-start rounded-full bg-navy px-5 py-2 text-sm font-semibold text-surface transition hover:bg-navy-d disabled:opacity-60">

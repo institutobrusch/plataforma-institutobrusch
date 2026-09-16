@@ -1,6 +1,7 @@
 "use client";
 import { useActionState } from "react";
 import { salvarEvento, type EventoState } from "@/app/(admin)/admin/eventos/actions";
+import ImagemInput from "@/components/admin/ImagemInput";
 
 type Evento = { id: string; titulo: string; slug: string; descricao: string | null; data: string | null; local: string | null; tipo: string | null; preco: number | null; vagas: string | null; ativo: boolean | null };
 
@@ -24,9 +25,7 @@ export default function EventoForm({ evento }: { evento?: Evento }) {
         <input name="local" defaultValue={evento?.local ?? ""} placeholder="Local" className="flex-1 rounded-lg border border-line bg-bg px-3 py-2 text-sm text-ink" />
         <input name="vagas" defaultValue={evento?.vagas ?? ""} placeholder="Vagas (ex.: 20)" className="w-32 rounded-lg border border-line bg-bg px-3 py-2 text-sm text-ink" />
       </div>
-      <label className="text-sm text-ink-2">Capa/poster {evento ? "(enviar substitui a atual)" : ""}
-        <input type="file" name="poster" accept="image/*" className="mt-1 block w-full text-sm text-ink" />
-      </label>
+      <ImagemInput name="poster" label={`Capa/poster ${evento ? "(enviar substitui a atual)" : ""}`} />
       <label className="flex items-center gap-2 text-sm text-ink-2">
         <input type="checkbox" name="ativo" defaultChecked={evento ? !!evento.ativo : true} /> Ativo
       </label>

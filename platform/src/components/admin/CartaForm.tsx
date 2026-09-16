@@ -1,6 +1,7 @@
 "use client";
 import { useActionState } from "react";
 import { salvarCarta, type CartaState } from "@/app/(admin)/admin/cartografia/[userId]/actions";
+import ImagemInput from "@/components/admin/ImagemInput";
 
 export default function CartaForm({
   userId, titulo, explicacao, topicos,
@@ -16,9 +17,7 @@ export default function CartaForm({
         <label className="text-sm text-ink-2">Tópicos (um por linha)
           <textarea name="topicos" defaultValue={topicos.join("\n")} rows={5} className="mt-1 block w-full rounded-lg border border-line bg-bg px-3 py-2 text-sm text-ink" />
         </label>
-        <label className="text-sm text-ink-2">Imagem (opcional)
-          <input type="file" name="imagem" accept="image/*" className="mt-1 block w-full text-sm text-ink" />
-        </label>
+        <ImagemInput name="imagem" label="Imagem (opcional)" />
       </div>
       {state?.erro && <p className="mt-3 text-sm text-red-600">{state.erro}</p>}
       {state?.ok && <p className="mt-3 text-sm text-green-700">Carta salva!</p>}

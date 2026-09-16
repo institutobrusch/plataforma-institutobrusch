@@ -1,6 +1,7 @@
 "use client";
 import { useActionState } from "react";
 import { salvarPost, type PostState } from "@/app/(admin)/admin/blog/actions";
+import ImagemInput from "@/components/admin/ImagemInput";
 
 type PostInicial = {
   id?: string;
@@ -53,13 +54,7 @@ export default function PostForm({
       <label className="text-sm text-ink-2">Corpo (um parágrafo por linha)
         <textarea name="corpo" defaultValue={(inicial?.corpo ?? []).join("\n")} rows={6} placeholder="Um parágrafo por linha" className="mt-1 block w-full rounded-lg border border-line bg-bg px-3 py-2 text-sm text-ink" />
       </label>
-      <label className="text-sm text-ink-2">Capa {inicial ? "(enviar substitui)" : ""}
-        <input type="file" name="imagem" accept="image/*" className="mt-1 block w-full text-sm text-ink" />
-      </label>
-      {capaUrl && (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img src={capaUrl} alt="Capa atual" className="max-h-40 w-auto rounded-lg border border-line" />
-      )}
+      <ImagemInput name="imagem" label={`Capa ${inicial ? "(enviar substitui)" : ""}`} currentUrl={capaUrl} />
       <label className="flex items-center gap-2 text-sm text-ink">
         <input type="checkbox" name="publicado" defaultChecked={inicial?.publicado ?? false} />
         Publicado
