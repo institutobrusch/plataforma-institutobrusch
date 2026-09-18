@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import PostBox from "@/components/PostBox";
-import { curtir } from "./actions";
+import CommentBox from "@/components/CommentBox";
+import LikeButton from "@/components/LikeButton";
 
 function tempoRelativo(iso: string) {
   const diff = Date.now() - new Date(iso).getTime();
@@ -24,8 +25,29 @@ export default async function ComunidadeAppPage() {
 
   const lista = posts ?? [];
 
-  // Nomes dos autores (não há FK direta post→profiles, então buscamos à parte)
-  const autorIds = [...new Set(lista.map((p) => p.author_id))];
+  // Comentários visíveis (aprovados/próprios via RLS) das publicações listadas
+  const postIds = lista.map((p) => p.id);
+  const comentariosPorPost = new Map<string, { id: string; texto: string; author_id: string; created_at: string }[]>();
+  if (postIds.length) {
+    const { data: coments } = await supabase
+      .from("community_comments")
+      .select("id, post_id, texto, author_id, created_at")
+      .in("post_id", postIds)
+      .order("created_at", { ascending: true });
+    coments?.forEach((c) => {
+      const arr = comentariosPorPost.get(c.post_id) ?? [];
+      arr.push(c);
+      comentariosPorPost.set(c.post_id, arr);
+    });
+  }
+
+  // Nomes dos autores (posts e comentários) — não há FK direta para profiles
+  const autorIds = [
+    ...new Set([
+      ...lista.map((p) => p.author_id),
+      ...[...comentariosPorPost.values()].flat().map((c) => c.author_id),
+    ]),
+  ];
   const nomes = new Map<string, string>();
   if (autorIds.length) {
     const { data: perfis } = await supabase
@@ -84,20 +106,30 @@ export default async function ComunidadeAppPage() {
               </header>
               <p className="mt-3 text-ink">{p.texto}</p>
               <div className="mt-4 flex items-center gap-6 text-sm text-ink-3">
-                <form action={curtir}>
-                  <input type="hidden" name="postId" value={p.id} />
-                  <button
-                    type="submit"
-                    className={`inline-flex items-center gap-1.5 transition hover:text-navy ${
-                      curtido ? "font-semibold text-navy" : ""
-                    }`}
-                  >
-                    <span aria-hidden>{curtido ? "♥" : "♡"}</span> {likes}
-                  </button>
-                </form>
+                <LikeButton postId={p.id} likes={likes} curtido={curtido} />
                 <span className="inline-flex items-center gap-1.5">
                   <span aria-hidden>💬</span> {comentarios}
                 </span>
+              </div>
+
+              <div className="mt-4 border-t border-line pt-4">
+                <div className="space-y-3">
+                  {(comentariosPorPost.get(p.id) ?? []).map((c) => {
+                    const nomeC = nomes.get(c.author_id) ?? "Membro";
+                    return (
+                      <div key={c.id} className="flex gap-2.5">
+                        <span className="mt-0.5 grid h-7 w-7 shrink-0 place-items-center rounded-full bg-tan-bg text-xs font-semibold text-navy">
+                          {iniciais(nomeC)}
+                        </span>
+                        <div className="rounded-2xl bg-surface-2 px-3 py-2">
+                          <span className="text-xs font-semibold text-ink">{nomeC}</span>
+                          <p className="text-sm text-ink-2">{c.texto}</p>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+                {user && <CommentBox postId={p.id} />}
               </div>
             </article>
           );
