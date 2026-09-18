@@ -7,7 +7,7 @@ import EventCard from "@/components/EventCard";
 import TestimonialCard, { type DepoimentoView } from "@/components/TestimonialCard";
 import { createClient } from "@/lib/supabase/server";
 import { youtubeId } from "@/lib/youtube";
-import { getConteudo } from "@/lib/site/content";
+import { getConteudo, imagemUrl } from "@/lib/site/content";
 import { getEventosPublicos } from "@/lib/eventos";
 
 export async function generateMetadata() {
@@ -114,7 +114,7 @@ export default async function Home() {
         <div className="mx-auto grid max-w-[1160px] items-center gap-10 px-6 py-20 md:grid-cols-[0.85fr_1.15fr]">
           <div className="relative aspect-[4/5] overflow-hidden rounded-[10px] bg-tan-bg shadow-sm">
             <Image
-              src="/fotos/camila-3.jpg"
+              src={imagemUrl(home.sobreFotoPath, "/fotos/camila-3.jpg")}
               alt="Instituto Brusch — cuidado e presença"
               fill
               sizes="(max-width: 768px) 100vw, 40vw"
@@ -122,19 +122,13 @@ export default async function Home() {
             />
           </div>
           <div>
-            <Eyebrow>Sobre</Eyebrow>
-            <h2 className="mt-2 text-3xl text-ink">
-              Um cuidado com profundidade e método
-            </h2>
-            <p className="mt-4 max-w-[54ch] text-lg text-ink-2">
-              O Instituto Brusch une o rigor da psicologia clínica ao trabalho de
-              autoconhecimento em grupo — para quem quer romper padrões e viver com
-              mais presença.
-            </p>
+            <Eyebrow>{home.sobreEyebrow}</Eyebrow>
+            <h2 className="mt-2 text-3xl text-ink">{home.sobreTitulo}</h2>
+            <p className="mt-4 max-w-[54ch] text-lg text-ink-2">{home.sobreTexto}</p>
             <div className="mt-6 flex flex-wrap gap-3">
-              <Button href="/instituto">Conhecer o Instituto</Button>
-              <Button href="/camila" variant="ghost">
-                Sobre a Camila
+              <Button href={home.sobreCta1Href}>{home.sobreCta1Label}</Button>
+              <Button href={home.sobreCta2Href} variant="ghost">
+                {home.sobreCta2Label}
               </Button>
             </div>
           </div>
@@ -144,8 +138,8 @@ export default async function Home() {
       {/* Depoimentos */}
       <Section className="py-20">
         <div className="mb-8">
-          <Eyebrow>Histórias</Eyebrow>
-          <h2 className="mt-2 text-3xl text-ink">O que dizem quem passou por aqui</h2>
+          <Eyebrow>{home.depoEyebrow}</Eyebrow>
+          <h2 className="mt-2 text-3xl text-ink">{home.depoTitulo}</h2>
         </div>
         <div className="[column-gap:1.25rem] sm:columns-2 lg:columns-3">
           {depoimentos.map((d, i) => (
@@ -166,21 +160,20 @@ export default async function Home() {
           />
           <div className="relative">
             <span className="text-xs font-bold uppercase tracking-[0.2em] text-tan">
-              Cartografia
+              {home.ctaFinalEyebrow}
             </span>
             <h2 className="mx-auto mt-3 max-w-[20ch] text-3xl text-white">
-              A sua Cartografia começa com um encontro
+              {home.ctaFinalTitulo}
             </h2>
             <p className="mx-auto mt-3 max-w-[52ch] text-[color:#C7CDD8]">
-              Um acompanhamento contínuo a partir da sua carta — leituras mensais,
-              áudios e materiais que caminham com você.
+              {home.ctaFinalTexto}
             </p>
             <div className="mt-7 flex justify-center">
               <Button
-                href="/cartografia"
+                href={home.ctaFinalHref}
                 className="border-white bg-white !text-navy hover:!bg-tan-bg"
               >
-                Conhecer a Cartografia
+                {home.ctaFinalLabel}
               </Button>
             </div>
           </div>

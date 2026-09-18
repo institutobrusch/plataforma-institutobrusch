@@ -12,6 +12,14 @@ export interface HomeContent {
   eyebrow: string; heroTitulo: string; heroTituloEnfase: string; heroTituloFim: string;
   heroSubtitulo: string; ctaPrimarioLabel: string; ctaPrimarioHref: string;
   ctaSecundarioLabel: string; ctaSecundarioHref: string; blocos: Bloco[];
+  // Seção "Sobre"
+  sobreFotoPath: string; sobreEyebrow: string; sobreTitulo: string; sobreTexto: string;
+  sobreCta1Label: string; sobreCta1Href: string; sobreCta2Label: string; sobreCta2Href: string;
+  // Cabeçalho da seção de Depoimentos
+  depoEyebrow: string; depoTitulo: string;
+  // CTA final (Cartografia)
+  ctaFinalEyebrow: string; ctaFinalTitulo: string; ctaFinalTexto: string;
+  ctaFinalLabel: string; ctaFinalHref: string;
   seoTitle: string; seoDescription: string;
 }
 export interface InstitutoContent {

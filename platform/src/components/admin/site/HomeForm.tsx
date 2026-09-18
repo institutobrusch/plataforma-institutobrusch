@@ -2,12 +2,12 @@
 import { useActionState } from "react";
 import type { HomeContent } from "@/lib/site/types";
 import { salvarHome } from "@/app/(admin)/admin/site/home/actions";
-import { TextField, TextareaField, ListField } from "./Fields";
+import { TextField, TextareaField, ListField, ImageField } from "./Fields";
 
 const BTN = "rounded-full bg-navy px-4 py-2 text-sm font-semibold text-surface transition hover:bg-navy-d disabled:opacity-60";
 const SUB = "text-sm font-semibold text-ink";
 
-export default function HomeForm({ inicial }: { inicial: HomeContent }) {
+export default function HomeForm({ inicial, sobreFotoUrl }: { inicial: HomeContent; sobreFotoUrl?: string }) {
   const [state, formAction, pending] = useActionState(salvarHome, null);
 
   return (
@@ -40,6 +40,33 @@ export default function HomeForm({ inicial }: { inicial: HomeContent }) {
           ]}
           defaultValue={inicial.blocos}
         />
+      </section>
+
+      <section className="grid gap-5">
+        <h2 className={SUB}>Seção “Sobre”</h2>
+        <ImageField name="sobreFotoPath" label="Foto" currentUrl={sobreFotoUrl} />
+        <TextField name="sobreEyebrow" label="Eyebrow" defaultValue={inicial.sobreEyebrow} />
+        <TextField name="sobreTitulo" label="Título" defaultValue={inicial.sobreTitulo} />
+        <TextareaField name="sobreTexto" label="Texto" defaultValue={inicial.sobreTexto} />
+        <TextField name="sobreCta1Label" label="Botão 1 — texto" defaultValue={inicial.sobreCta1Label} />
+        <TextField name="sobreCta1Href" label="Botão 1 — link" defaultValue={inicial.sobreCta1Href} />
+        <TextField name="sobreCta2Label" label="Botão 2 — texto" defaultValue={inicial.sobreCta2Label} />
+        <TextField name="sobreCta2Href" label="Botão 2 — link" defaultValue={inicial.sobreCta2Href} />
+      </section>
+
+      <section className="grid gap-5">
+        <h2 className={SUB}>Seção “Depoimentos” (cabeçalho)</h2>
+        <TextField name="depoEyebrow" label="Eyebrow" defaultValue={inicial.depoEyebrow} />
+        <TextField name="depoTitulo" label="Título" defaultValue={inicial.depoTitulo} />
+      </section>
+
+      <section className="grid gap-5">
+        <h2 className={SUB}>Chamada final (Cartografia)</h2>
+        <TextField name="ctaFinalEyebrow" label="Eyebrow" defaultValue={inicial.ctaFinalEyebrow} />
+        <TextField name="ctaFinalTitulo" label="Título" defaultValue={inicial.ctaFinalTitulo} />
+        <TextareaField name="ctaFinalTexto" label="Texto" defaultValue={inicial.ctaFinalTexto} />
+        <TextField name="ctaFinalLabel" label="Botão — texto" defaultValue={inicial.ctaFinalLabel} />
+        <TextField name="ctaFinalHref" label="Botão — link" defaultValue={inicial.ctaFinalHref} />
       </section>
 
       <section className="grid gap-5">
