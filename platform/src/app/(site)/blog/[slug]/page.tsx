@@ -40,7 +40,7 @@ export default async function PostPage({ params }: PageProps<"/blog/[slug]">) {
       <h1 className="mt-2 text-4xl text-ink">{post.titulo}</h1>
       <div className="mt-6 space-y-4 text-lg text-ink-2">
         {(post.corpo ?? []).map((par, i) => (
-          <p key={i}>{par}</p>
+          <p key={i} className="whitespace-pre-line">{par}</p>
         ))}
       </div>
       <footer className="mt-10 border-t border-line pt-5 text-sm">

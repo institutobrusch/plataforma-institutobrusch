@@ -51,8 +51,8 @@ export default function PostForm({
           <input name="cargo" defaultValue={inicial?.cargo ?? cargoPadrao ?? ""} placeholder="Cargo" className="mt-1 block w-full rounded-lg border border-line bg-bg px-3 py-2 text-sm text-ink" />
         </label>
       </div>
-      <label className="text-sm text-ink-2">Corpo (um parágrafo por linha)
-        <textarea name="corpo" defaultValue={(inicial?.corpo ?? []).join("\n")} rows={6} placeholder="Um parágrafo por linha" className="mt-1 block w-full rounded-lg border border-line bg-bg px-3 py-2 text-sm text-ink" />
+      <label className="text-sm text-ink-2">Corpo (escreva normalmente; use uma linha em branco para separar parágrafos)
+        <textarea name="corpo" defaultValue={(inicial?.corpo ?? []).join("\n\n")} rows={10} placeholder="Escreva o texto do post. Deixe uma linha em branco entre os parágrafos; as quebras de linha são preservadas." className="mt-1 block w-full rounded-lg border border-line bg-bg px-3 py-2 text-sm text-ink" />
       </label>
       <ImagemInput name="imagem" label={`Capa ${inicial ? "(enviar substitui)" : ""}`} currentUrl={capaUrl} />
       <label className="flex items-center gap-2 text-sm text-ink">

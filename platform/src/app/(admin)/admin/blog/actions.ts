@@ -19,7 +19,13 @@ export async function salvarPost(_prev: PostState, fd: FormData): Promise<PostSt
   const autor = String(fd.get("autor") ?? "").trim() || null;
   const cargo = String(fd.get("cargo") ?? "").trim() || null;
   const publicado = fd.get("publicado") === "on" || fd.get("publicado") === "true";
-  const corpo = String(fd.get("corpo") ?? "").split("\n").map((s) => s.trim()).filter(Boolean);
+  // Preserva a formatacao do escritor: paragrafos separados por linha em branco;
+  // quebras de linha dentro de um paragrafo sao mantidas (render com pre-line).
+  const corpo = String(fd.get("corpo") ?? "")
+    .replace(/\r\n/g, "\n")
+    .split(/\n{2,}/)
+    .map((p) => p.replace(/\s+$/, "").replace(/^\n+/, ""))
+    .filter((p) => p.trim().length > 0);
   const supabase = await createClient();
 
   let imagem_path: string | undefined;
