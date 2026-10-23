@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import Pill from "@/components/Pill";
@@ -33,10 +34,12 @@ export default async function EventoDetalhe({
         <div>
           <div className="relative flex aspect-[16/9] items-start overflow-hidden rounded-[10px] bg-gradient-to-br from-navy to-navy-d p-4">
             {evento.posterUrl && (
-              <img
+              <Image
                 src={evento.posterUrl}
                 alt={evento.titulo}
-                className="absolute inset-0 h-full w-full object-cover"
+                fill
+                sizes="(max-width: 768px) 100vw, 60vw"
+                className="object-cover"
               />
             )}
             <Pill tipo={evento.tipo} />

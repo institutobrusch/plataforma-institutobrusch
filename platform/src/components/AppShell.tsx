@@ -2,7 +2,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ThemeToggle from "./ThemeToggle";
 
 const MENU = [
@@ -30,8 +30,14 @@ export default function AppShell({
 }) {
   const pathname = usePathname();
   const [aberto, setAberto] = useState(false);
+  const [ultimaRota, setUltimaRota] = useState(pathname);
 
-  useEffect(() => setAberto(false), [pathname]);
+  // Fecha o menu ao trocar de página (ajuste de estado durante o render,
+  // padrão recomendado no lugar de setState dentro de useEffect).
+  if (pathname !== ultimaRota) {
+    setUltimaRota(pathname);
+    setAberto(false);
+  }
 
   const ativo = (href: string) =>
     href === "/app" ? pathname === "/app" : pathname.startsWith(href);

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import Pill from "./Pill";
 import type { Evento } from "@/content";
@@ -11,10 +12,12 @@ export default function EventCard({ evento }: { evento: Evento }) {
     >
       <div className="relative aspect-[16/10] bg-gradient-to-br from-navy to-navy-d">
         {evento.posterUrl && (
-          <img
+          <Image
             src={evento.posterUrl}
             alt={evento.titulo}
-            className="absolute inset-0 h-full w-full object-cover"
+            fill
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            className="object-cover"
           />
         )}
         <div className="absolute left-3 top-3">

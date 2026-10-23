@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import { useState } from "react";
 
 type Aba = "carta" | "sessoes" | "materiais";
@@ -52,10 +53,12 @@ export default function CartografiaTabs({
             <div className="grid gap-6 md:grid-cols-[300px_1fr]">
               <div className="relative flex aspect-square items-end overflow-hidden rounded-2xl bg-gradient-to-br from-navy to-navy-d p-5">
                 {carta.imagemUrl && (
-                  <img
+                  <Image
                     src={carta.imagemUrl}
                     alt={carta.titulo}
-                    className="absolute inset-0 h-full w-full object-cover"
+                    fill
+                    sizes="(max-width: 768px) 100vw, 300px"
+                    className="object-cover"
                   />
                 )}
                 <span className="relative font-serif text-2xl italic text-white drop-shadow">{carta.titulo}</span>

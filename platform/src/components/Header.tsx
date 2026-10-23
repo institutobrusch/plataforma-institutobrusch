@@ -5,7 +5,6 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import ThemeToggle from "./ThemeToggle";
 import Button from "./Button";
-import type { MarcaContent } from "@/lib/site/types";
 
 const NAV_ANTES = [
   { href: "/", label: "Início" },
@@ -26,28 +25,29 @@ const NAV_DEPOIS = [
 ];
 
 export default function Header({
-  marca,
   logoGoldUrl,
   logoNavyUrl,
 }: {
-  marca: MarcaContent;
   logoGoldUrl: string;
   logoNavyUrl: string;
 }) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [prodOpen, setProdOpen] = useState(false);
+  const [ultimaRota, setUltimaRota] = useState(pathname);
   const prodRef = useRef<HTMLDivElement>(null);
 
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname.startsWith(href);
   const prodActive = PRODUTOS.some((p) => pathname.startsWith(p.href));
 
-  // Fecha os menus ao trocar de página
-  useEffect(() => {
+  // Fecha os menus ao trocar de página (ajuste de estado durante o render,
+  // padrão recomendado no lugar de setState dentro de useEffect).
+  if (pathname !== ultimaRota) {
+    setUltimaRota(pathname);
     setOpen(false);
     setProdOpen(false);
-  }, [pathname]);
+  }
 
   // Fecha o dropdown ao clicar fora (desktop)
   useEffect(() => {

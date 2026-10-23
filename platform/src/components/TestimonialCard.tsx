@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export type DepoimentoView = {
   tipo: string;
   nome: string;
@@ -35,7 +37,14 @@ export default function TestimonialCard({ depoimento }: { depoimento: Depoimento
           />
         </div>
       ) : tipo === "imagem" && mediaUrl ? (
-        <img src={mediaUrl} alt={`Depoimento de ${nome}`} className="w-full rounded-lg" />
+        <Image
+          src={mediaUrl}
+          alt={`Depoimento de ${nome}`}
+          width={0}
+          height={0}
+          sizes="(max-width: 768px) 100vw, 400px"
+          className="h-auto w-full rounded-lg"
+        />
       ) : tipo === "audio" && mediaUrl ? (
         <audio controls className="w-full" src={mediaUrl} />
       ) : (

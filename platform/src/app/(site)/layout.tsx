@@ -8,7 +8,7 @@ export default async function SiteLayout({ children }: LayoutProps<"/">) {
   const logoNavyUrl = imagemUrl(marca.logoNavyPath, "/brand/logo-navy.png");
   return (
     <div className="flex min-h-full flex-col">
-      <Header marca={marca} logoGoldUrl={logoGoldUrl} logoNavyUrl={logoNavyUrl} />
+      <Header logoGoldUrl={logoGoldUrl} logoNavyUrl={logoNavyUrl} />
       <main className="flex-1">{children}</main>
       <Footer marca={marca} logoGoldUrl={logoGoldUrl} />
     </div>

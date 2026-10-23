@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Eyebrow from "@/components/Eyebrow";
 import Button from "@/components/Button";
 import { createClient } from "@/lib/supabase/server";
@@ -37,7 +38,7 @@ export default async function CursosPage() {
             <div key={c.id} className="flex flex-col overflow-hidden rounded-[10px] border border-line bg-surface shadow-sm">
               <div className="relative flex aspect-[16/10] items-end bg-gradient-to-br from-navy to-navy-d p-5">
                 {capaUrl ? (
-                  <img src={capaUrl} alt={c.titulo} className="absolute inset-0 h-full w-full object-cover" />
+                  <Image src={capaUrl} alt={c.titulo} fill sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" className="object-cover" />
                 ) : (
                   <span className="relative font-semibold text-white">{c.titulo}</span>
                 )}
