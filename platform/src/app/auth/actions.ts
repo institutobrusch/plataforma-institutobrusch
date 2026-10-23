@@ -1,5 +1,6 @@
 "use server";
 import { redirect } from "next/navigation";
+import { headers } from "next/headers";
 import { createClient } from "@/lib/supabase/server";
 
 export async function entrarComEmail(formData: FormData) {
@@ -13,7 +14,14 @@ export async function entrarComEmail(formData: FormData) {
 
 export async function entrarComGoogle() {
   const supabase = await createClient();
-  const site = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+  // Usa o domínio real da requisição para o retorno do OAuth; a env var fica
+  // apenas como fallback. Evita redirecionar para localhost em produção.
+  const h = await headers();
+  const host = h.get("host");
+  const proto = h.get("x-forwarded-proto") ?? (host?.includes("localhost") ? "http" : "https");
+  const site = host
+    ? `${proto}://${host}`
+    : (process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000");
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: "google",
     options: { redirectTo: `${site}/auth/callback` },

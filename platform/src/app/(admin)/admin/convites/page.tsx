@@ -1,3 +1,4 @@
+import { headers } from "next/headers";
 import { createClient } from "@/lib/supabase/server";
 import ConviteForm from "@/components/admin/ConviteForm";
 
@@ -9,7 +10,15 @@ export default async function ConvitesAdmin() {
     supabase.from("products").select("id, nome").eq("ativo", true).order("nome"),
     supabase.from("invites").select("id, email, status, expira_em, created_at").order("created_at", { ascending: false }).limit(100),
   ]);
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "";
+  // Base do link do convite: usa o domínio real que o admin está acessando
+  // (cabeçalho da requisição), caindo para a env var só se não houver host.
+  // Evita gerar links com "localhost" quando a env não está configurada.
+  const h = await headers();
+  const host = h.get("host");
+  const proto = h.get("x-forwarded-proto") ?? (host?.includes("localhost") ? "http" : "https");
+  const siteUrl = host
+    ? `${proto}://${host}`
+    : (process.env.NEXT_PUBLIC_SITE_URL ?? "");
 
   return (
     <div className="grid gap-8 lg:grid-cols-[380px_1fr]">
