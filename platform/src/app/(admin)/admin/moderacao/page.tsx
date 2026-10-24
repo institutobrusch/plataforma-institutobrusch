@@ -1,6 +1,8 @@
 import { createClient } from "@/lib/supabase/server";
 import { montarFilaModeracao } from "@/lib/admin/moderacao";
 import { moderarPost, moderarDepoimento, moderarSugestao } from "./actions";
+import { excluirPost } from "@/app/app/comunidade/actions";
+import AdminDeleteButton from "@/components/AdminDeleteButton";
 
 export const metadata = { title: "Moderação — Admin" };
 
@@ -37,9 +39,16 @@ export default async function ModeracaoAdmin() {
           {(posts.data ?? []).map((p) => (
             <li key={p.id} className="rounded-[10px] border border-line bg-surface p-4">
               <p className="text-sm text-ink">{p.texto}</p>
-              <div className="mt-3 flex gap-2">
+              <div className="mt-3 flex items-center gap-2">
                 <BotaoStatus action={moderarPost} id={p.id} status="aprovado">Aprovar</BotaoStatus>
                 <BotaoStatus action={moderarPost} id={p.id} status="recusado">Recusar</BotaoStatus>
+                <div className="ml-auto">
+                  <AdminDeleteButton
+                    action={excluirPost}
+                    id={p.id}
+                    confirmMsg="Excluir esta publicação definitivamente? Os comentários e curtidas também serão removidos. Esta ação não pode ser desfeita."
+                  />
+                </div>
               </div>
             </li>
           ))}
