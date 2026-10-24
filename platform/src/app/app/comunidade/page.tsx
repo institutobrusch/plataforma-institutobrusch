@@ -1,7 +1,11 @@
 import { createClient } from "@/lib/supabase/server";
+import { getMinhaRole } from "@/lib/auth";
+import { isAdminRole } from "@/lib/roles";
 import PostBox from "@/components/PostBox";
 import CommentBox from "@/components/CommentBox";
 import LikeButton from "@/components/LikeButton";
+import AdminDeleteButton from "@/components/AdminDeleteButton";
+import { excluirPost, excluirComentario } from "./actions";
 
 function tempoRelativo(iso: string) {
   const diff = Date.now() - new Date(iso).getTime();
@@ -17,6 +21,7 @@ export default async function ComunidadeAppPage() {
   const {
     data: { user },
   } = await supabase.auth.getUser();
+  const souAdmin = isAdminRole(await getMinhaRole());
 
   const { data: posts } = await supabase
     .from("community_posts")
@@ -103,6 +108,15 @@ export default async function ComunidadeAppPage() {
                   <span className="block text-sm font-semibold text-ink">{nome}</span>
                   <span className="block text-xs text-ink-3">{tempoRelativo(p.created_at)}</span>
                 </div>
+                {souAdmin && (
+                  <div className="ml-auto">
+                    <AdminDeleteButton
+                      action={excluirPost}
+                      id={p.id}
+                      confirmMsg="Excluir esta publicação? Os comentários e curtidas também serão removidos. Esta ação não pode ser desfeita."
+                    />
+                  </div>
+                )}
               </header>
               <p className="mt-3 text-ink">{p.texto}</p>
               <div className="mt-4 flex items-center gap-6 text-sm text-ink-3">
@@ -122,7 +136,18 @@ export default async function ComunidadeAppPage() {
                           {iniciais(nomeC)}
                         </span>
                         <div className="rounded-2xl bg-surface-2 px-3 py-2">
-                          <span className="text-xs font-semibold text-ink">{nomeC}</span>
+                          <div className="flex items-center gap-2">
+                            <span className="text-xs font-semibold text-ink">{nomeC}</span>
+                            {souAdmin && (
+                              <div className="ml-auto">
+                                <AdminDeleteButton
+                                  action={excluirComentario}
+                                  id={c.id}
+                                  confirmMsg="Excluir este comentário? Esta ação não pode ser desfeita."
+                                />
+                              </div>
+                            )}
+                          </div>
                           <p className="text-sm text-ink-2">{c.texto}</p>
                         </div>
                       </div>
